@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.upgrade.UIUpgrade"
+    android:paddingTop="@dimen/tablet_padding_top"
+    android:paddingLeft="@dimen/tablet_padding_side"
+    android:paddingStart="@dimen/tablet_padding_side"
+    android:paddingRight="@dimen/tablet_padding_side"
+    android:paddingEnd="@dimen/tablet_padding_side"
+    android:paddingBottom="@dimen/tablet_padding_bottom"
+    tools:showIn="@layout/upgrade_activity_v2">
+
+    <android.support.v7.widget.CardView
+        app:cardBackgroundColor="?attr/cardBackgroundColor"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardCornerRadius="6sp"
+        android:id="@+id/upgradeLayout"
+        app:cardElevation="4sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:drawSelectorOnTop="true"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="40sp">
+
+
+            <RelativeLayout
+                android:id="@+id/headerLayout"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:src="@drawable/launcher"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+                <TextView
+                    android:id="@+id/headerTextView"
+                    android:textColor="?primaryTextColour"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/icon"
+                    android:layout_toRightOf="@+id/icon"
+                    android:text="@string/upgrade_title" />
+
+            </RelativeLayout>
+
+
+
+            <TextView
+                android:id="@+id/separator_text"
+                android:layout_below="@id/headerLayout"
+                android:textColor="?tertiaryTextColour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:paddingBottom="16dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="8dp"
+                android:paddingTop="48dp"
+                android:text="@string/upgrade_separator_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+
+            <RelativeLayout
+                android:id="@+id/key_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/separator_text"
+                android:paddingBottom="8dp"
+                android:paddingLeft="6dp">
+
+                <com.andreacioccarelli.androoster.service.IconImageView
+                    android:id="@+id/icon_key"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    app:srcCompat="@drawable/upgrade_icon_key" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/icon_key"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/icon_key"
+                    android:layout_toRightOf="@+id/icon_key"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="4.5dp"
+                    android:text="@string/upgrade_item_1"
+                    android:textColor="?secondaryTextColour"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lock_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/key_layout"
+                android:paddingBottom="8dp"
+                android:paddingLeft="6dp">
+
+                <com.andreacioccarelli.androoster.service.IconImageView
+                    android:id="@+id/icon_lock"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    app:srcCompat="@drawable/upgrade_icon_lock" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/icon_lock"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/icon_lock"
+                    android:layout_toRightOf="@+id/icon_lock"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="4.5dp"
+                    android:text="@string/upgrade_item_2"
+                    android:textColor="?secondaryTextColour"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/settings_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lock_layout"
+                android:paddingBottom="8dp"
+                android:paddingLeft="6dp">
+
+                <com.andreacioccarelli.androoster.service.IconImageView
+                    android:id="@+id/icon_settings"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    app:srcCompat="@drawable/about_settings" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/icon_settings"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/icon_settings"
+                    android:layout_toRightOf="@+id/icon_settings"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="4.5dp"
+                    android:text="@string/upgrade_item_3"
+                    android:textColor="?secondaryTextColour"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/theme_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settings_layout"
+                android:paddingBottom="8dp"
+                android:paddingLeft="6dp">
+
+                <com.andreacioccarelli.androoster.service.IconImageView
+                    android:id="@+id/icon_themes"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    app:srcCompat="@drawable/upgrade_icon_palette" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/icon_themes"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/icon_themes"
+                    android:layout_toRightOf="@+id/icon_themes"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="4.5dp"
+                    android:text="@string/upgrade_item_4"
+                    android:textColor="?secondaryTextColour"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/support_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/theme_layout"
+                android:paddingBottom="8dp"
+                android:paddingLeft="6dp">
+
+                <com.andreacioccarelli.androoster.service.IconImageView
+                    android:id="@+id/icon_support"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    app:srcCompat="@drawable/upgrade_icon_support" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/icon_support"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/icon_support"
+                    android:layout_toRightOf="@+id/icon_support"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="4.5dp"
+                    android:text="@string/upgrade_item_5"
+                    android:textColor="?secondaryTextColour"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+
+
+            <android.support.v7.widget.CardView
+                android:foreground="?attr/selectableItemBackground"
+                android:id="@+id/upgradeButton"
+                app:cardElevation="2sp"
+                android:layout_marginTop="32dp"
+                android:layout_below="@id/support_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:drawSelectorOnTop="true"
+                android:focusable="true" >
+
+                <RelativeLayout
+                    android:padding="12sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:id="@+id/upgradeTextView"
+                        android:textSize="19sp"
+                        android:textColor="#ffffff"
+                        android:textAlignment="center"
+                        android:text="@string/upgrade_text"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

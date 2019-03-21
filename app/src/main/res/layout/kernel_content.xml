@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_dashboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/borderless"
+    android:paddingLeft="@dimen/borderless"
+    android:paddingRight="@dimen/borderless"
+    android:paddingTop="@dimen/borderless"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.andreacioccarelli.androoster.ui.UIKernel"
+    tools:showIn="@layout/kernel">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/dashboard_net"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:paddingLeft="10sp"
+                    android:id="@+id/dashboard_kernel_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kernel_widget_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_toRightOf="@+id/KernelLayout"
+                    android:layout_toEndOf="@+id/KernelLayout" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:paddingLeft="10sp"
+                    android:id="@+id/dashboard_kernel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cannot load Kernel data"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:layout_below="@+id/dashboard_kernel_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/KernelLayout"
+                    android:layout_toEndOf="@+id/KernelLayout" />
+
+
+                <RelativeLayout
+                    android:gravity="center"
+                    android:id="@+id/KernelLayout"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="86sp"
+                    android:layout_height="86sp">
+
+                    <ImageView
+                        android:id="@+id/KernelBase"
+                        android:src="@drawable/base"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_width="86sp"
+                        android:layout_height="86sp" />
+
+                    <RelativeLayout
+                        android:gravity="center"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true">
+
+                        <ImageView
+                            android:id="@+id/KernelDrawable"
+                            app:srcCompat="@drawable/kernel"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardKernel1"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleKernel1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kernel_tweaks_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_toLeftOf="@+id/SwitchKernel1"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:checked="false"
+                    android:id="@+id/SwitchKernel1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/TitleKernel1"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentKernel1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/kernel_tweaks_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleKernel1"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchKernel1"
+                    android:layout_toStartOf="@+id/SwitchKernel1" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardKernel2"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleKernel2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kernel_sleepers_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_toLeftOf="@+id/SwitchKernel2"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:checked="false"
+                    android:id="@+id/SwitchKernel2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/TitleKernel2"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentKernel2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/kernel_sleepers_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleKernel2"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchKernel2"
+                    android:layout_toStartOf="@+id/SwitchKernel2" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardKernel3"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleKernel3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kernel_jni_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_toLeftOf="@+id/SwitchKernel3"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/SwitchKernel3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/TitleKernel3"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentKernel3"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/kernel_jni_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleKernel3"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchKernel3"
+                    android:layout_toStartOf="@+id/SwitchKernel3" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardKernel4"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleKernel4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kernel_panic_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchKernel4"
+                    android:layout_toStartOf="@+id/SwitchKernel4" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentKernel4"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/kernel_panic_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleKernel4"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchKernel4"
+                    android:layout_toStartOf="@+id/SwitchKernel4" />
+
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SwitchKernel4"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true" />
+
+                </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+        app:cardCornerRadius="0sp"
+        android:id="@+id/CardKernel5"
+        app:cardElevation="2sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:drawSelectorOnTop="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20sp" >
+
+
+            <TextView
+                android:textColor="?primaryTextColour"
+                android:paddingTop="10sp"
+                android:id="@+id/TitleKernel5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kernel_delay_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/ButtonKernel5"
+                android:layout_toStartOf="@+id/ButtonKernel5" />
+
+
+            <TextView
+                android:paddingRight="4dp"
+                android:id="@+id/ContentKernel5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/TitleKernel5"
+                android:layout_toLeftOf="@+id/ButtonKernel5"
+                android:layout_toStartOf="@+id/ButtonKernel5"
+                android:text="@string/kernel_delay_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                android:textColor="?tertiaryTextColour" />
+
+
+
+            <android.support.v7.widget.AppCompatButton
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/ButtonKernel5"
+               android:text="SET"
+               android:textColor="@color/white"
+               android:layout_alignParentRight="true"
+               android:layout_alignParentEnd="true"
+               android:layout_alignTop="@+id/TitleKernel5" />
+
+
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            android:id="@+id/CardKernel6"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="0sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleKernel6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kernel_oops_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchKernel6"
+                    android:layout_toStartOf="@+id/SwitchKernel6" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentKernel6"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/kernel_oops_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleKernel6"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchKernel6"
+                    android:layout_toStartOf="@+id/SwitchKernel6" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SwitchKernel6"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="0sp"
+            android:clickable="true"
+            android:id="@+id/CardKernel7"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleKernel7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kernel_entropy_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchKernel7"
+                    android:layout_toStartOf="@+id/SwitchKernel7" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentKernel7"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/kernel_entropy_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleKernel7"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchKernel7"
+                    android:layout_toStartOf="@+id/SwitchKernel7" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SwitchKernel7"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            android:id="@+id/CardKernel8"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="0sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleKernel8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kernel_max_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SpinnerKernel8"
+                    android:layout_toStartOf="@+id/SpinnerKernel8" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:paddingTop="10sp"
+                    android:id="@+id/ContentKernel8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/kernel_max_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleKernel8"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SpinnerKernel8"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

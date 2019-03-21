@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:plainpie="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content_dashboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:fitsSystemWindows="true"
+    tools:context="com.andreacioccarelli.androoster.ui.UIBattery"
+    tools:showIn="@layout/battery">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:paddingTop="@dimen/tablet_padding_top"
+        android:paddingLeft="@dimen/tablet_padding_side"
+        android:paddingStart="@dimen/tablet_padding_side"
+        android:paddingRight="@dimen/tablet_padding_side"
+        android:paddingEnd="@dimen/tablet_padding_side"
+        android:paddingBottom="@dimen/tablet_padding_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        app:cardBackgroundColor="?attr/cardBackgroundColor"
+        app:cardCornerRadius="0sp"
+        android:id="@+id/CardBattery1"
+        app:cardElevation="2sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0sp"
+        android:clickable="true"
+        android:drawSelectorOnTop="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20sp">
+
+            <TextView
+                android:textColor="?primaryTextColour"
+                android:paddingLeft="12sp"
+                android:id="@+id/TitleBattery1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/battery_widget_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_toRightOf="@+id/batteryGraphic"
+                android:layout_toEndOf="@+id/batteryGraphic" />
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:paddingLeft="12sp"
+                android:textSize="16sp"
+                android:id="@+id/ContentBattery1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_loading"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                android:layout_below="@+id/TitleBattery1"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@+id/batteryGraphic"
+                android:layout_toEndOf="@+id/batteryGraphic" />
+
+            <az.plainpie.PieView
+                android:id="@+id/batteryGraphic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                plainpie:inner_pie_padding="20"
+                plainpie:percentage="100"
+                plainpie:percentage_size="27"
+                plainpie:inner_text_visibility="true" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardBattery2"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/LibraryTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/battery_statistics_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/ButtonBattery2"
+                    android:layout_toStartOf="@+id/ButtonBattery2" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/ButtonBattery2"
+                    android:textColor="@color/white"
+                    android:text="@string/action_wipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/LibraryContent"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/battery_statistics_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/LibraryTitle"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/ButtonBattery2"
+                    android:layout_toStartOf="@+id/ButtonBattery2" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/cardBatteryDoze"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/textBatteryDozeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/battery_doze_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/buttonBatteryDoze"
+                    android:layout_toStartOf="@+id/buttonBatteryDoze" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/buttonBatteryDoze"
+                    android:textColor="@color/white"
+                    android:text="@string/battery_doze_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/textBatteryDozeContent"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/battery_doze_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/textBatteryDozeTitle"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/buttonBatteryDoze"
+                    android:layout_toStartOf="@+id/buttonBatteryDoze" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardBattery3"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleBattery3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/battery_services_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchBattery3"
+                    android:layout_toStartOf="@+id/SwitchBattery3" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentBattery3"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/battery_services_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleBattery3"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchBattery3"
+                    android:layout_toStartOf="@+id/SwitchBattery3" />
+
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SwitchBattery3"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true" />
+
+                </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        app:cardBackgroundColor="?attr/cardBackgroundColor"
+        app:cardCornerRadius="0sp"
+        android:id="@+id/CardBattery4"
+        app:cardElevation="2sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:drawSelectorOnTop="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20sp" >
+
+
+            <TextView
+                android:textColor="?primaryTextColour"
+                android:paddingTop="10sp"
+                android:id="@+id/TitleBattery4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/battery_optimization_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/SwitchBattery4"
+                android:layout_toStartOf="@+id/SwitchBattery4" />
+
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:id="@+id/ContentBattery4"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                android:text="@string/battery_optimization_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/TitleBattery4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/SwitchBattery4"
+                android:layout_toStartOf="@+id/SwitchBattery4" />
+
+
+            <android.support.v7.widget.SwitchCompat
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/SwitchBattery4"
+               android:layout_alignParentRight="true"
+               android:layout_alignParentEnd="true"
+               android:layout_alignTop="@+id/TitleBattery4" />
+
+
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.CardView
+        app:cardBackgroundColor="?attr/cardBackgroundColor"
+            android:id="@+id/CardBattery5"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="0sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleBattery5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/battery_wifi_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/ButtonBattery5"
+                    android:layout_toStartOf="@+id/ButtonBattery5" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentBattery5"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/battery_wifi_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleBattery5"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/ButtonBattery5"
+                    android:layout_toStartOf="@+id/ButtonBattery5" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:text="SET"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ButtonBattery5"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.CardView
+        app:cardBackgroundColor="?attr/cardBackgroundColor"
+            android:id="@+id/CardBattery6"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="0sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleBattery6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/battery_sleep_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchBattery6"
+                    android:layout_toStartOf="@+id/SwitchBattery6" />
+
+<!-- http://www.androidiani.com/forum/modding-samsung-galaxy-s-advance/364012-guida-gt-i9070-p-jb-4-1-2-cos-il-deep-sleep-e-come-si-modifica-s-advance-9.html-->
+
+                <TextView
+                    android:id="@+id/ContentBattery6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleBattery6"
+                    android:layout_toLeftOf="@+id/SwitchBattery6"
+                    android:layout_toStartOf="@+id/SwitchBattery6"
+                    android:text="@string/battery_sleep_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:textColor="?tertiaryTextColour" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SwitchBattery6"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+<!--
+        <android.support.v7.widget.translatorsRoot
+        app:cardBackgroundColor="?attr/cardBackgroundColor"
+            android:id="@+id/CardBattery7"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="0sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+
+                <TextView
+                    android:id="@+id/TitleBattery7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Doze Patcher"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchBattery7"
+                    android:layout_toStartOf="@+id/SwitchBattery7" />
+
+
+
+                <TextView
+                    android:textColor="?secondaryTextColour"
+                    android:id="@+id/ContentBattery7"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="It will"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleBattery7"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SwitchBattery7"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.translatorsRoot>-->
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <android.support.v7.widget.CardView
+        app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardBattery7"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleBattery7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/battery_fastcharge_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchBattery7"
+                    android:layout_toStartOf="@+id/SwitchBattery7" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentBattery7"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/battery_fastcharge_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleBattery7"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchBattery7"
+                    android:layout_toStartOf="@+id/SwitchBattery7" />
+
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SwitchBattery7"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+        app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardBattery8"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleBattery8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/battery_fastcharge_wireless_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchBattery8"
+                    android:layout_toStartOf="@+id/SwitchBattery8" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentBattery8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/battery_fastcharge_wireless_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleBattery8"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchBattery8"
+                    android:layout_toStartOf="@+id/SwitchBattery8" />
+
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SwitchBattery8"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+        app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardBattery9"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleBattery9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/battery_drain_fix_google_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchBattery9"
+                    android:layout_toStartOf="@+id/SwitchBattery9" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentBattery9"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/battery_drain_fix_google_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleBattery9"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchBattery9"
+                    android:layout_toStartOf="@+id/SwitchBattery9" />
+
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SwitchBattery9"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</RelativeLayout>

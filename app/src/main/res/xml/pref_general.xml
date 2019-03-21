@@ -1,0 +1,71 @@
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/settings_general">
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="0"
+            android:textColor="?secondaryTextColour"
+            android:entries="@array/pref_start_page_list_titles"
+            android:entryValues="@array/pref_start_page_list_values"
+            android:key="default_start_page"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_set_default_start_page" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="press_twice_for_exit"
+            android:summaryOn="A double pressure will close the page"
+            android:summaryOff="A single pressure will close the page"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_press_back_title" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="show_open_drawer_fab"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_open_drawer_fab" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="toolbar"
+            android:dependency="show_open_drawer_fab"
+            android:entries="@array/pref_general_button_position"
+            android:entryValues="@array/pref_general_button_position_values"
+            android:key="open_drawer_fab_position"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_button_position_title" />
+
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:key="settings_in_toolbar"
+            android:checked="false"
+            android:summary="@string/action_settings_toolbar_summary"
+            android:title="@string/action_settings_toolbar" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="sticky_settings"
+            android:summary="@string/pref_drawer_sticky_settings_content"
+            android:title="@string/pref_drawer_sticky_settings_title" />
+
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="show_backup_drawer"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:summary="@string/pref_show_backup_content"
+            android:title="@string/pref_show_backup_title" />
+
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="hide_notification_boot"
+            android:title="@string/pref_hide_boot_notification" />
+
+    </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+
+</android.support.v7.preference.PreferenceScreen>

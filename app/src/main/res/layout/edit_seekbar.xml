@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_marginBottom="8dp"
+        android:id="@+id/seek1_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/graphic_anim_window"
+        android:textColor="?primaryTextColour"
+        android:textSize="@dimen/customTitle" />
+
+    <SeekBar
+        android:paddingRight="16sp"
+        android:id="@+id/seekBar1"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/seek1_textview"
+        android:max="7"/>
+
+
+    <TextView
+        android:paddingTop="16dp"
+        android:layout_below="@id/seekBar1"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/seek2_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/graphic_anim_transition"
+        android:textColor="?primaryTextColour"
+        android:textSize="@dimen/customTitle" />
+
+    <SeekBar
+        android:paddingRight="16sp"
+        android:id="@+id/seekBar2"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/seek2_textview"
+        android:max="7" />
+
+
+
+    <TextView
+        android:paddingTop="16dp"
+        android:layout_below="@id/seekBar2"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/seek3_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/graphic_anim_animator"
+        android:textColor="?primaryTextColour"
+        android:textSize="@dimen/customTitle" />
+
+    <SeekBar
+        android:paddingRight="16sp"
+        android:id="@+id/seekBar3"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/seek3_textview"
+        android:max="7" />
+
+
+</RelativeLayout>

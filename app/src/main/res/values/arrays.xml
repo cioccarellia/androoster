@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="cpu_governors">
+        <item>@string/cpu_governor_1</item>
+        <item>@string/cpu_governor_2</item>
+        <item>@string/cpu_governor_3</item>
+        <item>@string/cpu_governor_4</item>
+        <item>@string/cpu_governor_5</item>
+        <item>@string/cpu_governor_6</item>
+        <item>@string/cpu_governor_7</item>
+    </string-array>
+
+    <string-array name="frequencies">
+        <item>300 MHz</item>
+        <item>400 MHz</item>
+        <item>500 MHz</item>
+        <item>600 MHz</item>
+        <item>700 MHz</item>
+        <item>800 MHz</item>
+        <item>900 MHz</item>
+        <item>1000 MHz</item>
+        <item>1100 MHz</item>
+        <item>1200 MHz</item>
+        <item>1300 MHz</item>
+        <item>1400 MHz</item>
+        <item>1500 MHz</item>
+    </string-array>
+
+    <string-array name="reboot">
+        <item>@string/dialog_reboot</item>
+        <item>@string/dialog_recovery</item>
+        <item>@string/dialog_bootloader</item>
+        <item>@string/dialog_fast</item>
+    </string-array>
+
+    <string-array name="ram_profiles">
+        <item>@string/ram_profile_1</item>
+        <item>@string/ram_profile_2</item>
+        <item>@string/ram_profile_3</item>
+        <item>@string/ram_profile_4</item>
+    </string-array>
+
+    <string-array name="max_threads_modifier_items">
+        <item>@string/ram_tweak_1</item>
+        <item>@string/ram_tweak_2</item>
+        <item>@string/ram_tweak_3</item>
+        <item>@string/ram_tweak_4</item>
+    </string-array>
+
+    <string-array name="auth_method">
+        <item>@string/dialog_pin</item>
+        <item>@string/dialog_password</item>
+    </string-array>
+
+
+    <string-array name="runtime_memory_improvements_items">
+        <item>@string/ram_runtime_1</item>
+        <item>@string/ram_runtime_2</item>
+        <item>@string/ram_runtime_3</item>
+        <item>@string/ram_runtime_4</item>
+        <item>@string/ram_runtime_5</item>
+    </string-array>
+
+    <string-array name="lmk_items">
+        <item>@string/ram_lmk_1</item>
+        <item>@string/ram_lmk_2</item>
+        <item>@string/ram_lmk_3</item>
+        <item>@string/ram_lmk_4</item>
+        <item>@string/ram_lmk_5</item>
+        <item>@string/ram_lmk_6</item>
+        <item>@string/ram_lmk_7</item>
+    </string-array>
+
+</resources>

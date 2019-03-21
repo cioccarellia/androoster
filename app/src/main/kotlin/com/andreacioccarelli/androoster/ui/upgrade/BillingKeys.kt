@@ -1,0 +1,13 @@
+package com.andreacioccarelli.androoster.ui.upgrade
+
+/**
+ * Created by andrea on 2018/May.
+ * Part of the package com.andreacioccarelli.androoster.ui.upgrade
+ */
+
+
+val base64DeveloperKey = "TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFsck81SUNQaUNLdXk1RWtKU2pUNUxWOWNhTEo5SmpLSHpWVDI0VldzdFVpOE0rOHRGZmc3L3VGREkyWndTNHlJWHo1MUdsNFlOUXhLSnBUdXRQQmxLbUZXekFhZGZJOEVkZk5yVTBkcmZ5MURpMk80dGg3NmpBRC9hM0NSMENtenBlc1Rpc2pqTG9kS1BRWjVld1l2QTFnYWp1NisxM00ySTlEWUl3WnRxV25wd0VTMm1TUXJmb1FMWDh4T1U2cDkzdEYyUWFCcnlxMExwTWV5Z09kN3dMK1g4TGNFUkdSVERSY3FFdks0VVprOXc1Zm9Ralp5QUZqOVZBcHRrR04zcG1VMTBsNFc0aU9nN1lnM1hnWXQ2VGNsOG5GcHMzODNFWDY5c2NRL0xIc1hvTjRHMmMrT1gxZDlwV1pLMnlCRXRlYSs2M1plRVBDTmNVVGxNRWJYNndJREFRQUI="
+val upgradeSku = "androoster_pro"
+
+@Deprecated(message = "Old upgrade SKU")
+val oldUpgradeSku = "upgrade_pro"

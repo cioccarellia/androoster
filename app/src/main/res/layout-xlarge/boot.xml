@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/boot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/tablet_padding_top"
+    android:paddingLeft="@dimen/tablet_padding_side"
+    android:paddingStart="@dimen/tablet_padding_side"
+    android:paddingRight="@dimen/tablet_padding_side"
+    android:paddingEnd="@dimen/tablet_padding_side"
+    android:paddingBottom="@dimen/tablet_padding_bottom"
+    tools:context="com.andreacioccarelli.androoster.ui.boot.UIBoot"
+    android:padding="40sp">
+
+    <ImageView
+        android:layout_width="512dp"
+        android:layout_height="512dp"
+        app:srcCompat="@drawable/launcher"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/splashIcon"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:padding="60sp" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/progressBar"
+        android:indeterminate="true" />
+
+</RelativeLayout>

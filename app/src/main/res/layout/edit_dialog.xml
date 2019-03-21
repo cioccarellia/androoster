@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/edit_dialog_target_property"
+        android:textColor="?primaryTextColour"
+        android:textSize="@dimen/customTitle" />
+
+    <TextView
+        android:id="@+id/targetProperty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text=""
+        android:textColor="?tertiaryTextColour"
+        android:textSize="@dimen/customEntry" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="@string/edit_dialog_default_value"
+        android:textColor="?primaryTextColour"
+        android:textSize="@dimen/customTitle" />
+
+    <TextView
+        android:id="@+id/defaultValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text=""
+        android:textColor="?tertiaryTextColour"
+        android:textSize="@dimen/customEntry" />
+
+
+    <LinearLayout
+        android:id="@+id/warningLayout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/edit_dialog_warning"
+            android:textColor="?primaryTextColour"
+            android:textSize="@dimen/customTitle" />
+
+        <TextView
+            android:id="@+id/warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="?tertiaryTextColour"
+            android:textSize="@dimen/customEntry" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/newValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="@string/edit_dialog_new_value"
+        android:textColor="?primaryTextColour"
+        android:textSize="@dimen/customTitle" />
+
+    <EditText
+        android:inputType="numberDecimal"
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="?primaryTextColour"
+        android:textSize="@dimen/customEntry" />
+
+</LinearLayout>

@@ -1,0 +1,94 @@
+<resources>
+    <string-array name="pref_start_page_list_titles">
+        <item>@string/drawer_dashboard</item>
+        <item>Last opened page</item>
+    </string-array>
+
+    <string-array name="pref_start_page_list_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+
+    <string-array name="pref_general_button_position">
+        <item>@string/pref_on_toolbar</item>
+        <item>@string/pref_on_bottom</item>
+    </string-array>
+
+    <string-array name="pref_general_button_position_values">
+        <item>toolbar</item>
+        <item>bottom</item>
+    </string-array>
+
+    <string-array name="pref_general_theme_list_titles">
+        <item>@string/light_theme_name</item>
+        <item>@string/dark_theme_name</item>
+        <!--<item>@string/black_theme_name</item>-->
+    </string-array>
+
+    <string-array name="pref_general_theme_list_values">
+        <item>light</item>
+        <item>dark</item>
+        <!--<item>amoled</item>-->
+    </string-array>
+
+    <string-array name="pref_anim_orientation">
+        <item>@string/pref_animation_orientation_from_right</item>
+        <item>@string/pref_animation_orientation_from_left</item>
+        <item>@string/pref_animation_orientation_from_bottom</item>
+        <item>@string/pref_animation_orientation_from_top</item>
+    </string-array>
+
+    <string-array name="pref_anim_orientation_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+
+    <string-array name="pref_anim_speed">
+        <item>@string/pref_animation_speed_slow</item>
+        <item>@string/pref_animation_speed_normal</item>
+        <item>@string/pref_animation_speed_fast</item>
+        <item>@string/pref_animation_speed_light</item>
+    </string-array>
+
+    <string-array name="pref_anim_speed_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+
+    <string-array name="built_in_themes">
+        <item>@string/pref_theme_1</item>
+        <item>@string/pref_theme_2</item>
+        <item>@string/pref_theme_3</item>
+        <item>@string/pref_theme_4</item>
+        <item>@string/pref_theme_5</item>
+        <item>@string/pref_theme_6</item>
+        <item>@string/pref_theme_7</item>
+        <item>@string/pref_theme_8</item>
+        <item>@string/pref_theme_9</item>
+        <item>@string/pref_theme_10</item>
+        <item>@string/pref_theme_11</item>
+    </string-array>
+
+
+    <string-array name="built_in_themes_values">
+        <item>OBSIDIAN</item>
+        <item>CLEAN_GRASS</item>
+        <item>GOLD</item>
+        <item>GALAXY</item>
+        <item>OXYGEN</item>
+        <item>METALLIC</item>
+        <item>ORANGED</item>
+        <item>SEA</item>
+        <item>SHROOB</item>
+        <item>RIVER</item>
+        <item>CASA_DE_PAPEL</item>
+    </string-array>
+
+</resources>

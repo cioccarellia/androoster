@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/AvailableMethods"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="?secondaryTextColour"
+        android:textSize="@dimen/customEntry" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/auth_setup_password_layout"
+        android:layout_below="@id/AvailableMethods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?primaryTextColour"
+        android:textSize="@dimen/customEntry"
+        app:passwordToggleEnabled="true"
+        android:layout_marginTop="30dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:id="@+id/auth_setup_password"
+            android:hint="@string/dialog_password" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/auth_setup_confirm_layout"
+        android:layout_below="@id/auth_setup_password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?primaryTextColour"
+        android:textSize="@dimen/customEntry"
+        app:passwordToggleEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:id="@+id/auth_setup_confirm"
+            android:hint="@string/dialog_confirm_password_hint" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/auth_setup_hint_layout"
+        android:layout_below="@id/auth_setup_confirm_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?primaryTextColour"
+        android:textSize="@dimen/customEntry"
+        app:passwordToggleEnabled="false">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:id="@+id/auth_setup_hint" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/signerProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/auth_setup_hint_layout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

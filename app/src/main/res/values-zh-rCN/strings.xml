@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Translated by 佛壁灯 @ 2018-9-23 16:01:51 (CST) -->
+    <!-- If you found any translations that are inappropriate, feel free to modify them -->
+    <!-- I appericiate your modifications and suggestions -->
+
+    <!-- Titles and internal items -->
+    <string name="app_name">Androoster</string>
+    <string name="app_name_pro">Androoster 专业版</string>
+    <string name="app_name_pro_version">专业版</string>
+    <string name="app_name_normal_version">普通版</string>
+    <string name="app_name_suffix_pro">专业版</string>
+
+    <string name="app_name_official">官方版</string>
+    <string name="app_name_beta">测试版</string>
+
+    <string name="dont_ask_again">请勿询问</string>
+    <string name="reboot_to_take_effect">需要重新启动以应用此调校</string>
+    <string name="click_again_to_exit">再次点击以退出</string>
+    <string name="widget_loading">正在载入...</string>
+    <string name="notification_channel_boot">启动通知</string>
+
+    <string name="action_ok">好</string>
+    <string name="action_start">开始</string>
+    <string name="action_confirm">确认</string>
+    <string name="action_continue">继续</string>
+    <string name="action_set">设置</string>
+    <string name="action_use">使用</string>
+    <string name="action_later">稍后</string>
+    <string name="action_wipe">清除</string>
+    <string name="action_exit">退出</string>
+    <string name="action_open">打开</string>
+    <string name="action_shutdown">关机</string>
+    <string name="action_open_store">打开商店</string>
+    <string name="action_install">安装</string>
+    <string name="action_enter">输入</string>
+    <string name="action_grant">授权</string>
+    <string name="action_open_settings">设置</string>
+    <string name="action_edit">编辑</string>
+    <string name="action_copied">已复制文本</string>
+
+    <string name="state_enabled">已启用</string>
+    <string name="state_disabled">已禁用</string>
+    <string name="may_not_work">可能不适用于部分设备</string>
+
+    <string name="activity_title_cpu">处理器</string>
+    <string name="activity_title_ram">内存</string>
+    <string name="activity_title_battery">电池</string>
+    <string name="activity_title_kernel">内核</string>
+    <string name="activity_title_network">网络</string>
+    <string name="activity_title_storage">存储</string>
+    <string name="activity_title_hardware">硬件</string>
+    <string name="activity_title_graphic">图像</string>
+    <string name="activity_title_debug">调试</string>
+    <string name="activity_title_gps">GPS</string>
+    <string name="title_activity_general">通用调校</string>
+    <string name="title_activity_uibackup">备份</string>
+    <string name="title_activity_settings">设置</string>
+
+
+    <string name="action_open_drawer">打开抽屉</string>
+    <string name="action_reboot">重新启动</string>
+
+    <string name="drawer_dashboard">仪表盘</string>
+    <string name="drawer_cpu">处理器</string>
+    <string name="drawer_ram">内存</string>
+    <string name="drawer_battery">电池</string>
+    <string name="drawer_kernel">内核</string>
+    <string name="drawer_tweaks">通用调校</string>
+    <string name="drawer_storage">存储</string>
+    <string name="drawer_net">网络</string>
+    <string name="drawer_debug">调试</string>
+    <string name="drawer_gps">GPS</string>
+    <string name="drawer_hardware">硬件</string>
+    <string name="drawer_graphics">图像</string>
+    <string name="drawer_settings">设置</string>
+    <string name="drawer_pro">专业版</string>
+    <string name="drawer_backup">备份</string>
+    <string name="drawer_about">关于</string>
+
+
+    <!-- ERRORS -->
+    <string name="no_mail_app_found">未找到邮件应用。请从 Play 商店安装</string>
+    <string name="cannot_use_figerprint">无法使用指纹认证</string>
+    <string name="fingerprint_scanning_error">请确保您的手指覆盖在整个扫描仪上</string>
+    <string name="fingerprint_error_permission">已拒绝访问指纹读取器</string>
+    <string name="fingerprint_no_fingers">未注册指纹</string>
+    <string name="fingerprint_too_many_attempts">认证尝试次数过多</string>
+
+    <string name="not_found">未找到</string>
+
+    <string name="pirate_apps_title">检测到破解应用</string>
+    <string name="pirate_apps_content">您移除诸如 Freedom、幸运破解器及其他市场破解器的应用程序后方可进行购买</string>
+    <string name="pirate_apps_content_restore">您移除诸如 Freedom、幸运破解器及其他市场破解器的应用程序后方可进行购买</string>
+
+    <string name="debug_error_title">检测到调试构建版本</string>
+    <string name="debug_error_content">您不允许在此构建版本上进行测试。</string>
+    <string name="debug_error_content_purchase">您不允许在此构建版本上进行购买。若您想进行购买，请从 Google Play 商店下载已签名的版本</string>
+
+    <string name="packagename_error_title">包名不匹配</string>
+    <string name="packagename_error_content">您修改了 Androoster 的包名且您无法运行自定义构建版本。</string>
+    <string name="packagename_error_shutdown">关闭</string>
+
+    <string name="root_error_title">Root 权限错误</string>
+    <string name="root_error_content">Androoster 需要 Root 权限以正常工作。\n请确保您已授予 Androoster Root 权限，若无权限则程序将无法正常工作</string>
+    <string name="root_error_toast">无法获取 Root 权限，若您已授权则请重启 Androoster</string>
+
+    <string name="busybox_error_title">未安装 Busybox</string>
+    <string name="busybox_error_content">无法访问 Busybox，Androoster 需要一些特殊的小程序才能正常工作。\n请从 Play 商店安装并重新打开 Androoster</string>
+
+    <string name="error_activity_settings_not_found">未找到设置页</string>
+    <string name="webview_unavailable">此设备不支持 WebView 以查看更新日志。设备缺少系统组件。</string>
+    <!-- /ERRORS -->
+
+
+    <!-- DIALOG -->
+    <string name="edit_dialog_title">编辑设置</string>
+    <string name="edit_dialog_target_property">目标</string>
+    <string name="edit_dialog_default_value">默认值</string>
+    <string name="edit_dialog_warning">警告</string>
+    <string name="edit_dialog_new_value">新值</string>
+
+    <string name="dialog_pin">PIN</string>
+    <string name="dialog_password">密码</string>
+    <string name="dialog_confirm_pin_hint">PIN 码确认</string>
+    <string name="dialog_confirm_password_hint">密码确认</string>
+    <string name="dialog_hint">提示 (可选)</string>
+
+    <string name="dialog_reboot_title">重新启动</string>
+
+    <string name="dialog_reboot">重新启动</string>
+    <string name="dialog_recovery">恢复程序</string>
+    <string name="dialog_bootloader">引导程序</string>
+    <string name="dialog_fast">快速重启</string>
+    <!-- /DIALOG -->
+
+
+    <!-- DASHBOARD -->
+    <string name="dashboard_update_title_not_found">您已更新到最新版！</string>
+    <string name="dashboard_update_content_not_found">已安装最新版本的 Androoster (%s)</string>
+
+    <string name="dashboard_update_title_checking">Version</string>
+    <string name="dashboard_update_content_checking">Package: %s\nBuild code: %b\nFlavor: %k</string>
+
+    <string name="dashboard_update_button_ignore">忽略</string>
+    <string name="dashboard_update_button_playstore">PLAY 商店</string>
+
+    <string name="dashboard_boost">加速设备</string>
+    <string name="dashboard_boost_button">加速</string>
+    <string name="dashboard_boost_content">杀死后台进程并清理内存</string>
+    <string name="dashboard_boosting">正在加速...</string>
+    <string name="dashboard_boosting_content">加速中...</string>
+    <string name="dashboard_boosting_snack_killing">正在杀死后台进程...</string>
+    <string name="dashboard_boosting_snack_sync">正在同步磁盘数据...</string>
+    <string name="dashboard_boosting_snack_done">已完成！</string>
+    <string name="dashboard_boost_done_title">加速完成</string>
+    <string name="dashboard_boost_done_content">我们刚刚杀死了部分进程且同步了磁盘上的文件系统更改</string>
+
+    <string name="dashboard_widget_software_title">软件</string>
+    <string name="dashboard_widget_software_android_version">Android 版本</string>
+    <string name="dashboard_widget_software_root_installed">已安装</string>
+    <string name="dashboard_widget_software_unknown_su">未知</string>
+    <string name="dashboard_widget_software_android_id">Android ID</string>
+    <string name="dashboard_widget_software_bootloader">引导程序</string>
+    <string name="dashboard_widget_software_fingerprint">指纹</string>
+    <string name="dashboard_widget_software_root">Root</string>
+    <string name="dashboard_widget_software_build">构建版本</string>
+    <string name="dashboard_widget_software_kernel">内核</string>
+
+
+    <string name="dashboard_widget_hardware_title">硬件</string>
+    <string name="dashboard_widget_hardware_cpu">处理器</string>
+    <string name="dashboard_widget_hardware_cpu_cores">核心</string>
+    <string name="dashboard_widget_hardware_battery">电池</string>
+    <string name="dashboard_widget_hardware_serial">序列号</string>
+    <string name="dashboard_widget_hardware_device">设备</string>
+    <string name="dashboard_widget_hardware_brand">品牌</string>
+    <!-- /DASHBOARD -->
+
+
+    <!-- ACTIVATION -->
+    <!-- /ACTIVATION -->
+
+
+    <!-- BACKUP -->
+    <string name="backup_default">默认配置</string>
+    <string name="backup_prefix">备份</string>
+
+    <string name="backup_dialog_title">正在备份...</string>
+    <string name="backup_dialog_content">正在备份您的配置至文件</string>
+    <string name="backup_dialog_done_title">已完成</string>
+    <string name="backup_dialog_init">正在初始化</string>
+    <string name="backup_dialog_importing">正在导入行</string>
+    <string name="backup_dialog_done_content">已完成！要查看结果您可能需要重新启动设备</string>
+
+    <string name="backup_already_executed">已执行备份</string>
+    <string name="backup_menu_restore">恢复</string>
+    <string name="backup_menu_delete">删除</string>
+    <string name="backup_menu_delete_all">删除全部</string>
+
+    <string name="backup_error_listing">刷新备份列表时出错。请清除应用程序数据后重试</string>
+    <!-- /BACKUP -->
+
+
+    <!-- BOOT SERVICE -->
+
+    <string name="service_boot_title">启动完成</string>
+    <string name="service_boot_content_small">已成功更新配置</string>
+    <string name="service_boot_content_large">您的调校已成功应用至系统</string>
+
+
+    <!-- CPU -->
+    <string name="cpu_widget_title">处理器</string>
+
+    <string name="cpu_governor_content_ondemand">其中一个过去常用于 Linux 上的调频器: 当您的设备过载时，处理器频率将调为最大。现已被交互式调频器替换</string>
+    <string name="cpu_governor_content_ondemandx">对基本的按需调频器进行了微小改进</string>
+    <string name="cpu_governor_content_performance">处理器总处于最大频率</string>
+    <string name="cpu_governor_content_powersave">处理器总处于最小频率</string>
+    <string name="cpu_governor_content_conservative">在需要时小幅提升处理器性能。适用于老设备，用于降低性能并延长电池寿命</string>
+    <string name="cpu_governor_content_userspace">频率由当前应用程序决定</string>
+    <string name="cpu_governor_content_minmax">仅将处理器调为最大及最小频率，不存在其他频率</string>
+    <string name="cpu_governor_content_interactive">适用于大多数设备的默认及最佳调频器。处理器频率调度由计时器及用户交互决定</string>
+    <string name="cpu_governor_content_unknown">自定义内核调频器，未被 Androoster 识别</string>
+
+
+    <string name="cpu_cache_title">应用程序缓存优化</string>
+    <string name="cpu_cache_content">启用 Dalvik 缓存内置优化特性</string>
+    <string name="cpu_cache_dialog_title">清除 Dalvik 缓存</string>
+    <string name="cpu_cache_dialog_content">已应用更改，但只有您清除 Dalvik 缓存并立即重启才能生效。否则新配置将单独应用于每个应用程序</string>
+    <string name="cpu_cache_dialog_content_xposed">Xposed 可能会造成问题，请小心。</string>
+    <string name="cpu_cache_dialog_positive">清除并重启</string>
+
+    <string name="cpu_cache_dialog_working_title">正在清除...</string>
+    <string name="cpu_cache_dialog_working_content">正在清除 Dalvik 缓存并重启...</string>
+
+
+    <string name="cpu_optimization_title">处理器用量优化</string>
+    <string name="cpu_optimization_content">当您需要十足马力时加速处理器，在不需要时减少功率</string>
+    <string name="cpu_boost_title">调整处理器性能</string>
+    <string name="cpu_boost_content">调整处理器性能以快速执行任务，消耗少量电量</string>
+
+    <string name="cpu_governor_1">交互模式</string>
+    <string name="cpu_governor_2">省电模式</string>
+    <string name="cpu_governor_3">性能模式</string>
+    <string name="cpu_governor_4">用户模式</string>
+    <string name="cpu_governor_5">极端模式</string>
+    <string name="cpu_governor_6">保守模式</string>
+    <string name="cpu_governor_7">按需模式</string>
+    <!-- /CPU -->
+
+
+    <!-- RAM -->
+    <string name="ram_widget_title">内存</string>
+    <string name="ram_widget_ram">内存</string>
+    <string name="ram_widget_heap">堆栈大小</string>
+    <string name="ram_widget_check">硬件</string>
+
+    <string name="ram_profile_title">配置</string>
+    <string name="ram_profile_dialog_title">选择配置</string>
+    <string name="ram_profile_content">请选择您最喜欢的选项并让我们完成剩余操作</string>
+
+    <string name="ram_runtime_title">运行时调校</string>
+    <string name="ram_runtime_content_dalvik">堆栈大小</string>
+    <string name="ram_runtime_content_maxfree">最大可用</string>
+    <string name="ram_runtime_content_minfree">最少可用</string>
+    <string name="ram_runtime_content_target_utilization">目标利用率</string>
+    <string name="ram_runtime_content_growth_limit">堆栈增长限制</string>
+    <string name="ram_runtime_content_flags">DEXopt 标记</string>
+
+    <string name="ram_release_title">自动释放</string>
+    <string name="ram_release_content">Android 自动从未使用的服务、进程及任务中清除内存</string>
+
+    <string name="ram_multitasking_title">多任务调校s</string>
+    <string name="ram_multitasking_content">保持内存总有可用空间以保证一切运行流畅。可能会减少电池使用时间</string>
+
+    <string name="ram_smooth_title">平滑界面</string>
+    <string name="ram_smooth_content">使滚动及导航更清洁、更平滑并及时响应</string>
+
+    <string name="ram_lmk_title">低内存清理</string>
+    <string name="ram_lmk_content">自动管理内存的 Android 内存管理器，此处您可更改配置</string>
+
+    <string name="ram_zram_title">Zram 服务</string>
+    <string name="ram_zram_content">启用原生内存管理 (zram) 以达到更佳性能</string>
+
+    <string name="ram_keep_alive_title">永不清除启动器</string>
+    <string name="ram_keep_alive_content">总是在内存中保持启动器开启以防止重新载入并快速加载主屏幕</string>
+
+    <string name="ram_tweak_1">缩减</string>
+    <string name="ram_tweak_2">标准</string>
+    <string name="ram_tweak_3">扩展</string>
+    <string name="ram_tweak_4">极端</string>
+
+    <string name="ram_profile_1">默认</string>
+    <string name="ram_profile_2">节能</string>
+    <string name="ram_profile_3">平滑</string>
+    <string name="ram_profile_4">多任务</string>
+    <string name="ram_profile_switch">已切换内存配置至 %p</string>
+
+    <string name="ram_runtime_1">默认</string>
+    <string name="ram_runtime_2">轻量</string>
+    <string name="ram_runtime_3">中等</string>
+    <string name="ram_runtime_4">强力</string>
+    <string name="ram_runtime_5">极端</string>
+    <string name="ram_runtime_switch">已切换运行时配置至 %p</string>
+    <string name="ram_not_enough">内存不足以激活选定的配置</string>
+
+    <string name="ram_lmk_1">默认</string>
+    <string name="ram_lmk_2">极轻量  (极少内存)</string>
+    <string name="ram_lmk_3">轻量  (少量内存)</string>
+    <string name="ram_lmk_4">普通  (中等内存)</string>
+    <string name="ram_lmk_5">激进  (大内存)</string>
+    <string name="ram_lmk_6">极激进  (特大内存)</string>
+    <string name="ram_lmk_7">疯狂  (极端内存)</string>
+
+    <string name="ram_lmk_switch">已更新低内存清理配置</string>
+
+
+    <!-- /RAM -->
+
+
+    <!-- BATTERY -->
+    <string name="battery_widget_title">电池详情s</string>
+    <string name="battery_widget_status">状态</string>
+    <string name="battery_widget_status_charging">正在充电</string>
+    <string name="battery_widget_status_discharging">不在充电</string>
+    <string name="battery_widget_health">健康</string>
+    <string name="battery_widget_temperature">温度</string>
+    <string name="battery_widget_capacity">容量</string>
+
+    <string name="battery_unplug">拔出设备</string>
+
+    <string name="battery_widget_charging_usb">使用 USB 充电</string>
+    <string name="battery_widget_charging_ac">使用充电器充电</string>
+    <string name="battery_widget_charging_wireless">使用无线充电器充电</string>
+
+    <string name="battery_widget_state_good">良好</string>
+    <string name="battery_widget_state_cold">过冷</string>
+    <string name="battery_widget_state_over_voltage">电压过高</string>
+    <string name="battery_widget_state_unknown">未知</string>
+    <string name="battery_widget_state_dead">不可用</string>
+
+    <string name="battery_statistics_title">清除统计数据</string>
+    <string name="battery_statistics_content">清除电池统计文件</string>
+    <string name="battery_statistics_success">已成功清除电池统计数据</string>
+    <string name="battery_statistics_just_wiped">您已清除过，此操作应每月执行一次</string>
+
+    <string name="battery_stats_title_100">是否清除统计数据？</string>
+    <string name="battery_stats_content_100">您的设备统计数据将被清空而您的电池将可使用更长时间</string>
+
+    <string name="battery_stats_title_not_100">警告</string>
+    <string name="battery_stats_content_not_100">您的设备未 100% 充电。现在删除电池统计数据可能会对操作系统造成损害。继续或等待完全充电？</string>
+
+
+    <string name="battery_doze_title">电池优化设置</string>
+    <string name="battery_doze_content">开启设备系统电池优化设置</string>
+    <string name="battery_doze_open">开启</string>
+
+    <string name="battery_services_title">优化服务</string>
+    <string name="battery_services_content">清理大量消耗处理器的后台服务</string>
+
+    <string name="battery_optimization_title">电池优化</string>
+    <string name="battery_optimization_content">优化 Android 默认设置以减少电池消耗</string>
+
+    <string name="battery_wifi_title">WiFi 扫描间隔</string>
+    <string name="battery_wifi_content">Android 使用此值以扫描新 WiFi 网络。数值越高，电池寿命越长</string>
+    <string name="battery_wifi_error">无效输入</string>
+    <string name="battery_wifi_success">已更新 WiFi 扫描间隔至 %s 秒</string>
+    <string name="battery_wifi_dfu_seconds">10 秒</string>
+    <string name="battery_wifi_autoscan">WiFi 自动扫描间隔</string>
+    <string name="battery_wifi_max">最大值为 5 分钟</string>
+    <string name="battery_wifi_low">考虑选择更大值</string>
+
+    <string name="battery_sleep_title">睡眠模式</string>
+    <string name="battery_sleep_content">在屏幕关闭时消耗更少电量</string>
+
+    <string name="battery_fastcharge_title">适应性快充</string>
+    <string name="battery_fastcharge_content">启用内置快速充电功能 (仅在支持快充的设备上工作)</string>
+
+    <string name="battery_fastcharge_wireless_title">无线快充</string>
+    <string name="battery_fastcharge_wireless_content">启用内置无线快速充电功能 (仅在支持快充的设备上工作)</string>
+
+    <string name="battery_drain_fix_google_title">修复 Google 电池消耗</string>
+    <string name="battery_drain_fix_google_content">修复 Google 电池消耗</string>
+    <!-- /BATTERY -->
+
+
+    <!-- KERNEL -->
+    <string name="kernel_widget_title">内核详情</string>
+
+    <string name="kernel_tweaks_title">内核调校</string>
+    <string name="kernel_tweaks_content">应用一系列调校功能以最大化性能</string>
+
+    <string name="kernel_sleepers_title">睡眠器优化</string>
+    <string name="kernel_sleepers_content">调校您手机处理进程的方式</string>
+
+    <string name="kernel_jni_title">绕过 JNI</string>
+    <string name="kernel_jni_content">禁用设备扩展 JNI 检查以快速执行任务</string>
+
+    <string name="kernel_panic_title">内核错误</string>
+    <string name="kernel_panic_content">若启用，当内核使设备崩溃超时后自动重启</string>
+
+    <string name="kernel_delay_title">重启延迟</string>
+    <string name="kernel_delay_content">定义在崩溃时的设备等待秒数</string>
+
+    <string name="kernel_oops_title">错误时重启</string>
+    <string name="kernel_oops_content">当系统操作崩溃时进行重启。不建议开启</string>
+
+    <string name="kernel_entropy_title">优化熵</string>
+    <string name="kernel_entropy_content">内核熵优化</string>
+
+    <string name="kernel_max_title">最大线程数</string>
+    <string name="kernel_max_content">设备可为单一任务/应用程序分配的最大线程数</string>
+    <string name="kernel_max_success">已更新最大线程数</string>
+    <string name="kernel_error">错误，您的设备不支持此调校</string>
+
+    <string name="kernel_auto_reboot_success">自动重启延迟现为 %s 秒</string>
+    <string name="kernel_dfu_watchdog">60 秒</string>
+    <string name="kernel_auto_reboot_delay">自动重启延迟</string>
+    <!-- /KERNEL -->
+
+
+    <!-- NETWORK -->
+
+    <string name="net_widget_title">网络信息</string>
+
+    <string name="net_dns_title">使用 Google DNS</string>
+    <string name="net_dns_content">强制使用 Google DNS 以快速连接</string>
+
+    <string name="net_wifi_title">WiFi 网速增量</string>
+    <string name="net_wifi_content">扩大缓存以加速下载及上传</string>
+
+    <string name="net_data_title">移动数据网速增量</string>
+    <string name="net_data_content">移动数据连接的额外缓冲区调校</string>
+
+    <string name="net_tcp_title">TCP 算法调校</string>
+    <string name="net_tcp_content">选择最优的 IPv4 算法设置以加速网络</string>
+
+    <string name="net_hostname_title">修改主机名</string>
+    <string name="net_hostname_content">主机名为您本地网络中的设备名。您将在扫描当前网络时看到此名称</string>
+
+    <string name="net_signal_title">信号调校</string>
+    <string name="net_signal_content">最大化信号检测及可用性</string>
+
+    <string name="net_voice_title">提升音质</string>
+    <string name="net_voice_content">通过调校 AMR 音频解码器使得呼叫达到最佳音质</string>
+
+    <string name="net_fast_dormancy_title">快速休眠</string>
+    <string name="net_fast_dormancy_content">在支持的运营商上启用快速休眠</string>
+
+    <string name="net_changer_success">成功，当前主机名为 %h</string>
+
+    <string name="net_wideband_title">使用宽频</string>
+    <string name="net_wideband_content">使用宽频以进行快速连接</string>
+
+    <string name="net_dialog_hostname_title">网络主机名</string>
+    <string name="net_dialog_hostname_hint">主机名</string>
+    <string name="net_dialog_new_hostname">新主机名</string>
+    <string name="net_dialog_error_short">主机名过短</string>
+    <string name="net_dialog_error_long">主机名过长</string>
+
+    <string name="net_widget_title_global">网络:</string>
+    <string name="net_widget_title_wifi">WiFi:</string>
+    <string name="net_widget_title_data">数据:</string>
+
+    <string name="net_widget_connected">已连接</string>
+    <string name="net_widget_not_connected">未连接</string>
+    <string name="net_widget_available">可用</string>
+    <string name="net_widget_not_available">不可用</string>
+    <!-- /NETWORK -->
+
+
+    <!-- HARDWARE -->
+    <string name="hardware_widget_title">硬件</string>
+    <string name="hardware_widget_device">设备</string>
+    <string name="hardware_widget_manufacturer">生产商</string>
+    <string name="hardware_widget_model">型号</string>
+
+    <string name="dialog_dpi_changer_property">设备 DPI</string>
+    <string name="dialog_dpi_changer_summary">允许您的设备显示更多内容</string>
+    <string name="dialog_dpi_changer_dfu">[300–450]</string>
+    <string name="dialog_dpi_changer_large">请考虑选择更小的数字</string>
+    <string name="dialog_dpi_changer_low">请考虑选择更大的数字</string>
+    <string name="dialog_dpi_changer_empty">插入数字</string>
+
+    <string name="hardware_wakeup_with_volume">使用音量键唤醒</string>
+    <string name="hardware_wakeup_always_on_title">始终开启按钮</string>
+    <string name="hardware_wakeup_always_on_content">启用按钮将消耗更多电量</string>
+    <string name="hardware_dialog_warning">使用不当数字可能会损害您的设备</string>
+
+    <string name="hardware_rotate_lockscreen_title">锁屏旋转</string>
+    <string name="hardware_rotate_lockscreen_content">使您的锁屏变得可旋转</string>
+
+    <string name="hardware_rotation_title">启用 180° 旋转</string>
+    <string name="hardware_rotation_content">启用设备总旋转</string>
+
+    <string name="hardware_transparency_title">16 位透明</string>
+    <string name="hardware_transparency_content">启用 16 位透明，此功能可能会更改界面但会使绑定图形处理器的任务更为顺滑</string>
+
+    <string name="hardware_acceleration_title">硬件加速</string>
+    <string name="hardware_acceleration_content">强制所有应用程序支持硬件加速以提高性能</string>
+    <!-- /HARDWARE -->
+
+
+    <!-- STORAGE -->
+    <string name="storage_widget_title">存储</string>
+    <string name="storage_widget_system">系统</string>
+    <string name="storage_widget_data">数据</string>
+    <string name="storage_widget_cache">缓存</string>
+    <string name="storage_widget_storage">存储</string>
+
+    <string name="storage_fstrim_title">FSTrim</string>
+    <string name="storage_fstrim_content">优化您的磁盘不由文件系统所使用的区块修正行为</string>
+
+    <string name="storage_io_title">系统 I/O</string>
+    <string name="storage_io_content">加速每个在系统分区上的 I/O 操作</string>
+
+    <string name="storage_data_title">数据 I/O</string>
+    <string name="storage_data_content">加速每个在数据分区上的 I/O 操作</string>
+
+    <string name="storage_sd_title">SD 卡加速</string>
+    <string name="storage_sd_content">设置 SD 卡的最大可用速度</string>
+
+    <string name="storage_ext4_title">以 ext4 格式重新挂载</string>
+    <string name="storage_ext4_content">使每个文件系统分区转换为 ext4 格式以加速 I/O 操作</string>
+    <string name="storage_ext4_mount">挂载</string>
+    <string name="storage_ext4_already_did">已挂载文件系统为 ext4 格式</string>
+    <string name="storage_ext4_already_done">已使用最佳设置挂载文件系统</string>
+
+    <string name="storage_fstrim_dialog_title">FStrim</string>
+    <string name="storage_fstrim_dialog_content">正在检查您系统上的 FStrim ...</string>
+    <string name="storage_fstrim_dialog_not_found_title">FStrim 错误</string>
+    <string name="storage_fstrim_dialog_not_found_content">您的系统上尚未安装 FStrim</string>
+    <string name="storage_fstrim_dialog_progress_title">正在运行 fstrim</string>
+    <string name="storage_fstrim_dialog_progress_prefix">正在执行于</string>
+
+    <string name="storage_fstrim_already_run">正在执行 FStrim</string>
+    <string name="storage_mounting_title">正在挂载...</string>
+    <string name="storage_mounting_content">正在将所有文件系统以 ext4 格式挂载到设备根目录上...</string>
+    <string name="storage_mounting_success">已挂载文件系统</string>
+
+    <string name="storage_sdmaid_install_title">安装 SDMaid</string>
+    <string name="storage_sdmaid_install_content">使用 Android 市场排名第一的工具来清理并管理您的存储</string>
+
+    <string name="storage_sdmaid_open_title">打开 SDMaid</string>
+    <string name="storage_sdmaid_open_content">清理您系统中的无用文件</string>
+
+    <string name="storage_system_supersu">SuperSU</string>
+    <string name="storage_system_magisk">Magisk</string>
+    <!-- /STORAGE -->
+
+
+    <!-- GRAPHIC -->
+    <string name="graphic_widget_title">图形信息</string>
+    <string name="graphic_widget_opengl">OpenGL 版本:</string>
+    <string name="graphic_widget_resolution">分辨率:</string>
+    <string name="graphic_widget_density">密度:</string>
+
+    <string name="graphic_gpu_title">图形处理器加速</string>
+    <string name="graphic_gpu_content">通过更改一些 SystemUI 配置来大幅提升绘图操作性能</string>
+
+    <string name="graphic_hw_title">硬件加速</string>
+    <string name="graphic_hw_content">强制应用程序启用对硬件加速的原生支持</string>
+
+    <string name="graphic_anim_title">动画</string>
+    <string name="graphic_anim_transition">过渡动画</string>
+    <string name="graphic_anim_window">窗口动画</string>
+    <string name="graphic_anim_animator">动画器动画</string>
+    <string name="graphic_anim_content">更改动画速度</string>
+
+    <string name="graphic_dpi_change_success">当前 DPI 为 %dpi，重启以应用！</string>
+    <string name="graphic_dpi_suffix">dpi</string>
+
+    <string name="graphic_stagefright_title">使用原生支持库</string>
+    <string name="graphic_stagefright_content">启用系统编译的安全资源库以加速串流</string>
+
+    <string name="graphic_rendering_title">图形处理器渲染</string>
+    <string name="graphic_rendering_content">使用图形处理器绘画 2D 层。减少处理器任务压力</string>
+
+    <string name="graphic_jpeg_title">JPEG 最高质量</string>
+    <string name="graphic_jpeg_content">总是压缩最佳质量的 JPEG 图像（图库、网站等等）。将使用少量内存</string>
+    <!-- /GRAPHIC -->
+
+
+    <!-- DEBUG -->
+    <string name="debug_widget_title">调试</string>
+    <string name="debug_widget_official">官方</string>
+    <string name="debug_widget_adb">ADB</string>
+    <string name="debug_widget_tags">标签</string>
+
+    <string name="debug_adb_title">USB 调试</string>
+    <string name="debug_adb_content">当连接上 USB 时启动调试模式</string>
+
+    <string name="debug_notification_title">隐藏调试通知</string>
+    <string name="debug_notification_content">在设备连接上 USB 时不显示通知</string>
+
+    <string name="debug_rpt_title">禁用错误汇报</string>
+    <string name="debug_rpt_content">禁用设备内置的发送错误功能</string>
+
+    <string name="debug_logging_title">禁用错误记录</string>
+    <string name="debug_logging_content">禁用调试事件记录功能</string>
+
+    <string name="debug_google_title">禁用跟踪</string>
+    <string name="debug_google_content">禁用内置的跟踪功能以加速及省电</string>
+
+    <string name="debug_opt_title">优化调试服务</string>
+    <string name="debug_opt_content">调整参数以减少内部调试服务所使用的资源</string>
+    <!-- /DEBUG -->
+
+
+    <!-- SECURITY -->
+    <!-- /GPS -->
+
+
+    <!-- GPS -->
+    <string name="gps_widget_title">GPS</string>
+    <string name="gps_widget_content">全球定位系统是基于卫星定位的无线电导航系统，向地球上与近地的 GPS 接收设备提供地理位置与时间信息</string>
+
+    <string name="gps_accuracy_title">GPS 准确性</string>
+    <string name="gps_accuracy_content">在设置中编辑 GPS 准确性</string>
+
+    <string name="gps_mock_title">允许模拟位置</string>
+    <string name="gps_mock_content">允许应用程序为此设备生成虚拟位置</string>
+
+    <string name="gps_config_title">GPS 配置</string>
+    <string name="gps_config_content">文件 /system/etc/gps.conf</string>
+    <string name="gps_config_error">无法打开 /system/etc/gps.conf</string>
+    <!-- /GPS -->
+
+
+    <!-- ABOUT -->
+    <string name="version">版本</string>
+    <string name="packageName">包名</string>
+    <string name="releaseType">发行版</string>
+    <string name="author">作者</string>
+    <string name="andrea_cioccarelli">Andrea Cioccarelli</string>
+    <string name="location">Italy, Lombardy</string>
+    <string name="write_an_email">向我发送电子邮件</string>
+    <string name="add_to_google_plus_circles">添加至 Google Plus 朋友圈</string>
+    <string name="follow_on_twitter">在 Twitter 上跟随我</string>
+    <string name="follow_on_github">在 GitHub 上跟随我</string>
+    <string name="visit_website">访问网站</string>
+    <string name="special_thanks_to">特别鸣谢</string>
+    <string name="aidan_follestad">Aidan Follestad</string>
+    <string name="aidan_follestad_summary">编写了对话框库及其他很棒的东西</string>
+    <string name="karim_abou_zeid">Karim Abou Zeid</string>
+    <string name="karim_abou_zeid_summary">编写了此漂亮的页面及主题引擎</string>
+    <string name="rate_on_play_store">在 Play 商店上评分</string>
+    <string name="rate_on_play_store_summary">若您喜欢 Androoster 的话请留下五星好评</string>
+    <string name="quick_actions">快速操作</string>
+    <string name="join_community">Google Plus 社区</string>
+    <string name="join_community_summary">您将在此找到有关 Androoster 问题的答案</string>
+    <string name="report_bugs">缺陷跟踪</string>
+    <string name="report_bugs_summary">汇报错误或请求新特性</string>
+    <string name="app_details">应用详情</string>
+    <string name="app_details_summary">跳转到设置中的应用页</string>
+    <string name="licenses">授权许可</string>
+    <string name="changelog_title">更新日志</string>
+    <string name="translators_title">译者</string>
+    <string name="title_activity_upgrade">更新</string>
+    <string name="intro_title">简介</string>
+
+    <string name="twitter">TWITTER</string>
+    <string name="google_plus">GOOGLE PLUS</string>
+    <string name="git_hub">GITHUB</string>
+    <string name="play_store">PLAY 商店</string>
+    <string name="about_libraries">公用库</string>
+    <string name="about_translations">翻译</string>
+    <string name="about_translations_positive">提交您的翻译</string>
+
+    <string name="about_translation_promo_title">提高翻译质量</string>
+    <string name="about_translation_promo_content">帮助我们翻译 Androoster 并获取促销代码以升级至专业版</string>
+    <!-- /ABOUT -->
+
+
+    <!-- GENERAL -->
+    <string name="general_disable_boot_title">禁用开机动画</string>
+    <string name="general_disable_quickboot_title">快速引导</string>
+    <string name="general_disable_quickboot_content">可能会损害/干扰部分 Root 应用程序的操作，但会极大缩短引导时间 （若您知道您在做什么则可启用）</string>
+
+    <string name="general_black_screen_title">修复电话后的黑屏</string>
+    <string name="general_call_delay_title">清除通话后延迟</string>
+    <string name="general_call_delay_content">您的手机将在被呼入时立刻响起铃声</string>
+    <!-- /GENERAL -->
+
+    <!-- BOOT -->
+    <string name="boot_cannot_get_permissions_title">权限被拒绝</string>
+    <string name="boot_cannot_get_permissions_content">我们由于缺少部分权限而无法启动 Androoster。若您仍想使用 Androoster 您可在允许这些权限后使用</string>
+    <string name="boot_cannot_get_permissions_allow">允许</string>
+    <string name="boot_cannot_get_permissions_close">关闭</string>
+    <!-- /BOOT -->
+
+
+    <!-- SETTINGS -->
+    <string name="primary_color">主要颜色</string>
+    <string name="accent_color">强调颜色</string>
+
+    <string name="pref_press_back_title">双击退出</string>
+    <string name="pref_button_position_title">按钮位置</string>
+    <string name="pref_animations_title">启用动画</string>
+    <string name="pref_drawer_sticky_settings_title">抽屉固定设置</string>
+    <string name="pref_drawer_sticky_settings_content">显示被固定的设置项</string>
+
+    <string name="pref_open_drawer_fab">显示开启抽屉按钮</string>
+    <string name="pref_title_set_default_start_page">启动页</string>
+    <string name="pref_show_backup_title">显示备份页</string>
+    <string name="pref_show_backup_content">在抽屉菜单中</string>
+    <string name="pref_show_backup_empty">未找到备份</string>
+
+
+    <string name="light_theme_name">明亮</string>
+    <string name="dark_theme_name">暗色</string>
+    <string name="settings_lock_title">锁定 Androoster</string>
+    <string name="settings_unlock_title">解锁 Androoster</string>
+    <string name="settings_unlocking_title">正在解锁 Androoster...</string>
+    <string name="settings_unlocking_content">正在默认情况下恢复工作区及加密...</string>
+    <string name="settings_updating_security">正在更新工作区...</string>
+    <string name="settings_decrypt_security">正在解密...</string>
+    <string name="settings_encrypt_security">正在加密...</string>
+    <string name="settings_checking_data">正在检查...</string>
+    <string name="settings_mismatch">数据不匹配</string>
+
+    <string name="dialog_change_password">更改密码</string>
+    <string name="dialog_update">更新</string>
+    <string name="dialog_set">设置</string>
+
+    <string name="settings_password_edit">编辑密码</string>
+    <string name="settings_hint_edit">编辑提示</string>
+    <string name="settings_hint_add">添加提示</string>
+    <string name="settings_hint_changed">已更改提示</string>
+    <string name="settings_hint_added">已添加提示</string>
+
+    <string name="dialog_mismatch_pin">PIN 码不匹配</string>
+    <string name="dialog_mismatch_password">密码不匹配</string>
+    <string name="dialog_missing_pin">缺少 PIN</string>
+    <string name="dialog_missing_password">缺少密码</string>
+    <string name="dialog_missing_pin_confirm">缺少确认 PIN 码</string>
+    <string name="dialog_missing_password_confirm">缺少确认密码</string>
+    <string name="dialog_short_pin">PIN 码过短</string>
+    <string name="dialog_short_password">密码过长</string>
+    <string name="dialog_contain_pin">提示无法包含 PIN 码</string>
+    <string name="dialog_contain_password">提示无法包含密码</string>
+    <string name="dialog_weak_pin">弱 PIN 码</string>
+    <string name="dialog_weak_password">弱密码</string>
+    <string name="dialog_long_hint">提示过长</string>
+
+    <string name="dialog_disabled_title">已禁用密码保护</string>
+    <string name="dialog_disabled_content">无需认证以解锁 Androoster</string>
+    <string name="dialog_enabled_content">已经加密以保证安全的 Androoster 工作区</string>
+    <string name="dialog_auth_success">成功认证</string>
+    <string name="dialog_auth_error">不匹配</string>
+
+    <string name="pref_fingerprint_title">使用指纹登录</string>
+    <string name="pref_fingerprint_content_on">将使用指纹作为主要登录方式</string>
+    <string name="pref_fingerprint_content_off">已禁用密码认证</string>
+    <string name="pref_show_hint_title">显示密码提示</string>
+    <string name="pref_show_hint_content">在 3 次错误尝试后</string>
+    <string name="pref_mask_password">伪装密码</string>
+    <string name="pref_hide_boot_notification">隐藏启动通知</string>
+
+    <string name="dialog_updated_pin">已更新 PIN</string>
+    <string name="dialog_updated_password">已更新密码</string>
+    <string name="dialog_no_fingerprint">此设备上无已注册的指纹</string>
+
+    <string name="pref_theme">主题</string>
+    <string name="pref_primary_description">应用程序主颜色</string>
+    <string name="pref_accent_description">主题强调色</string>
+    <string name="pref_tint_toasts_title">消息条色调</string>
+    <string name="pref_tint_toasts_content_on">显示彩色消息条</string>
+    <string name="pref_tint_toasts_content_off">消息条颜色保持不变</string>
+    <string name="pref_dynamic_toasts_title">根据内容更改颜色</string>
+    <string name="pref_dynamic_toasts_content_on">根据内容切换主题消息条</string>
+    <string name="pref_dynamic_toasts_content_off">消息条颜色将永远为强调色</string>
+    <string name="pref_tint_navigation_title">彩色导航栏</string>
+    <string name="pref_tint_navigation_content">使用主颜色</string>
+    <string name="pref_built_themes">内置主题</string>
+    <string name="pref_pro_required">需要专业版</string>
+
+    <string name="pref_animation_orientation_from_title">动画朝向</string>
+    <string name="pref_animation_orientation_from_left">从左侧</string>
+    <string name="pref_animation_orientation_from_right">从右侧</string>
+    <string name="pref_animation_orientation_from_top">从上方</string>
+    <string name="pref_animation_orientation_from_bottom">从下方</string>
+
+
+    <string name="pref_animation_speed_title">动画速度</string>
+    <string name="pref_animation_speed_slow">慢</string>
+    <string name="pref_animation_speed_normal">正常</string>
+    <string name="pref_animation_speed_fast">快速</string>
+    <string name="pref_animation_speed_light">闪电</string>
+
+
+    <string name="action_settings_toolbar">在工具栏中显示设置</string>
+    <string name="action_settings_toolbar_summary">在 Androoster 的仪表盘上</string>
+
+    <string name="settings_general">通用</string>
+    <string name="settings_animations">动画</string>
+    <string name="settings_theme">主题</string>
+    <string name="settings_menu">菜单</string>
+    <string name="settings_security">安全</string>
+
+    <string name="pref_on_toolbar">在工具栏上</string>
+    <string name="pref_on_bottom">在底部</string>
+
+    <string name="pref_theme_1">黑曜石</string>
+    <string name="pref_theme_2">芯片</string>
+    <string name="pref_theme_3">黄金</string>
+    <string name="pref_theme_4">质感</string>
+    <string name="pref_theme_5">氧气</string>
+    <string name="pref_theme_6">金属</string>
+    <string name="pref_theme_7">柑橘</string>
+    <string name="pref_theme_8">深海</string>
+    <string name="pref_theme_9">蘑菇人</string>
+    <string name="pref_theme_10">河流</string>
+    <string name="pref_theme_11">纸钞屋</string>
+    <!-- /SETTINGS -->
+
+    <!-- UPGRADE -->
+    <string name="upgrade_purchase_error">与商店通信时出错</string>
+    <string name="upgrade_purchase_manager_title">缺少 Google Play 商店</string>
+    <string name="upgrade_purchase_manager_content">未安装 Google Play 商店以支付专业版</string>
+
+    <string name="upgrade_purchase_ok">已激活 Androoster 专业版！</string>
+    <string name="upgrade_text">升级</string>
+    <string name="upgrade_title">Androoster 专业版</string>
+    <string name="upgrade_separator_text">特性</string>
+
+    <string name="upgrade_already_pro_title">您已购买</string>
+    <string name="upgrade_already_pro_content">您已购买专业版</string>
+    <string name="upgrade_press_next">点击继续</string>
+
+    <string name="upgrade_item_1">访问每个页面</string>
+    <string name="upgrade_item_2">锁定访问权限</string>
+    <string name="upgrade_item_3">开启所有设置</string>
+    <string name="upgrade_item_4">使用定制主题</string>
+    <string name="upgrade_item_5">支持应用开发</string>
+
+    <!-- /UPGRADE -->
+
+    <!-- INTRO -->
+    <string name="intro_1_title">Androoster</string>
+    <string name="intro_1_content">一款 Android 原生、反应如闪电迅速的操作系统调校工具</string>
+    <string name="intro_2_title">工作方式</string>
+    <string name="intro_2_content">Androoster 将需要 Root 权限以执行可用调校</string>
+    <string name="intro_3_title">应用</string>
+    <string name="intro_3_content">每个调校将被立刻应用，但需要在编辑后重启以查看更改结果</string>
+    <string name="intro_4_title">备份</string>
+    <string name="intro_4_content">每个调校均可逆，您可在正确的地方轻松管理备份</string>
+    <string name="intro_5_title">警告</string>
+    <string name="intro_5_content">若此应用为 100% 安全，请确保您知道您将要进行的操作。本人不对您将遇到的任何问题负责</string>
+    <string name="intro_go">开始吧！</string>
+    <string name="intro_skip">通过</string>
+    <!-- /INTRO -->
+</resources>

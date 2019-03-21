@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Androoster.Base" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+
+        <item name="android:windowBackground">@color/Grey_250</item>
+
+        <item name="roundSelector">@drawable/round_selector_dark</item>
+        <item name="rectSelector">@drawable/rect_selector_dark</item>
+        <item name="rectSelectorStrong">@drawable/rect_selector_strong_dark</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+
+        <item name="dividerColor">@color/md_divider_black</item>
+        <item name="iconColor">#8A000000</item>
+        <item name="defaultFooterColor">@color/Grey_300</item>
+        <item name="licenseIcon">@color/Grey_870</item>
+
+        <item name="primaryTextColour">@color/lightPrimaryTextColor</item>
+        <item name="secondaryTextColour">@color/lightSecondaryTextColor</item>
+        <item name="tertiaryTextColour">@color/lightTertiaryTextColor</item>
+
+
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="purchaseBackground">@color/Grey_200</item>
+        <item name="material_drawer_background">#F9F9F9</item>
+        <item name="material_drawer_primary_text">#DE000000</item>
+        <item name="material_drawer_primary_icon">#8A000000</item>
+        <item name="material_drawer_secondary_text">#8A000000</item>
+        <item name="material_drawer_hint_text">#42000000</item>
+        <item name="material_drawer_divider">#1F000000</item>
+        <item name="material_drawer_selected">#E8E8E8</item>
+        <item name="material_drawer_selected_text">#2196F3</item>
+        <item name="material_drawer_header_selection_text">#FFF</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="Theme.Androoster.Base.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat</item>
+        <item name="android:windowBackground">@color/Grey_900</item>
+
+        <item name="cardBackgroundColor">@color/Grey_800</item>
+        <item name="purchaseBackground">@color/darkTertiaryTextColor</item>
+
+        <item name="roundSelector">@drawable/round_selector_dark</item>
+        <item name="rectSelector">@drawable/rect_selector_dark</item>
+        <item name="rectSelectorStrong">@drawable/rect_selector_strong_dark</item>
+
+        <item name="dividerColor">#10FFFFFF</item>
+        <item name="iconColor">#DFFFFFFF</item>
+        <item name="licenseIcon">@color/Grey_150</item>
+
+        <item name="primaryTextColour">@color/darkPrimaryTextColor</item>
+        <item name="secondaryTextColour">@color/darkSecondaryTextColor</item>
+        <item name="tertiaryTextColour">@color/darkTertiaryTextColor</item>
+
+        <item name="material_drawer_background">#303030</item>
+        <item name="material_drawer_primary_text">#DEFFFFFF</item>
+        <item name="material_drawer_primary_icon">#8AFFFFFF</item>
+        <item name="material_drawer_secondary_text">#8AFFFFFF</item>
+        <item name="material_drawer_hint_text">#42FFFFFF</item>
+        <item name="material_drawer_divider">#1FFFFFFF</item>
+        <item name="material_drawer_selected">#242424</item>
+        <item name="material_drawer_selected_text">#DEFFFFFF</item>
+        <item name="material_drawer_header_selection_text">#FFF</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
+    </style>
+
+
+</resources>

@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_dashboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/borderless"
+    android:paddingLeft="@dimen/borderless"
+    android:paddingRight="@dimen/borderless"
+    android:paddingTop="@dimen/borderless"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.andreacioccarelli.androoster.ui.UIRam"
+    tools:showIn="@layout/ram">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="24dp">
+
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/dashboard_ram"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:paddingLeft="10sp"
+                    android:id="@+id/dashboard_ram_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ram_widget_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_toRightOf="@+id/RAMLayout"
+                    android:layout_toEndOf="@+id/RAMLayout" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:paddingLeft="10sp"
+                    android:id="@+id/dashboard_ram_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:layout_below="@+id/dashboard_ram_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/RAMLayout"
+                    android:layout_toEndOf="@+id/RAMLayout" />
+
+                <RelativeLayout
+                    android:gravity="center"
+                    android:id="@+id/RAMLayout"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="86sp"
+                    android:layout_height="86sp">
+
+                    <ImageView
+                        android:id="@+id/RAMBase"
+                        android:src="@drawable/base"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_width="86sp"
+                        android:layout_height="86sp" />
+
+                    <RelativeLayout
+                        android:gravity="center"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true">
+
+                        <ImageView
+                            android:id="@+id/RAMDrawable"
+                            app:srcCompat="@drawable/ram"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardRAM0"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleRAM0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ram_profile_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/SpinnerRAM0"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:paddingTop="2dp"
+                    android:checked="false"
+                    android:id="@+id/SpinnerRAM0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentRAM0"
+                    android:paddingTop="12sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/ram_profile_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/SpinnerRAM0"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        
+
+    <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+        app:cardCornerRadius="0sp"
+        android:id="@+id/CardRAM1"
+        app:cardElevation="2sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:drawSelectorOnTop="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20sp">
+
+            <TextView
+                android:textColor="?primaryTextColour"
+                android:id="@+id/TitleRAM1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ram_runtime_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/spinnerRAM1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:paddingTop="4dp"
+                android:checked="false"
+                android:id="@+id/spinnerRAM1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:id="@+id/content1RAM"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                android:text="@string/ram_runtime_content_dalvik"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/TitleRAM1"
+                android:paddingTop="20sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/render1RAM"
+                android:layout_toStartOf="@+id/render1RAM" />
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:paddingRight="4sp"
+                android:id="@+id/render1RAM"
+                android:text="@string/widget_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/content2RAM"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:id="@+id/content2RAM"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                android:text="@string/ram_runtime_content_maxfree"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/content1RAM"
+                android:paddingTop="6sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/render2RAM"
+                android:layout_toStartOf="@+id/render2RAM" />
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:paddingRight="4sp"
+                android:id="@+id/render2RAM"
+                android:text="@string/widget_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/content3RAM"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:id="@+id/content3RAM"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                android:text="@string/ram_runtime_content_minfree"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/content2RAM"
+                android:paddingTop="6sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/render3RAM"
+                android:layout_toStartOf="@+id/render3RAM" />
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:paddingRight="4sp"
+                android:text="@string/widget_loading"
+                android:id="@+id/render3RAM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/content4RAM"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:id="@+id/content4RAM"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                android:text="@string/ram_runtime_content_target_utilization"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/content3RAM"
+                android:paddingTop="6sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/render4RAM"
+                android:layout_toStartOf="@+id/render4RAM" />
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:paddingRight="4sp"
+                android:text="@string/widget_loading"
+                android:id="@+id/render4RAM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/content5RAM"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:id="@+id/content5RAM"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                android:text="@string/ram_runtime_content_growth_limit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/content4RAM"
+                android:paddingTop="6sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/render5RAM"
+                android:layout_toStartOf="@+id/render5RAM" />
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:paddingRight="4sp"
+                android:text="@string/widget_loading"
+                android:id="@+id/render5RAM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/content6RAM"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:id="@+id/content6RAM"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                android:text="@string/ram_runtime_content_flags"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/content5RAM"
+                android:paddingTop="6sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/render6RAM"
+                android:layout_toStartOf="@+id/render6RAM" />
+
+            <TextView
+                android:textColor="?tertiaryTextColour"
+                android:paddingRight="4sp"
+                android:text="@string/widget_loading"
+                android:id="@+id/render6RAM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardRAM2"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleRAM2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ram_release_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/SwitchRAM2"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:checked="false"
+                    android:id="@+id/SwitchRAM2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentRAM2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/ram_release_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleRAM2"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/SwitchRAM2"
+                    android:layout_toStartOf="@+id/SwitchRAM2" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardRAM3_1"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20sp"
+                android:paddingBottom="20sp"
+                android:paddingLeft="20sp"
+                android:paddingRight="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:paddingBottom="14sp"
+                    android:id="@+id/Title1RAM3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ram_multitasking_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/Switch1RAM3"
+                    android:layout_toStartOf="@+id/Switch1RAM3" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:checked="false"
+                    android:id="@+id/Switch1RAM3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/Content1RAM3"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/ram_multitasking_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/Switch1RAM3"
+                    android:layout_toStartOf="@+id/Switch1RAM3"
+                    android:layout_below="@+id/Switch1RAM3" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardRAM3_2"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="20sp"
+            android:paddingBottom="20sp"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/Title2RAM3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ram_smooth_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/Switch2RAM3"
+                    android:layout_toLeftOf="@+id/Switch2RAM3" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:checked="false"
+                    android:id="@+id/Switch2RAM3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBaseline="@+id/Title2RAM3"
+                    android:layout_alignBottom="@+id/Title2RAM3"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/Content2RAM3"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/ram_smooth_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/Switch2RAM3"
+                    android:layout_toStartOf="@+id/Switch2RAM3"
+                    android:layout_below="@+id/Switch2RAM3" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardRAM4"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20sp"
+                android:paddingBottom="20sp"
+                android:paddingLeft="20sp"
+                android:paddingRight="20sp">
+
+
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleRAM4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ram_lmk_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:textColor="?secondaryTextColour"
+                    android:checked="false"
+                    android:gravity="end"
+                    android:id="@+id/lmk_state"
+                    android:text=""
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/TitleRAM4"
+                    android:layout_toEndOf="@+id/TitleRAM4"
+                    android:layout_above="@+id/ContentRAM4" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:paddingTop="10sp"
+                    android:id="@+id/ContentRAM4"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:text="@string/ram_lmk_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/TitleRAM4"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardRAM6"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20sp"
+                android:paddingBottom="20sp"
+                android:paddingLeft="20sp"
+                android:paddingRight="20sp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:id="@+id/TitleRAM6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ram_zram_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/SwitchRAM6"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:checked="false"
+                    android:id="@+id/SwitchRAM6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentRAM6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ram_zram_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:layout_below="@+id/TitleRAM6"
+                    android:layout_toLeftOf="@+id/SwitchRAM6"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/CardRAM7"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20sp"
+                android:paddingBottom="20sp"
+                android:paddingLeft="20sp"
+                android:paddingRight="20sp">
+
+                <TextView
+                    android:id="@+id/TitleRAM7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ram_keep_alive_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/SwitchRAM7"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:checked="false"
+                    android:id="@+id/SwitchRAM7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/ContentRAM7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ram_keep_alive_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:layout_below="@+id/TitleRAM7"
+                    android:layout_toLeftOf="@+id/SwitchRAM7"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</RelativeLayout>

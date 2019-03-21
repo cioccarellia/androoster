@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/settings_security">
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="lock_enabled"
+            android:summary="@string/dialog_disabled_content"
+            android:title="@string/settings_lock_title" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="allow_fingerprint"
+            android:dependency="lock_enabled"
+            android:summaryOn="@string/pref_fingerprint_content_on"
+            android:summaryOff="@string/pref_fingerprint_content_off"
+            android:title="@string/pref_fingerprint_title" />
+
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference
+            android:key="change_password"
+            android:dependency="lock_enabled"
+            android:title="@string/settings_password_edit" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference
+            android:key="change_hint"
+            android:dependency="lock_enabled"
+            android:title="@string/settings_hint_add" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="show_password_hint"
+            android:dependency="lock_enabled"
+            android:summary="@string/pref_show_hint_content"
+            android:title="@string/pref_show_hint_title" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="mask_password"
+            android:dependency="lock_enabled"
+            android:title="@string/pref_mask_password" />
+
+
+    </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+
+</android.support.v7.preference.PreferenceScreen>

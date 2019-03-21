@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.andreacioccarelli.androoster">
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <permission
+        android:name="android.permission.INTERACT_ACROSS_USERS_FULL"
+        android:protectionLevel="signature" />
+
+    <application
+        android:name="android.support.multidex.MultiDexApplication"
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:resizeableActivity="true"
+        android:supportsPictureInPicture="false"
+        android:supportsRtl="true"
+        android:theme="@style/AndroosterActivity"
+        tools:targetApi="n">
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+
+        <activity
+            android:name=".ui.boot.UIBoot"
+            android:theme="@style/AndroosterActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.wizard.UIWizard"
+            android:label="@string/intro_title"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.dashboard.UIDashboard"
+            android:label="@string/app_name"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.UICpu"
+            android:label="@string/activity_title_cpu"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.UIRam"
+            android:label="@string/activity_title_ram"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.UIBattery"
+            android:label="@string/activity_title_battery"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.UIKernel"
+            android:label="@string/activity_title_kernel"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.UINetworking"
+            android:label="@string/activity_title_network"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.UIStorage"
+            android:label="@string/activity_title_storage"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.UIHardware"
+            android:label="@string/activity_title_hardware"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.UIGraphic"
+            android:label="@string/activity_title_graphic"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.UIDebug"
+            android:label="@string/activity_title_debug"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.UIGps"
+            android:label="@string/activity_title_gps"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.settings.UISettings"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Settings">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.about.UIAbout"
+            android:label="@string/drawer_about"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.UIGeneral"
+            android:label="@string/title_activity_general"
+            android:theme="@style/AndroosterActivity">
+            <meta-data
+                android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".ui.backup.UIBackup"
+            android:label="@string/title_activity_uibackup"
+            android:theme="@style/AndroosterActivity" />
+        <activity
+            android:name=".ui.upgrade.UIUpgrade"
+            android:label="@string/title_activity_upgrade"
+            android:theme="@style/AndroosterActivity" />
+
+        <receiver android:name=".service.BootService"  android:exported="true"
+            android:permission="android.permission.ACCESS_SUPERUSER">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

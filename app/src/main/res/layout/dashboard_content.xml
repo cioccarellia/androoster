@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_dashboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.andreacioccarelli.androoster.ui.dashboard.UIDashboard"
+    tools:showIn="@layout/dashboard">
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="0sp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/updateView"
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <RelativeLayout
+                    android:gravity="center"
+                    android:id="@+id/DashboardLayout"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="86sp"
+                    android:layout_height="86sp">
+
+                    <ImageView
+                        android:id="@+id/DashboardBase"
+                        android:src="@drawable/base"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_width="86sp"
+                        android:layout_height="86sp" />
+
+                    <RelativeLayout
+                        android:gravity="center"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true">
+
+                        <ImageView
+                            android:id="@+id/updateIcon"
+                            app:srcCompat="@drawable/update"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_toEndOf="@+id/DashboardLayout"
+                    android:id="@+id/notificationTitle"
+                    android:layout_toRightOf="@+id/DashboardLayout" />
+
+                <TextView
+                    android:textColor="?secondaryTextColour"
+                    android:layout_marginLeft="10sp"
+                    android:id="@+id/notificationTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_below="@+id/notificationTitle"
+                    android:layout_toRightOf="@+id/DashboardLayout"
+                    android:layout_toEndOf="@+id/DashboardLayout" />
+
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/UpdateButton"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dashboard_update_button_playstore"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/notificationTextView" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    android:id="@+id/IgnoreButton"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dashboard_update_button_ignore"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toLeftOf="@+id/UpdateButton"
+                    android:layout_toStartOf="@+id/UpdateButton" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_below="@id/recentWidget"
+            android:id="@+id/Padding1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            android:id="@+id/recentWidget"
+            android:layout_below="@+id/updateView"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="false"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/recentlyRootTop"
+                android:paddingBottom="@dimen/recentlyRootBottom"
+                android:paddingLeft="@dimen/recentlyPadding"
+                android:paddingRight="@dimen/recentlyPadding">
+
+                <RelativeLayout
+                    android:drawSelectorOnTop="true"
+                    android:background="?attr/roundSelector"
+                    android:id="@+id/recentLayout1"
+                    android:layout_width="@dimen/recentlyWidth"
+                    android:layout_height="@dimen/recentlyHeight">
+
+                    <LinearLayout
+                        android:layout_marginTop="10sp"
+                        android:id="@+id/container1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/recentIcon1"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/recentlyIconSize" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/recentText1"
+                        android:layout_below="@id/container1"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:drawSelectorOnTop="true"
+                    android:background="?attr/roundSelector"
+                    android:id="@+id/recentLayout2"
+                    android:layout_width="@dimen/recentlyWidth"
+                    android:layout_height="@dimen/recentlyHeight"
+                    android:layout_centerHorizontal="true">
+
+                    <LinearLayout
+                        android:id="@+id/container2"
+                        android:layout_marginTop="10sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/recentIcon2"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/recentlyIconSize"  />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/recentText2"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/container2" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:drawSelectorOnTop="true"
+                    android:background="?attr/roundSelector"
+                    android:id="@+id/recentLayout3"
+                    android:layout_width="@dimen/recentlyWidth"
+                    android:layout_height="@dimen/recentlyHeight"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true">
+
+                    <LinearLayout
+                        android:layout_marginTop="10sp"
+                        android:id="@+id/container3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/recentIcon3"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/recentlyIconSize"  />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/recentText3"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/container3" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            app:cardElevation="2sp"
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            android:id="@+id/CardDashboard1"
+            android:layout_below="@id/Padding1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <ImageView
+                    android:src="@drawable/dashboard_adb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/softwareDetailsIcon" />
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/softwareDetailsIcon"
+                    android:id="@+id/softwareDetailsTitle"
+                    android:text="@string/dashboard_widget_software_title"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:paddingTop="2dp"
+                    android:layout_below="@id/softwareDetailsTitle"
+                    android:textColor="?secondaryTextColour"
+                    android:id="@+id/softwareDetails"
+                    android:layout_marginLeft="10sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_toRightOf="@+id/softwareDetailsIcon"
+                    android:layout_toEndOf="@+id/softwareDetailsIcon" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            android:id="@+id/CardDashboard2"
+            android:layout_below="@id/CardDashboard1"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <ImageView
+                    android:src="@drawable/dashboard_memory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/hardwareDetailsIcon" />
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/hardwareDetailsIcon"
+                    android:id="@+id/hardwareDetailsTitle"
+                    android:text="@string/dashboard_widget_hardware_title"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:paddingTop="2dp"
+                    android:textColor="?secondaryTextColour"
+                    android:id="@+id/hardwareDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:layout_toEndOf="@+id/hardwareDetailsIcon"
+                    android:layout_toRightOf="@+id/hardwareDetailsIcon"
+                    android:layout_below="@+id/hardwareDetailsTitle"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardElevation="2sp"
+            app:cardBackgroundColor="?attr/cardBackgroundColor"
+            android:id="@+id/cardBoost"
+            android:layout_below="@id/CardDashboard2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <ImageView
+                    android:id="@+id/boostIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/boost" />
+
+                <TextView
+                    android:id="@+id/boostTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/boostIcon"
+                    android:layout_toRightOf="@+id/boostIcon"
+                    android:layout_toLeftOf="@+id/boostButton"
+                    android:layout_toStartOf="@+id/boostButton"
+                    android:text="@string/dashboard_boost"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_marginLeft="10sp"
+                    android:textColor="?primaryTextColour"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/boostContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/boostTitle"
+                    android:layout_toEndOf="@+id/boostIcon"
+                    android:layout_toLeftOf="@+id/boostButton"
+                    android:layout_toStartOf="@+id/boostButton"
+                    android:layout_toRightOf="@+id/boostIcon"
+                    android:paddingTop="2dp"
+                    android:text="@string/dashboard_boost_content"
+                    android:layout_marginLeft="10sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="?secondaryTextColour" />
+
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/boostButton"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/boostContent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:text="@string/dashboard_boost_button" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</RelativeLayout>

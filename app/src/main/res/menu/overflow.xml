@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/about_settings"
+        android:orderInCategory="0"
+        android:title="@string/drawer_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_about"
+        android:orderInCategory="1"
+        android:title="@string/drawer_about"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_dashboard"
+        android:orderInCategory="2"
+        android:title="@string/drawer_dashboard"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_drawer"
+        android:orderInCategory="3"
+        android:title="@string/action_open_drawer"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_backup"
+        android:orderInCategory="4"
+        android:title="@string/drawer_backup"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_reboot"
+        android:orderInCategory="5"
+        android:title="@string/action_reboot"
+        app:showAsAction="never" />
+</menu>

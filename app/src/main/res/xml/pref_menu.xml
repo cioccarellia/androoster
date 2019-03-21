@@ -1,0 +1,39 @@
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/settings_menu">
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATECheckBoxPreference
+            android:key="menu_item_settings"
+            android:enabled="false"
+            android:checked="true"
+            android:title="@string/drawer_settings" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATECheckBoxPreference
+            android:key="menu_item_about"
+            android:checked="true"
+            android:title="@string/drawer_about" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATECheckBoxPreference
+            android:key="menu_item_dashboard"
+            android:checked="true"
+            android:title="@string/drawer_dashboard" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATECheckBoxPreference
+            android:key="menu_item_drawer"
+            android.checked="true"
+            android:title="@string/action_open_drawer" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATECheckBoxPreference
+            android:key="menu_item_backup"
+            android.checked="false"
+            android:title="@string/drawer_backup" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATECheckBoxPreference
+            android:key="menu_item_reboot"
+            android.checked="false"
+            android:title="@string/action_reboot" />
+
+
+    </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+
+</android.support.v7.preference.PreferenceScreen>

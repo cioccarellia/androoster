@@ -1,0 +1,58 @@
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/settings_theme">
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="light"
+            android:entries="@array/pref_general_theme_list_titles"
+            android:entryValues="@array/pref_general_theme_list_values"
+            android:key="activity_theme"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_theme" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
+            android:key="primary_color"
+            android:persistent="false"
+            android:summary="@string/pref_primary_description"
+            android:title="@string/primary_color" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
+            android:key="accent_color"
+            android:persistent="false"
+            android:summary="@string/pref_accent_description"
+            android:title="@string/accent_color" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="theme_toasts"
+            android:summaryOn="@string/pref_tint_toasts_content_on"
+            android:summaryOff="@string/pref_tint_toasts_content_off"
+            android:title="@string/pref_tint_toasts_title" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="dynamically_theme_toasts"
+            android:dependency="theme_toasts"
+            android:summaryOn="@string/pref_dynamic_toasts_content_on"
+            android:summaryOff="@string/pref_dynamic_toasts_content_off"
+            android:title="@string/pref_dynamic_toasts_title" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="theme_navbar"
+            android:summary="@string/pref_tint_navigation_content"
+            android:title="@string/pref_tint_navigation_title" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="light"
+            android:entries="@array/built_in_themes"
+            android:entryValues="@array/built_in_themes_values"
+            android:key="builtin_activity_theme"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_built_themes" />
+
+    </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+
+</android.support.v7.preference.PreferenceScreen>

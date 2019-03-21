@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:gravity="top"
+    android:orientation="vertical"
+    android:paddingBottom="26dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="50dp"
+    android:id="@+id/RootLayout"
+    android:layout_gravity="start"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:paddingRight="14sp"
+        android:paddingEnd="14sp"
+        android:id="@+id/Image"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
+        android:src="@drawable/launcher"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:paddingTop="18dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/Image"
+        android:text="Androoster"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:textColor="@color/white"
+        android:singleLine="false"
+        android:id="@+id/Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Title"
+        android:text="Something went terribly wrong"
+        android:layout_toRightOf="@+id/Image"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        tools:ignore="Deprecated" />
+
+</RelativeLayout>
