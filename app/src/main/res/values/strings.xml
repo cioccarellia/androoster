@@ -367,7 +367,7 @@
     <string name="battery_wifi_low">Consider selecting a higher value</string>
 
     <string name="battery_sleep_title">Sleep mode</string>
-    <string name="battery_sleep_content">Uses lett battery when the screen is off</string>
+    <string name="battery_sleep_content">Uses less battery when the screen is off</string>
 
     <string name="battery_fastcharge_title">Adaptive fast charging</string>
     <string name="battery_fastcharge_content">Enables built-in fast charging (Works only for devices that support fast charging)</string>
@@ -825,7 +825,7 @@
     <string name="upgrade_press_next">Press next</string>
 
     <string name="upgrade_item_1">Access every page</string>
-    <string name="upgrade_item_2">Locked access</string>
+    <string name="upgrade_item_2">Locked login</string>
     <string name="upgrade_item_3">Unleash full settings</string>
     <string name="upgrade_item_4">Use custom themes</string>
     <string name="upgrade_item_5">Support the app</string>

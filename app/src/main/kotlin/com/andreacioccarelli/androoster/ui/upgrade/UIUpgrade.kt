@@ -42,6 +42,7 @@ class UIUpgrade : BaseActivity(), BillingProcessor.IBillingHandler, BillingCodes
 
         billingProcessor = BillingProcessor.newBillingProcessor(baseContext, base64DeveloperKey, this)
         billingProcessor.initialize()
+
         bp = BillingProtector(baseContext)
 
         UI = UI(baseContext)
@@ -60,6 +61,7 @@ class UIUpgrade : BaseActivity(), BillingProcessor.IBillingHandler, BillingCodes
                     .positiveText(R.string.action_exit)
                     .onPositive { dialog, which ->
                         onBackPressed()
+                        finish()
                     }
                     .cancelable(false)
                     .show()
@@ -73,10 +75,13 @@ class UIUpgrade : BaseActivity(), BillingProcessor.IBillingHandler, BillingCodes
 
         toolbar.setBackgroundColor(ThemeStore.primaryColor(this))
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
+        }
 
         toolbar.setNavigationOnClickListener { onBackPressed() }
+
     }
 
     private fun setupTheme() {
@@ -92,18 +97,11 @@ class UIUpgrade : BaseActivity(), BillingProcessor.IBillingHandler, BillingCodes
         separator_text.textColor = accentColor
 
         if (dark) {
-            upgradeLayout.background = GradientGenerator.get(
-                    ContextCompat.getColor(baseContext, R.color.Grey_800),
-                    ContextCompat.getColor(baseContext, R.color.Grey_900),
-                    GradientDrawable.Orientation.TL_BR, 8f)
+
         } else {
             icon.image = ContextCompat.getDrawable(baseContext, R.drawable.launcher_light)
             //Performances issue: Image loaded twice
 
-            upgradeLayout.background = GradientGenerator.get(
-                    ContextCompat.getColor(baseContext, R.color.Grey_100),
-                    ContextCompat.getColor(baseContext, R.color.Grey_125),
-                    GradientDrawable.Orientation.TL_BR, 8f)
         }
 
         upgradeButton.background = GradientGenerator.get(baseContext, GradientDrawable.Orientation.TL_BR, 16f)
