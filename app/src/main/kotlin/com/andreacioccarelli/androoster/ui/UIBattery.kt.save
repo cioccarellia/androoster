@@ -1,4 +1,4 @@
-package com.andreacioccarelli.androoster.ui
+ccpackage com.andreacioccarelli.androoster.ui
 
 import android.annotation.SuppressLint
 import android.content.*
