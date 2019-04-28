@@ -120,7 +120,7 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
             }
         }
 
-        SwitchCPU4.setOnClickListener { _ ->
+        SwitchCPU4.setOnClickListener {
             if (SwitchCPU4.isChecked) {
                 Core.optimize_cpu_usage(true)
                 preferencesBuilder.putBoolean("CPU4", true)
@@ -132,7 +132,7 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
             }
         }
 
-        SwitchCPU5.setOnClickListener { _ ->
+        SwitchCPU5.setOnClickListener {
             if (SwitchCPU5.isChecked) {
                 Core.cpu_boost(true)
                 preferencesBuilder.putBoolean("CPU5", true)

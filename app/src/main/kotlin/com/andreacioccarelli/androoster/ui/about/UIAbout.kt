@@ -108,7 +108,6 @@ class UIAbout : BaseActivity(), View.OnClickListener {
             email.putExtra(Intent.EXTRA_EMAIL, "cioccarelliandrea01@gmail.com")
             email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
         }
-
     }
 
     private fun setUpViews() {
@@ -143,7 +142,6 @@ class UIAbout : BaseActivity(), View.OnClickListener {
     private fun setUpOnClickListeners() {
         layoutLicenses.setOnClickListener(this)
         layoutTranslations.setOnClickListener(this)
-        layoutChangelog.setOnClickListener(this)
 
         rateOnGooglePlay.setOnClickListener(this)
         appDetails.setOnClickListener(this)
@@ -172,7 +170,6 @@ class UIAbout : BaseActivity(), View.OnClickListener {
         when (v) {
             layoutLicenses -> showLicenseDialog()
             layoutTranslations -> showTranslatorsDialog()
-            layoutChangelog -> showChangelog()
             rateOnGooglePlay -> openUrl(RATE_ON_GOOGLE_PLAY)
             appDetails -> openAppDetails()
             writeMail -> {
@@ -204,10 +201,6 @@ class UIAbout : BaseActivity(), View.OnClickListener {
             startActivity(intent)
         }
 
-    }
-
-    private fun showChangelog() {
-        ChangelogDialog.create().show(supportFragmentManager, "CHANGELOG_DIALOG")
     }
 
     private fun showLicenseDialog() {

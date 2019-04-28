@@ -111,21 +111,8 @@ class RootFile {
     }
 
     /**
-     * Change permissions of a file
-     */
-
-    fun chmod(permissions: String) {
-        run("chmod " + permissions + ' '.toString() + file.absolutePath)
-    }
-
-    fun chmod(permissions: Int) {
-        chmod(permissions.toString())
-    }
-
-    /**
      * Returns true if file contains the String
      */
-
     operator fun contains(pattern: String): Boolean {
         return !this.isDirectory && run("cat " + file.absolutePath).getStdout().contains(pattern)
     }

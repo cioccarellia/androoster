@@ -9,8 +9,6 @@ import com.andreacioccarelli.androoster.BuildConfig
 
 @Suppress("ConstantConditionIf")
 open class CoreBase : FrameworkSurface {
-
-
     object SETTINGS {
         fun put(namespace: String, key: String, value: String) {
             if (BuildConfig.COMPATIBILITY_MODE) return

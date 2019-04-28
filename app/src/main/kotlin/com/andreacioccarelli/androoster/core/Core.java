@@ -97,11 +97,11 @@ public class Core extends CoreBase {
     public static void drawing_with_gpu(boolean s) {
         new Thread(() -> {
         if (s) {
-            Companion.buildprop("persist.sys.composition.type", FrameworkSurface.Companion.getCpu_composition_method());
-            Companion.buildprop("debug.composition.type", FrameworkSurface.Companion.getGpu_composition_method());
+            Companion.buildprop("persist.sys.composition.type", FrameworkSurface.Companion.cpu_composition_method);
+            Companion.buildprop("debug.composition.type", FrameworkSurface.Companion.cpu_composition_method);
         } else {
-            Companion.buildprop("persist.sys.composition.type", FrameworkSurface.Companion.getCpu_composition_method());
-            Companion.buildprop("debug.composition.type", FrameworkSurface.Companion.getCpu_composition_method());
+            Companion.buildprop("persist.sys.composition.type", FrameworkSurface.Companion.cpu_composition_method);
+            Companion.buildprop("debug.composition.type", FrameworkSurface.Companion.cpu_composition_method);
         }
         }).start();
     }
@@ -357,11 +357,9 @@ public class Core extends CoreBase {
     public static void lmk(int profile, PreferencesBuilder mBuilder) {
         new Thread(() -> {
             RootFile cost = new RootFile("/sys/module/lowmemorykiller/parameters/cost");
-            cost.chmod(644);
             cost.write("16");
 
             RootFile debug = new RootFile("/sys/module/lowmemorykiller/parameters/debug_level");
-            debug.chmod(664);
             debug.write("0");
 
             switch (profile) {
@@ -372,22 +370,22 @@ public class Core extends CoreBase {
                     }
                     break;
                 case 1:
-                    INSTANCE.run("echo " + FrameworkSurface.Companion.getLMK_VERY_LIGHT() + " > /sys/module/lowmemorykiller/parameters/minfree");
+                    INSTANCE.run("echo " + FrameworkSurface.Companion.LMK_VERY_LIGHT + " > /sys/module/lowmemorykiller/parameters/minfree");
                     break;
                 case 2:
-                    INSTANCE.run("echo " + FrameworkSurface.Companion.getLMK_LIGHT() + " > /sys/module/lowmemorykiller/parameters/minfree");
+                    INSTANCE.run("echo " + FrameworkSurface.Companion.LMK_LIGHT + " > /sys/module/lowmemorykiller/parameters/minfree");
                     break;
                 case 3:
-                    INSTANCE.run("echo " + FrameworkSurface.Companion.getLMK_NORMAL() + " > /sys/module/lowmemorykiller/parameters/minfree");
+                    INSTANCE.run("echo " + FrameworkSurface.Companion.LMK_NORMAL + " > /sys/module/lowmemorykiller/parameters/minfree");
                     break;
                 case 4:
-                    INSTANCE.run("echo " + FrameworkSurface.Companion.getLMK_AGGRESSIVE() + " > /sys/module/lowmemorykiller/parameters/minfree");
+                    INSTANCE.run("echo " + FrameworkSurface.Companion.LMK_AGGRESSIVE + " > /sys/module/lowmemorykiller/parameters/minfree");
                     break;
                 case 5:
-                    INSTANCE.run("echo " + FrameworkSurface.Companion.getLMK_VERY_AGGRESSIVE() + " > /sys/module/lowmemorykiller/parameters/minfree");
+                    INSTANCE.run("echo " + FrameworkSurface.Companion.LMK_VERY_AGGRESSIVE + " > /sys/module/lowmemorykiller/parameters/minfree");
                     break;
                 case 6:
-                    INSTANCE.run("echo " + FrameworkSurface.Companion.getLMK_INSANE() + " > /sys/module/lowmemorykiller/parameters/minfree");
+                    INSTANCE.run("echo " + FrameworkSurface.Companion.LMK_INSANE + " > /sys/module/lowmemorykiller/parameters/minfree");
                     break;
             }
         }).start();
@@ -889,9 +887,9 @@ public class Core extends CoreBase {
     public static void set_fast_charging(boolean s) {
         new Thread(() -> {
         if (s) {
-            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.getSYSTEM(), "adaptive_fast_charging", 1);
+            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.SYSTEM, "adaptive_fast_charging", 1);
         } else {
-            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.getSYSTEM(), "adaptive_fast_charging", 0);
+            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.SYSTEM, "adaptive_fast_charging", 0);
         }
         }).start();
     }
@@ -900,7 +898,7 @@ public class Core extends CoreBase {
      * Gets the current fast charging status
      */
     public static boolean get_fast_charging() {
-        return SETTINGS.INSTANCE.get(FrameworkSurface.Companion.getSYSTEM(), "adaptive_fast_charging").equals("1");
+        return SETTINGS.INSTANCE.get(FrameworkSurface.Companion.SYSTEM, "adaptive_fast_charging").equals("1");
     }
 
     /**
@@ -909,9 +907,9 @@ public class Core extends CoreBase {
     public static void wireless_fast_charging(boolean s) {
         new Thread(() -> {
         if (s) {
-            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.getSYSTEM(), "wireless_fast_charging", 1);
+            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.SYSTEM, "wireless_fast_charging", 1);
         } else {
-            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.getSYSTEM(), "wireless_fast_charging", 0);
+            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.SYSTEM, "wireless_fast_charging", 0);
         }
         }).start();
     }
@@ -921,7 +919,7 @@ public class Core extends CoreBase {
      * Gets the current wireless fast charging status
      */
     public static boolean get_wireless_fast_charging() {
-        return SETTINGS.INSTANCE.get(FrameworkSurface.Companion.getSYSTEM(), "wireless_fast_charging").equals("1");
+        return SETTINGS.INSTANCE.get(FrameworkSurface.Companion.SYSTEM, "wireless_fast_charging").equals("1");
     }
 
     /**
@@ -1138,10 +1136,10 @@ public class Core extends CoreBase {
         new Thread(() -> {
         if (s) {
             Companion.buildprop("ro.allow.mock.location", 1);
-            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.getSECURE(), "mock_location", 1);
+            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.SECURE, "mock_location", 1);
         } else {
             Companion.buildprop("ro.allow.mock.location", 0);
-            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.getSECURE(), "mock_location", 0);
+            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.SECURE, "mock_location", 0);
         }
         }).start();
     }
@@ -1234,7 +1232,7 @@ public class Core extends CoreBase {
      */
     public static String kernel_info() {
         String details = INSTANCE.run("uname -a").getStdout();
-        if (details.trim().length() < 8) return "Linux Kernel on Android " + String.valueOf(Build.VERSION.SDK_INT);
+        if (details.trim().length() < 8) return "Linux Kernel on Android " + Build.VERSION.SDK_INT;
         return details;
     }
 
@@ -1309,9 +1307,9 @@ public class Core extends CoreBase {
     public static void allow_unknown_sources(boolean s) {
         new Thread(() -> {
         if (s) {
-            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.getSECURE(), "install_non_market_apps", 1);
+            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.SECURE, "install_non_market_apps", 1);
         } else {
-            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.getSECURE(), "install_non_market_apps", 0);
+            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.SECURE, "install_non_market_apps", 0);
         }
         }).start();
     }
@@ -1322,9 +1320,9 @@ public class Core extends CoreBase {
     public static void secure_sources_usb_adb(boolean s) {
         new Thread(() -> {
         if (s) {
-            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.getSECURE(), "verifier_verify_adb_installs", 1);
+            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.SECURE, "verifier_verify_adb_installs", 1);
         } else {
-            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.getSECURE(), "verifier_verify_adb_installs", 0);
+            SETTINGS.INSTANCE.put(FrameworkSurface.Companion.SECURE, "verifier_verify_adb_installs", 0);
         }
         }).start();
     }
@@ -1343,7 +1341,7 @@ public class Core extends CoreBase {
     public static void disable_google_battery_drain(boolean s) {
         new Thread(() -> {
             if (s) {
-                
+
             }
         }).start();
     }

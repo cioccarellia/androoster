@@ -5,14 +5,13 @@ import android.annotation.SuppressLint
 @SuppressLint("SdCardPath")
 interface Governors {
     companion object {
-
-        val USERSPACE = "userspace"
-        val PERFORMANCES = "performances"
-        val INTERACTIVE = "interactive"
-        val POWERSAVE = "powersave"
-        val MIN_MAX = "minmax"
-        val CONSERVATIVE = "conservative"
-        val ONDEMAND = "ondemand"
+        const val USERSPACE = "userspace"
+        const val PERFORMANCES = "performances"
+        const val INTERACTIVE = "interactive"
+        const val POWERSAVE = "powersave"
+        const val MIN_MAX = "minmax"
+        const val CONSERVATIVE = "conservative"
+        const val ONDEMAND = "ondemand"
     }
 
 }
