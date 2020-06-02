@@ -43,7 +43,7 @@ class UIUpgrade : BaseActivity(), BillingProcessor.IBillingHandler, BillingCodes
         billingProcessor = BillingProcessor.newBillingProcessor(baseContext, base64DeveloperKey, this)
         billingProcessor.initialize()
 
-        bp = BillingProtector(baseContext)
+        bp = BillingProtector(baseContext, simulateSafeEnvironment = false, coroutineContext = Dispatchers.De)
 
         UI = UI(baseContext)
 
@@ -101,7 +101,6 @@ class UIUpgrade : BaseActivity(), BillingProcessor.IBillingHandler, BillingCodes
         } else {
             icon.image = ContextCompat.getDrawable(baseContext, R.drawable.launcher_light)
             //Performances issue: Image loaded twice
-
         }
 
         upgradeButton.background = GradientGenerator.get(baseContext, GradientDrawable.Orientation.TL_BR, 16f)
@@ -113,7 +112,7 @@ class UIUpgrade : BaseActivity(), BillingProcessor.IBillingHandler, BillingCodes
             vibrator.vibrate(100)
 
             when {
-                bp.arePirateAppsInstalled() -> {
+                bp.getPirateAppsList().isEmpty() -> {
                     MaterialDialog.Builder(this)
                             .title(R.string.pirate_apps_title)
                             .content(R.string.pirate_apps_content)
