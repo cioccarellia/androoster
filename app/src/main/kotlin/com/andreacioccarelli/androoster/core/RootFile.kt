@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.util.Log
 import com.andreacioccarelli.androoster.core.TerminalCore.mount
 import com.andreacioccarelli.androoster.core.TerminalCore.run
-import com.crashlytics.android.Crashlytics
 import com.jrummyapps.android.shell.Shell
 import java.io.File
 
@@ -171,14 +170,14 @@ class RootFile {
             rawList += "${file.path}/$fileName\n"
         }
 
-        Crashlytics.log(0, "RootFile", "Advanced mode = $advancedMode\n" +
+        /*Crashlytics.log(0, "RootFile", "Advanced mode = $advancedMode\n" +
                 "Number of files found: ${filesList.size}\n" +
-                "Filelist: $rawList")
+                "Filelist: $rawList")*/
 
-        Log.d( "RootFile", "Advanced mode = $advancedMode\n" +
+        /*Log.d( "RootFile", "Advanced mode = $advancedMode\n" +
                 "ls output: $testOutput \n" +
                 "Number of files found: ${filesList.size}\n" +
-                "Filelist: $rawList")
+                "Filelist: $rawList")*/
 
         return filesList
     }

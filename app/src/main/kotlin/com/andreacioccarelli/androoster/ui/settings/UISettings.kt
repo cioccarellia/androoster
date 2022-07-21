@@ -122,7 +122,6 @@ class UISettings : BaseActivity(), ColorChooserDialog.ColorCallback, LaunchStruc
         internal lateinit var auth_setup_hint_layout: android.support.design.widget.TextInputLayout
 
 
-
         override fun onCreatePreferences(bundle: Bundle?, s: String?) {
             addPreferencesFromResource(R.xml.pref_general)
             addPreferencesFromResource(R.xml.pref_animations)
@@ -506,7 +505,7 @@ class UISettings : BaseActivity(), ColorChooserDialog.ColorCallback, LaunchStruc
                     auth_setup_hint = setupDialog.customView!!.findViewById(R.id.auth_setup_hint)
 
                     val casa = listOf("Tokyo", "Rio", "Berlin", "Moscou", "Denver", "Helsinki", "Oslo", "Nairobi")
-                    auth_setup_hint.hint = if (preferencesBuilder.getBoolean("casa_di_carta",false))
+                    auth_setup_hint.hint = if (preferencesBuilder.getBoolean("casa_di_carta", false))
                         casa[Random().nextInt(casa.size)]
                     else
                         getString(R.string.dialog_hint)
@@ -704,9 +703,9 @@ class UISettings : BaseActivity(), ColorChooserDialog.ColorCallback, LaunchStruc
                                             signedForm = false
                                             clearErrors()
                                             if (auth_password.length >= auth_confirm.length) {
-                                                auth_setup_password_layout.error = if (isPIN) 
+                                                auth_setup_password_layout.error = if (isPIN)
                                                     getString(R.string.dialog_mismatch_pin)
-                                                else 
+                                                else
                                                     getString(R.string.dialog_mismatch_password)
                                             } else {
                                                 auth_setup_confirm_layout.error = if (isPIN)
@@ -828,7 +827,7 @@ class UISettings : BaseActivity(), ColorChooserDialog.ColorCallback, LaunchStruc
                 auth_setup_hint = setupDialog.customView!!.findViewById(R.id.auth_setup_hint)
 
                 val casa = listOf("Tokyo", "Rio", "Berlin", "Moscoù", "Denver", "Helsinki", "Oslo", "Nairobi")
-                auth_setup_hint.hint = if (preferencesBuilder.getBoolean("casa_di_carta",false))
+                auth_setup_hint.hint = if (preferencesBuilder.getBoolean("casa_di_carta", false))
                     casa[Random().nextInt(casa.size)]
                 else
                     getString(R.string.dialog_hint)
@@ -968,7 +967,7 @@ class UISettings : BaseActivity(), ColorChooserDialog.ColorCallback, LaunchStruc
         }
 
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-            
+
         }
 
         companion object {
@@ -990,9 +989,11 @@ class UISettings : BaseActivity(), ColorChooserDialog.ColorCallback, LaunchStruc
                 }
             }
 
-            private fun setSummary(preference: Preference, stringValue: String = PreferenceManager
-                    .getDefaultSharedPreferences(preference.context)
-                    .getString(preference.key, "")) {
+            private fun setSummary(
+                    preference: Preference,
+                    stringValue: String = PreferenceManager.getDefaultSharedPreferences(preference.context).getString(preference.key, "")
+                            ?: ""
+            ) {
                 if (preference is ListPreference) {
                     val index = preference.findIndexOfValue(stringValue)
                     preference.setSummary(

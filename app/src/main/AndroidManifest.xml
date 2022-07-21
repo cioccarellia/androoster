@@ -11,13 +11,13 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
@@ -28,7 +28,7 @@
         android:protectionLevel="signature" />
 
     <application
-        android:name="android.support.multidex.MultiDexApplication"
+        android:name=".App"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -37,8 +37,7 @@
         android:resizeableActivity="true"
         android:supportsPictureInPicture="false"
         android:supportsRtl="true"
-        android:theme="@style/AndroosterActivity"
-        tools:targetApi="n">
+        android:theme="@style/AndroosterActivity">
 
         <meta-data
             android:name="android.max_aspect"
@@ -46,7 +45,8 @@
 
         <activity
             android:name=".ui.boot.UIBoot"
-            android:theme="@style/AndroosterActivity">
+            android:theme="@style/AndroosterActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -186,7 +186,8 @@
             android:label="@string/title_activity_upgrade"
             android:theme="@style/AndroosterActivity" />
 
-        <receiver android:name=".service.BootService"  android:exported="true"
+        <receiver android:name=".service.BootService"
+            android:exported="true"
             android:permission="android.permission.ACCESS_SUPERUSER">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>

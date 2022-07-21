@@ -10,7 +10,6 @@ import com.andreacioccarelli.androoster.ui.backup.UIBackup
 import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
 import com.andreacioccarelli.androoster.ui.settings.UISettings
 import com.andreacioccarelli.androoster.ui.upgrade.UIUpgrade
-import com.crashlytics.android.Crashlytics
 import es.dmoral.toasty.Toasty
 
 class LaunchManager : LaunchStruct {
@@ -24,8 +23,8 @@ class LaunchManager : LaunchStruct {
                     ctx.startActivity(i2)
                 } catch (e: ActivityNotFoundException) {
                     e.printStackTrace()
-                    Crashlytics.logException(e)
-                    Crashlytics.log("Error, class not set as target in launchStruct")
+                    // Crashlytics.logException(e)
+                    // Crashlytics.log("Error, class not set as target in launchStruct")
                     Toasty.error(ctx, "Error, class not set as target in launchStruct", 1).show()
                 }
 

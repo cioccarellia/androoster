@@ -7,7 +7,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.andreacioccarelli.androoster.R;
-import com.andreacioccarelli.androoster.tools.PreferencesBuilder;
 import com.andreacioccarelli.androoster.ui.settings.SettingStore;
 import com.mikepenz.materialdrawer.Drawer;
 

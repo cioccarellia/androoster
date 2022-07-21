@@ -19,7 +19,6 @@ import com.andreacioccarelli.androoster.tools.PreferencesBuilder
 import com.andreacioccarelli.androoster.tools.UI
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.andreacioccarelli.androoster.ui.dashboard.RecentWidget
-import com.crashlytics.android.Crashlytics
 import com.github.zawadz88.materialpopupmenu.popupMenu
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
@@ -208,7 +207,7 @@ class UIBackup : BaseActivity() {
                         DateGenerator.toHumanDate(file.name.split("-")[1]),
                         file))
             } catch (oob: IndexOutOfBoundsException) {
-                Crashlytics.logException(oob)
+                //Crashlytics.logException(oob)
 
                 UI.unconditionalError(getString(R.string.backup_error_listing))
                 progressBar.visibility = View.GONE

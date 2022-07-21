@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Base64;
 
-import com.crashlytics.android.Crashlytics;
-
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
@@ -292,7 +290,7 @@ class SecurePreferences {
     }
 
     public final void putString(String key, String Value) {
-        Crashlytics.log(0, "PreferencesBuilder", "Setting " + key + " to " + String.valueOf(Value));
+        // Crashlytics.log(0, "PreferencesBuilder", "Setting " + key + " to " + String.valueOf(Value));
         MainStream.edit().putString(encrypt(key, KeyEncrypter), encrypt(Value, writer)).apply();
     }
 
@@ -313,7 +311,7 @@ class SecurePreferences {
     }
 
     public final void putInt(String key, int Value) {
-        Crashlytics.log(0, "PreferencesBuilder", "Setting " + key + " to " + String.valueOf(Value));
+        //Crashlytics.log(0, "PreferencesBuilder", "Setting " + key + " to " + String.valueOf(Value));
         MainStream.edit().putString(encrypt(key, KeyEncrypter), encrypt(String.valueOf(Value), writer)).apply();
     }
 
@@ -333,7 +331,7 @@ class SecurePreferences {
     }
 
     public final void putBoolean(String key, boolean Value) {
-        Crashlytics.log(0, "PreferencesBuilder", "Setting " + key + " to " + String.valueOf(Value));
+        // Crashlytics.log(0, "PreferencesBuilder", "Setting " + key + " to " + String.valueOf(Value));
         MainStream.edit().putString(encrypt(key, KeyEncrypter), encrypt(String.valueOf(Value), writer)).apply();
     }
 

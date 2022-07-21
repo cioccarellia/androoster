@@ -72,5 +72,4 @@ fastlane/readme.md
 .idea
 build
 .git
-local.properties
 app/release/output.json

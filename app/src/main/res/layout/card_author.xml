@@ -106,39 +106,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/addToGooglePlusCircles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/rectSelector"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:minHeight="@dimen/md_listitem_height"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:focusable="true">
-
-            <com.andreacioccarelli.androoster.service.IconImageView
-                android:id="@+id/icon_google_plus"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:srcCompat="@drawable/about_google_plus"
-                tools:ignore="ContentDescription,UnusedAttribute" />
-
-            <TextView
-                android:textColor="?primaryTextColour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginStart="32dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="@string/add_to_google_plus_circles"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/followOnGithub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -200,39 +167,6 @@
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:text="@string/follow_on_twitter"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/visitWebsite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/rectSelector"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:minHeight="@dimen/md_listitem_height"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:focusable="true">
-
-            <com.andreacioccarelli.androoster.service.IconImageView
-                android:id="@+id/icon_website"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:srcCompat="@drawable/about_open_in_browser"
-                tools:ignore="ContentDescription,UnusedAttribute" />
-
-            <TextView
-                android:textColor="?primaryTextColour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginStart="32dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="@string/visit_website"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
         </LinearLayout>

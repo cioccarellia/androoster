@@ -71,7 +71,7 @@ class UINetworking : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private fun refresh(context: Context?) {
         val connectionManager: ConnectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        val wifiState: Boolean = connectionManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected
+        val wifiState: Boolean = connectionManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)?.isConnected ?: true
         val dataState: Boolean = ConnectionsManager.isDataOn(context, connectionManager)
         val isOnline = wifiState || dataState
 
@@ -228,7 +228,7 @@ class UINetworking : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             defaultValue.setOnClickListener {
                 val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("", defaultValue.text)
-                clipboard.primaryClip = clip
+                clipboard.setPrimaryClip(clip)
                 UI.info(getString(R.string.action_copied))
                 vibrator.vibrate(50)
             }

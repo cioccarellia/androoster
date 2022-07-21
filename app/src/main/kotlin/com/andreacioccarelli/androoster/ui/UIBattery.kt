@@ -38,7 +38,6 @@ import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
 import com.andreacioccarelli.androoster.ui.settings.SettingStore
 import com.andreacioccarelli.androoster.ui.settings.SettingsReflector
 import com.andreacioccarelli.androoster.ui.settings.UISettings
-import com.crashlytics.android.Crashlytics
 import com.jrummyapps.android.shell.Shell
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
@@ -195,8 +194,8 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         SwitchBattery3.isChecked = preferencesBuilder.getBoolean("Battery3", false)
         SwitchBattery4.isChecked = preferencesBuilder.getBoolean("Battery4", false)
         SwitchBattery6.isChecked = preferencesBuilder.getBoolean("Battery6", false)
-        SwitchBattery7.isChecked = preferencesBuilder.getBoolean("Battery7", false)
-        SwitchBattery8.isChecked = preferencesBuilder.getBoolean("Battery8", false)
+        // SwitchBattery7.isChecked = preferencesBuilder.getBoolean("Battery7", false)
+        // SwitchBattery8.isChecked = preferencesBuilder.getBoolean("Battery8", false)
         SwitchBattery9.isChecked = preferencesBuilder.getBoolean("Battery9", false)
 
 
@@ -326,8 +325,8 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         CardBattery3.setOnClickListener { _ -> SwitchBattery3.performClick() }
         CardBattery4.setOnClickListener { _ -> SwitchBattery4.performClick() }
         CardBattery6.setOnClickListener { _ -> SwitchBattery6.performClick() }
-        CardBattery7.setOnClickListener { _ -> SwitchBattery7.performClick() }
-        CardBattery8.setOnClickListener { _ -> SwitchBattery8.performClick() }
+        // CardBattery7.setOnClickListener { _ -> SwitchBattery7.performClick() }
+        // CardBattery8.setOnClickListener { _ -> SwitchBattery8.performClick() }
         CardBattery9.setOnClickListener { _ -> SwitchBattery9.performClick() }
 
         SwitchBattery3.setOnClickListener { _ ->
@@ -376,6 +375,7 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             }
         }
 
+        /*
         SwitchBattery7.setOnClickListener { _ ->
             if (!pluggedIn) {
                 if (SwitchBattery7.isChecked) {
@@ -404,7 +404,7 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 SwitchBattery8.isChecked = !SwitchBattery8.isChecked
                 UI.warning(getString(R.string.battery_unplug))
             }
-        }
+        }*/
 
         SwitchBattery9.setOnClickListener { _ ->
             Thread.sleep(500)
@@ -421,13 +421,14 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         }
 
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             cardBatteryDoze.visibility = View.VISIBLE
             buttonBatteryDoze.setOnClickListener {
                 try {
                     startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
                 } catch (anf: ActivityNotFoundException) {
-                    Crashlytics.logException(anf)
+                    // Crashlytics.logException(anf)
                     UI.unconditionalError(getString(R.string.error_activity_settings_not_found))
                     startActivity(Intent(Settings.ACTION_SETTINGS))
                 }
@@ -456,8 +457,8 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         ATH.setTint(SwitchBattery3, accentColor)
         ATH.setTint(SwitchBattery4, accentColor)
         ATH.setTint(SwitchBattery6, accentColor)
-        ATH.setTint(SwitchBattery7, accentColor)
-        ATH.setTint(SwitchBattery8, accentColor)
+        // ATH.setTint(SwitchBattery7, accentColor)
+        // ATH.setTint(SwitchBattery8, accentColor)
         ATH.setTint(SwitchBattery9, accentColor)
     }
 

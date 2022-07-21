@@ -1,6 +1,5 @@
 package com.andreacioccarelli.androoster.core
 
-import com.crashlytics.android.Crashlytics
 import com.jrummyapps.android.shell.CommandResult
 import com.jrummyapps.android.shell.Shell
 import org.jetbrains.anko.doAsync
@@ -13,12 +12,12 @@ import org.jetbrains.anko.doAsync
 object TerminalCore {
     fun run(c: String): CommandResult {
         mount()
-        Crashlytics.log(0, "TerminalCore run()", c)
+        // Crashlytics.log(0, "TerminalCore run()", c)
         return Shell.SU.run(c)
     }
 
     fun crun(c: String): CommandResult {
-        Crashlytics.log(0, "TerminalCore crun()", c)
+        // Crashlytics.log(0, "TerminalCore crun()", c)
         return Shell.SU.run(c)
     }
 
@@ -41,43 +40,43 @@ object TerminalCore {
         for (str in c) {
             log += "$c\n"
         }
-        Crashlytics.log(0, "TerminalCore run()", log)
+        // Crashlytics.log(0, "TerminalCore run()", log)
         mount()
         return Shell.SU.run(*c)
     }
 
     fun mount(): CommandResult {
-        Crashlytics.log(0, "TerminalCore", "Mount RW")
+        // Crashlytics.log(0, "TerminalCore", "Mount RW")
         return Shell.SU.run("mount -o remount,rw,remount,rw,remount /system",
                 "mount -o remount,rw,remount,rw,remount /sys",
                 "mount -o remount,rw,remount,rw,remount /data")
     }
 
     fun mountro(): CommandResult {
-        Crashlytics.log(0, "TerminalCore", "Mount RO")
+        // Crashlytics.log(0, "TerminalCore", "Mount RO")
         return Shell.SU.run("mount -o remount,ro,remount,ro,remount /system",
                 "mount -o remount,ro,remount,ro,remount /data")
     }
 
 
     fun mount(fs: String): CommandResult {
-        Crashlytics.log(0, "TerminalCore", "Mount RW $fs")
+        // Crashlytics.log(0, "TerminalCore", "Mount RW $fs")
         return Shell.SU.run("mount -o remount,rw,remount,rw,remount $fs")
     }
 
     fun mountro(fs: String): CommandResult {
-        Crashlytics.log(0, "TerminalCore", "Mount RO $fs")
+        // Crashlytics.log(0, "TerminalCore", "Mount RO $fs")
         return Shell.SU.run("mount -o remount,ro,remount,ro,remount $fs")
     }
 
     internal object SETTINGS {
         fun put(namespace: String, key: String, value: String) {
-            Crashlytics.log(0, "TerminalCore", "Settings put $namespace $key $value")
+            // Crashlytics.log(0, "TerminalCore", "Settings put $namespace $key $value")
             doAsync { Shell.SU.run("settings put " + namespace + ' '.toString() + key + ' '.toString() + value) }
         }
 
         fun delete(namespace: String, key: String) {
-            Crashlytics.log(0, "TerminalCore", "Settings delete $namespace $key")
+            // Crashlytics.log(0, "TerminalCore", "Settings delete $namespace $key")
             doAsync { Shell.SU.run("settings delete $namespace") }
         }
 
@@ -87,7 +86,7 @@ object TerminalCore {
 
         operator fun get(namespace: String, key: String): String {
             val result = Shell.SU.run("settings get " + namespace + ' '.toString() + key).getStdout().trim { it <= ' ' }
-            Crashlytics.log(0, "TerminalCore", " Settings get $namespace $key: $result")
+            // Crashlytics.log(0, "TerminalCore", " Settings get $namespace $key: $result")
             return result
         }
     }

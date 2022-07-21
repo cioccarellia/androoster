@@ -20,7 +20,7 @@ object ConnectionsManager {
             // get the setting for "mobile data"
             method.invoke(cm) as Boolean
         } catch (e: Exception) {
-            connectionsManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected
+            connectionsManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)?.isConnected ?: false
         }
     }
 

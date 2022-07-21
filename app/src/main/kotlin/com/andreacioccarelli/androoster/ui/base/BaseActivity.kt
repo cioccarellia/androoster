@@ -33,7 +33,6 @@ import com.andreacioccarelli.androoster.tools.GradientGenerator
 import com.andreacioccarelli.androoster.tools.PreferencesBuilder
 import com.andreacioccarelli.androoster.ui.settings.SettingStore
 import com.andreacioccarelli.androoster.ui.settings.SettingsWrapper
-import com.crashlytics.android.Crashlytics
 import com.jrummyapps.android.shell.CommandResult
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
@@ -92,10 +91,12 @@ open class BaseActivity : ATHToolbarActivity(), FrameworkSurface {
             hashBuilder.getString("encryptedKey", "0") == CryptoFactory.sha256(CryptoFactory.sha1(preferencesBuilder.getString("baseKey", "1")))
         } else false
 
+        /*
         doAsync {
             Crashlytics.setBool("is_dark_mode_enabled", dark)
             Crashlytics.setBool("107", p)
         }
+        */
     }
 
     private fun initializeTheme() {
@@ -107,9 +108,6 @@ open class BaseActivity : ATHToolbarActivity(), FrameworkSurface {
                     .statusBarColor(ContextCompat.getColor(baseContext, R.color.primary))
                     .accentColorRes(R.color.accent)
                     .commit()
-            Crashlytics.setBool("is_first_time", true)
-        } else {
-            Crashlytics.setBool("is_first_time", false)
         }
     }
 
@@ -284,12 +282,7 @@ open class BaseActivity : ATHToolbarActivity(), FrameworkSurface {
 
     @SuppressLint("HardwareIds")
     fun getDeviceSerial(ctx: Context): String {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_PHONE_STATE)
-                == PackageManager.PERMISSION_GRANTED) {
-            Build.getSerial()
-        } else {
-            Build.SERIAL
-        }
+        return Build.SERIAL ?: "unknown serial"
     }
 
     fun openStore() {

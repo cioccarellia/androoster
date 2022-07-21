@@ -31,7 +31,8 @@
             android:clickable="true"
             android:drawSelectorOnTop="true"
             android:foreground="?attr/selectableItemBackground"
-            android:focusable="true">
+            android:focusable="true"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -180,16 +181,16 @@
                     </LinearLayout>
 
                     <TextView
-                        android:textStyle="bold"
                         android:id="@+id/recentText1"
-                        android:layout_below="@id/container1"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_below="@id/container1"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 

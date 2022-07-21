@@ -15,7 +15,6 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.6.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.3'
-        classpath 'io.fabric.tools:gradle:1.31.2'
         classpath "gradle.plugin.com.github.konifar.gradle:plugin:0.3.3"
     }
 }

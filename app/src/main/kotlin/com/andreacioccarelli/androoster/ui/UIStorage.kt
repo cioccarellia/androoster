@@ -33,7 +33,6 @@ import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
 import com.andreacioccarelli.androoster.ui.settings.SettingStore
 import com.andreacioccarelli.androoster.ui.settings.SettingsReflector
 import com.andreacioccarelli.androoster.ui.settings.UISettings
-import com.crashlytics.android.Crashlytics
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
 import com.mikepenz.materialdrawer.Drawer
@@ -216,9 +215,10 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 try {
                     startActivity(packageManager.getLaunchIntentForPackage("eu.thedarken.sdm"))
                 } catch(anf: ActivityNotFoundException) {
+                    /*
                     Crashlytics.logException(anf)
                     Crashlytics.log(1, "UIStorage", "eu.thedarken.sdm not found")
-
+                    */
                 }
             } else {
                 startActivity(Intent(Intent.ACTION_VIEW,

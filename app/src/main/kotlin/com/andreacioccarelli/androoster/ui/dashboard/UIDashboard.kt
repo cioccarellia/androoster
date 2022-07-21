@@ -3,13 +3,8 @@
 package com.andreacioccarelli.androoster.ui.dashboard
 
 import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.graphics.PorterDuff
-import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -19,6 +14,7 @@ import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.Toolbar
 import android.view.*
+import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.BuildConfig
 import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.core.HardwareCore
@@ -31,7 +27,6 @@ import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.andreacioccarelli.androoster.ui.settings.SettingStore
 import com.andreacioccarelli.androoster.ui.settings.SettingsReflector
 import com.andreacioccarelli.androoster.ui.settings.UISettings
-import com.crashlytics.android.Crashlytics
 import com.jaredrummler.android.device.DeviceName
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
@@ -57,25 +52,6 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
     internal var doubleBackToExitPressedOnce = false
     var menu: Menu? = null
 
-    private var networkConnectionReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-
-        @SuppressLint("SetTextI18n")
-        override fun onReceive(context: Context?, intent: Intent?) {
-            refresh(context)
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun refresh(context: Context?) {
-        val connectionManager: ConnectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        val wifiState: Boolean = connectionManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected
-        val dataState: Boolean = ConnectionsManager.isDataOn(context, connectionManager)
-        val isOnline = wifiState || dataState
-
-        networkAvailable = isOnline
-    }
-
 
     @SuppressLint("HardwareIds", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,20 +59,20 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         setContentView(R.layout.dashboard)
         setSupportActionBar(toolbar)
         animateContent(content as ViewGroup)
-        
+
         val prefs = PreferencesBuilder(baseContext, PreferencesBuilder.defaultFilename)
         RecentWidget.init(this@UIDashboard)
 
-        this.registerReceiver(this.networkConnectionReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-        refresh(baseContext)
         setUpDrawer(toolbar)
 
         preferencesBuilder = PreferencesBuilder(baseContext)
         preferencesBuilder.putInt(XmlKeys.LAST_OPENED, LaunchStruct.DASHBOARD_ACTIVITY)
 
-        title = getString(R.string.app_name)
-        if (prefs.getBoolean("pro", false)) title = getString(R.string.app_name_pro)
-
+        if (prefs.getBoolean("pro", false)) {
+            title = getString(R.string.app_name_pro)
+        } else {
+            title = getString(R.string.app_name)
+        }
 
         softwareDetailsIcon.setColorFilter(ATHUtil.resolveColor(this@UIDashboard, R.attr.iconColor), PorterDuff.Mode.SRC_IN)
         hardwareDetailsIcon.setColorFilter(ATHUtil.resolveColor(this@UIDashboard, R.attr.iconColor), PorterDuff.Mode.SRC_IN)
@@ -140,19 +116,19 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
 
         val playServiceState = try {
             "Play Services: ${packageManager.getPackageInfo("com.google.android.gms", 0)?.versionName}\n"
-        } catch (r: PackageManager.NameNotFoundException) {
+        } catch (r: Exception) {
             ""
         }
 
         softwareDetails.text =
                 "${getString(R.string.dashboard_widget_software_android_version)}: ${Build.VERSION.RELEASE}\n" +
-                "${getString(R.string.dashboard_widget_software_bootloader)}: ${Build.BOOTLOADER}\n" +
-                "${getString(R.string.dashboard_widget_software_fingerprint)}: ${Build.FINGERPRINT}\n" +
-                "${getString(R.string.dashboard_widget_software_root)}: ${preferencesBuilder.getString("rootManagerDetails", getString(R.string.dashboard_widget_software_root_installed))}\n" +
-                "${getString(R.string.dashboard_widget_software_build)}: ${Build.ID}\n" +
-                "${getString(R.string.dashboard_widget_software_android_id)}: ${HardwareCore.getAndroidId(baseContext)}\n" +
-                playServiceState +
-                "${getString(R.string.dashboard_widget_software_kernel)}: ${preferencesBuilder.getString("kernelDetails", "Linux")}"
+                        "${getString(R.string.dashboard_widget_software_bootloader)}: ${Build.BOOTLOADER}\n" +
+                        "${getString(R.string.dashboard_widget_software_fingerprint)}: ${Build.FINGERPRINT}\n" +
+                        "${getString(R.string.dashboard_widget_software_root)}: ${preferencesBuilder.getString("rootManagerDetails", getString(R.string.dashboard_widget_software_root_installed))}\n" +
+                        "${getString(R.string.dashboard_widget_software_build)}: ${Build.ID}\n" +
+                        "${getString(R.string.dashboard_widget_software_android_id)}: ${HardwareCore.getAndroidId(baseContext)}\n" +
+                        playServiceState +
+                        "${getString(R.string.dashboard_widget_software_kernel)}: ${preferencesBuilder.getString("kernelDetails", "Linux")}"
 
 
         hardwareDetails.text = "RAM: ${HardwareCore.ram}\n" +
@@ -167,7 +143,7 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                 getString(R.string.graphic_widget_density) + " ${(resources.displayMetrics.density * 160f).toInt()}dpi"
 
         if (!networkAvailable) {
-            Crashlytics.setBool("is_internet_on", false)
+            // Crashlytics.setBool("is_internet_on", false)
         } else {
             notificationTitle.text = getString(R.string.dashboard_update_title_checking) + " " + BuildConfig.VERSION_NAME
             notificationTextView.text = getString(R.string.dashboard_update_content_checking)
@@ -193,11 +169,24 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         boostButton.setTextColor(accentColor)
         ATH.setTint(DashboardBase, primaryColor)
         toolbar.setBackgroundColor(primaryColor)
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(networkConnectionReceiver)
+        // Free pack
+        if (!prefs.getBoolean("notified_pro_version", false) && !prefs.getBoolean("pro", false)) {
+            MaterialDialog.Builder(this)
+                    .title("Free Androoster Pro")
+                    .content("""Androoster has just become free. 
+                        |You can enable pro version by visiting the upgrade page and clicking the upgrade button, no purchase is required anymore. 
+                        |This software has been around for a long time and I felt it was time to make it available for everyone. 
+                        |Thank you very much to everybody who supported my work through purchases, and I wish you all happy tweaking and learning.""".trimMargin())
+                    .positiveText("COOL")
+                    .onPositive { dialog, which ->
+                        dialog.dismiss()
+                        prefs.putBoolean("notified_pro_version", true)
+                    }
+                    .autoDismiss(false)
+                    .cancelable(false)
+                    .show()
+        }
     }
 
     override fun onResume() {
@@ -222,7 +211,8 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         }
         try {
             SettingsReflector.updateDashboardMenu(menu!!, preferencesBuilder)
-        } catch (n: KotlinNullPointerException) {}
+        } catch (n: KotlinNullPointerException) {
+        }
 
         val dispatcher = RecentWidgetProvider(this@UIDashboard)
 

@@ -129,14 +129,6 @@
             android:padding="8dp">
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/karimGooglePlus"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/google_plus"
-                android:textColor="@color/Red_500" />
-
-            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/karimGitHub"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
@@ -147,6 +139,77 @@
 
     </LinearLayout>
 
+
+
+
+
+
+        <LinearLayout
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giulio DaPrada"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="For his precious efforts spent continuously testing and breaking his poor phone (which I think has bricked too many times to count) in order to trial and error this application"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vittorio LoVerso"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="For his invaluable (and unknowing) support housing test performed by me and Giulio during his Italian lessons"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

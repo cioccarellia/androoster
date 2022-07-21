@@ -1,5 +1,6 @@
 package com.andreacioccarelli.androoster.ui.boot
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -36,7 +37,6 @@ import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
 import com.andreacioccarelli.androoster.ui.settings.SettingStore
 import com.andreacioccarelli.androoster.ui.wizard.UIWizard
-import com.crashlytics.android.Crashlytics
 import com.jrummyapps.android.shell.Shell
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
@@ -56,7 +56,6 @@ class UIBoot : BaseActivity(), LaunchStruct {
     private var fs: Boolean = false
     private var isSedInstalled: Boolean = false
     private var permission_write_external: Boolean = false
-    private var permission_read_data: Boolean = false
     private var environmentChecksPassed = false
     internal lateinit var UI: UI
     private lateinit var passwordInput: EditText
@@ -145,6 +144,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
             }
         }
 
+        /*
         if (isDebug && !COMPATIBILITY_MODE) {
             MaterialDialog.Builder(this)
                     .title(R.string.debug_error_title)
@@ -157,7 +157,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
                     .show()
             progressBar.visibility = View.GONE
             return
-        }
+        }*/
 
         if (preferencesBuilder.getBoolean("firstBoot", true) ||
                 !preferencesBuilder.getBoolean("first_boot_successful", false)) {
@@ -172,24 +172,24 @@ class UIBoot : BaseActivity(), LaunchStruct {
 
 
 
-        Crashlytics.setBool("is_debug", isDebug)
-        Crashlytics.setBool("is_testing", BuildConfig.TESTING_RELEASE)
+        // Crashlytics.setBool("is_debug", isDebug)
+        // Crashlytics.setBool("is_testing", BuildConfig.TESTING_RELEASE)
 
         val prefs = PreferencesBuilder(baseContext, PreferencesBuilder.defaultFilename)
         val hashBuilder = PreferencesBuilder(baseContext, PreferencesBuilder.Hashes, CryptoFactory.md5(KeyStore.hashedDecryptionKey))
         val s = if (prefs.getBoolean("pro", false)) {
             hashBuilder.getString("encryptedKey", "0") == CryptoFactory.sha256(CryptoFactory.sha1(prefs.getString("baseKey", "1")))
         } else false
-        Crashlytics.setString("is_pro", "${prefs.getBoolean("pro", false)}, $s")
-        Crashlytics.setBool("is_dark_mode", preferencesBuilder.getBoolean(XmlKeys.DARK_THEME_APPLIED, false))
-        Crashlytics.setBool("has_xposed", isPackageInstalled("de.robv.android.xposed.installer"))
+        // Crashlytics.setString("is_pro", "${prefs.getBoolean("pro", false)}, $s")
+        // Crashlytics.setBool("is_dark_mode", preferencesBuilder.getBoolean(XmlKeys.DARK_THEME_APPLIED, false))
+        // Crashlytics.setBool("has_xposed", isPackageInstalled("de.robv.android.xposed.installer"))
 
 
         locked = preferencesBuilder.getBoolean("locked", false)
         lockType = preferencesBuilder.getInt("lockType", -1)
         Handler().postDelayed({
             if (locked && !just_bought) {
-                Crashlytics.setBool("is_locked", true)
+                // Crashlytics.setBool("is_locked", true)
                 if (preferencesBuilder.getPreferenceBoolean(SettingStore.LOGIN.ALLOW_FINGERPRINT, false)) {
 
                     progressBar.visibility = View.GONE
@@ -287,8 +287,8 @@ class UIBoot : BaseActivity(), LaunchStruct {
                     try {
                         fingerprintListener.startListening()
                     } catch (re: RuntimeException) {
-                        Crashlytics.logException(re)
-                        Crashlytics.log("Cannot authenticate with fingerprint")
+                        // Crashlytics.logException(re)
+                        // Crashlytics.log("Cannot authenticate with fingerprint")
                         UI.unconditionalError(getString(R.string.cannot_use_figerprint))
                         showAppLockscreen(lockType)
                     }
@@ -297,7 +297,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
                     showAppLockscreen(lockType)
                 }
             } else {
-                Crashlytics.setBool("is_locked", false)
+                // Crashlytics.setBool("is_locked", false)
                 checkEnv()
             }
         }, 107)
@@ -477,13 +477,12 @@ class UIBoot : BaseActivity(), LaunchStruct {
             bbInstalled = !busyboxOutput.contains("not found")
             fs = preferencesBuilder.getBoolean("firstStart", true)
             permission_write_external = Assent.isPermissionGranted(Assent.WRITE_EXTERNAL_STORAGE)
-            permission_read_data = Assent.isPermissionGranted(Assent.READ_PHONE_STATE)
             preferencesBuilder.putBoolean("root", root)
             preferencesBuilder.putBoolean("busybox", bbInstalled)
 
-            Crashlytics.setBool("has_root", root)
-            Crashlytics.setBool("has_busybox", bbInstalled)
-            Crashlytics.setString("details_busybox", busyboxOutput)
+            // Crashlytics.setBool("has_root", root)
+            // Crashlytics.setBool("has_busybox", bbInstalled)
+            // Crashlytics.setString("details_busybox", busyboxOutput)
 
             uiThread {
                 if (COMPATIBILITY_MODE) bootApp() else
@@ -533,7 +532,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
         doAsync {
             val rootDetails = RootEnvironmentMapper.getSuperuserApp(true, this@UIBoot)
             preferencesBuilder.putString("rootManagerDetails", rootDetails)
-            Crashlytics.setString("details_root", rootDetails)
+            // Crashlytics.setString("details_root", rootDetails)
 
             preferencesBuilder.putInt(XmlKeys.LAST_VERSION_CODE, BuildConfig.VERSION_CODE)
             preferencesBuilder.putBoolean(XmlKeys.LAST_IS_TEST_RELEASE, BuildConfig.TESTING_RELEASE)
@@ -553,7 +552,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
 
 
             if (isSedInstalled) {
-                Crashlytics.log(0, "UIBoot - busybox check", "Busybox not found. Output: $sedCheck")
+                // Crashlytics.log(0, "UIBoot - busybox check", "Busybox not found. Output: $sedCheck")
                 environmentChecksPassed = true
                 uiThread { checkPermissions() }
             } else {
@@ -580,7 +579,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
 
     private fun checkPermissions() {
         checkingPermissions = true
-        if (permission_write_external && permission_read_data) {
+        if (permission_write_external) {
             checkingPermissions = false
             bootApp()
         } else {
@@ -617,14 +616,14 @@ class UIBoot : BaseActivity(), LaunchStruct {
                                         }
 
                                     }
-                                }, 69, Assent.WRITE_EXTERNAL_STORAGE, Assent.READ_PHONE_STATE)
+                                }, 69, Assent.WRITE_EXTERNAL_STORAGE)
                             }
                             .negativeText(resources.getString(R.string.boot_cannot_get_permissions_close))
                             .onNegative { dialog, which -> closeApp() }
                             .cancelable(false)
                             .show()
                 }
-            }, 69, Assent.WRITE_EXTERNAL_STORAGE, Assent.READ_PHONE_STATE)
+            }, 69, Assent.WRITE_EXTERNAL_STORAGE)
         }
     }
 
@@ -633,9 +632,12 @@ class UIBoot : BaseActivity(), LaunchStruct {
         Assent.setActivity(this@UIBoot, this@UIBoot)
     }
 
+    @SuppressLint("MissingPermission")
     private fun vibrate(VibrationTime: Int) {
-        val v = this@UIBoot.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        v.vibrate(VibrationTime.toLong())
+        try {
+            val v = this@UIBoot.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            v.vibrate(VibrationTime.toLong())
+        } catch (e: Exception) {}
     }
 
     override fun onBackPressed() {}
@@ -687,7 +689,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
     }
 
     companion object {
-        private val LOCK_PIN = 0
-        private val LOCK_PASSWORD = 1
+        private const val LOCK_PIN = 0
+        private const val LOCK_PASSWORD = 1
     }
 }

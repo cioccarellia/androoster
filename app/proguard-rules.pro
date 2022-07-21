@@ -19,8 +19,6 @@
 
 -keepattributes SourceFile, LineNumberTable
 
--keep class com.crashlytics.** { *; }
--dontwarn com.crashlytics.**
 -keep class com.android.vending.billing.**
 
 -keep class android.support.v7.widget.** { *; }

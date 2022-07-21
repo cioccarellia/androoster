@@ -50,7 +50,7 @@ class UIAbout : BaseActivity(), View.OnClickListener {
     private var libList: MutableList<Library> = ArrayList()
     private var translatorsList: MutableList<Translator> = ArrayList()
     private lateinit var UI: UI
-    val email = Intent()
+    private val email = Intent()
 
     object SPECIAL_THANKS {
         internal var AIDAN_FOLLESTAD_TWITTER = "https://twitter.com/afollestad"
@@ -61,29 +61,29 @@ class UIAbout : BaseActivity(), View.OnClickListener {
     }
     
     object LIBRARIES {
-        internal var MATERIAL_DIALOGS = "https://github.com/afollestad/material-dialogs"
-        internal var ASSENT = "https://github.com/afollestad/assent"
-        internal var MATERIAL_DRAWER = "https://github.com/mikepenz/MaterialDrawer"
-        internal var TOASTY = "https://github.com/GrenderG/Toasty"
-        internal var PLAIN_PIE_VIEW = "https://github.com/zurche/plain-pie"
-        internal var ANDROID_SHELL = "https://github.com/jrummyapps/android-shell/"
-        internal var THEME_ENGINE = "https://github.com/kabouzeid/app-theme-helper"
-        internal var ANDORID_DEVICE_NAMES = "https://github.com/jaredrummler/AndroidDeviceNames"
-        internal var APP_INTRO = "https://github.com/apl-devs/AppIntro"
-        internal var CHROME_CUSTOM_TABS = "https://developer.chrome.com/multidevice/android/customtabs"
-        internal var MATERIAL_DESIGN_ICONS = "https://material.io/icons/"
-        internal var DIGITUS = "https://libraries.io/github/afollestad/digitus"
+        internal const val MATERIAL_DIALOGS = "https://github.com/afollestad/material-dialogs"
+        internal const val ASSENT = "https://github.com/afollestad/assent"
+        internal const val MATERIAL_DRAWER = "https://github.com/mikepenz/MaterialDrawer"
+        internal const val TOASTY = "https://github.com/GrenderG/Toasty"
+        internal const val PLAIN_PIE_VIEW = "https://github.com/zurche/plain-pie"
+        internal const val ANDROID_SHELL = "https://github.com/jrummyapps/android-shell/"
+        internal const val THEME_ENGINE = "https://github.com/kabouzeid/app-theme-helper"
+        internal const val ANDORID_DEVICE_NAMES = "https://github.com/jaredrummler/AndroidDeviceNames"
+        internal const val APP_INTRO = "https://github.com/apl-devs/AppIntro"
+        internal const val CHROME_CUSTOM_TABS = "https://developer.chrome.com/multidevice/android/customtabs"
+        internal const val MATERIAL_DESIGN_ICONS = "https://material.io/icons/"
+        internal const val DIGITUS = "https://libraries.io/github/afollestad/digitus"
     }
 
     object AUTHORS {
-        internal var AIDAN_FOLLESTAD = "Aidan Follestad"
-        internal var MIKE_PENZ = "Mike Penz"
-        internal var PAOLO_ROTOLO = "Paolo Rotolo"
-        internal var GRENDERG = "GrenderG"
-        internal var ZURCHE = "zurche"
-        internal var JRUMMY = "Jrummy Apps Inc."
-        internal var KABOUZEID = "Kabouzeid"
-        internal var GOOGLE = "Google Inc."
+        internal const val AIDAN_FOLLESTAD = "Aidan Follestad"
+        internal const val MIKE_PENZ = "Mike Penz"
+        internal const val PAOLO_ROTOLO = "Paolo Rotolo"
+        internal const val GRENDERG = "GrenderG"
+        internal const val ZURCHE = "zurche"
+        internal const val JRUMMY = "Jrummy Apps Inc."
+        internal const val KABOUZEID = "Kabouzeid"
+        internal const val GOOGLE = "Google Inc."
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,7 +105,7 @@ class UIAbout : BaseActivity(), View.OnClickListener {
         doAsync {
             email.action = Intent.ACTION_SENDTO
             email.data = Uri.parse("mailto:")
-            email.putExtra(Intent.EXTRA_EMAIL, "cioccarelliandrea01@gmail.com")
+            email.putExtra(Intent.EXTRA_EMAIL, "andrea.cioccarelli01@gmail.com")
             email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
         }
     }
@@ -149,12 +149,10 @@ class UIAbout : BaseActivity(), View.OnClickListener {
         writeMail.setOnClickListener(this)
         followOnGithub.setOnClickListener(this)
         followOnTwitter.setOnClickListener(this)
-        visitWebsite.setOnClickListener(this)
 
         aidanFollestadTwitter.setOnClickListener(this)
         aidanFollestadGitHub.setOnClickListener(this)
         karimGitHub.setOnClickListener(this)
-        karimGooglePlus.setOnClickListener(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -167,6 +165,7 @@ class UIAbout : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         vibrator.vibrate(120)
+
         when (v) {
             layoutLicenses -> showLicenseDialog()
             layoutTranslations -> showTranslatorsDialog()
@@ -180,12 +179,10 @@ class UIAbout : BaseActivity(), View.OnClickListener {
                 }
 
             }
-            addToGooglePlusCircles -> openUrl(GOOGLE_PLUS)
             followOnGithub -> openUrl(GITHUB)
             followOnTwitter -> openUrl(TWITTER)
             aidanFollestadTwitter -> openUrl(SPECIAL_THANKS.AIDAN_FOLLESTAD_TWITTER)
             aidanFollestadGitHub -> openUrl(SPECIAL_THANKS.AIDAN_FOLLESTAD_GITHUB)
-            karimGooglePlus -> openUrl(SPECIAL_THANKS.KARIM_ABOU_GOOGLE_PLUS)
             karimGitHub -> openUrl(SPECIAL_THANKS.KARIM_ABOU_GITHUB)
         }
     }
@@ -336,12 +333,9 @@ class UIAbout : BaseActivity(), View.OnClickListener {
     }
 
     companion object {
-        var GITHUB = "https://github.com/AndreaCioccarelli"
-        var ISSUE_TRACKER = "https://github.com/AndreaCioccarelli/Androoster"
+        var GITHUB = "https://github.com/cioccarellia"
 
-        var GOOGLE_PLUS = "https://plus.google.com/+AndreaCioccarelli"
-        var TWITTER = "https://twitter.com/ACioccarelli"
-        var GOOGLE_PLUS_COMMUNITY = "https://plus.google.com/communities/111824108896189413779"
+        var TWITTER = "https://twitter.com/cioccarellia"
         var RATE_ON_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.andreacioccarelli.androoster"
     }
 }
