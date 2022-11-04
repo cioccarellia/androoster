@@ -121,6 +121,8 @@ class UIBoot : BaseActivity(), LaunchStruct {
     }
 
     private fun initApp() {
+        /*
+        Integrity checks
         if (CryptoFactory.sha256(packageName) != "dfd0b21a54b8bc70124bd1a3b2cd306628ab6137597903f8ec9d2d780b2236bf") {
             MaterialDialog.Builder(this@UIBoot)
                     .title(R.string.packagename_error_title)
@@ -143,6 +145,8 @@ class UIBoot : BaseActivity(), LaunchStruct {
                 return
             }
         }
+
+         */
 
         /*
         if (isDebug && !COMPATIBILITY_MODE) {
@@ -462,13 +466,14 @@ class UIBoot : BaseActivity(), LaunchStruct {
         progressBar.visibility = View.VISIBLE
 
 
+        /*
         val d: String? = packageManager.getInstallerPackageName(packageName)
         if (d != null) {
             if (CryptoFactory.sha1(d) == "d756abfb7665a50be304bae79a0f83db8adffd60") {
                 Toasty.error(baseContext, getString(R.string.app_toast))
                 throw NullPointerException("null")
             }
-        }
+        }*/
 
 
         doAsync {
@@ -486,7 +491,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
 
             uiThread {
                 if (COMPATIBILITY_MODE) bootApp() else
-                checkRoot()
+                    checkRoot()
             }
         }
     }
@@ -618,8 +623,8 @@ class UIBoot : BaseActivity(), LaunchStruct {
                                     }
                                 }, 69, Assent.WRITE_EXTERNAL_STORAGE)
                             }
-                            .negativeText(resources.getString(R.string.boot_cannot_get_permissions_close))
-                            .onNegative { dialog, which -> closeApp() }
+                            .negativeText("IGNORE")
+                            .onNegative { dialog, which -> bootApp() }
                             .cancelable(false)
                             .show()
                 }
@@ -639,8 +644,6 @@ class UIBoot : BaseActivity(), LaunchStruct {
             v.vibrate(VibrationTime.toLong())
         } catch (e: Exception) {}
     }
-
-    override fun onBackPressed() {}
 
     override fun onPause() {
         super.onPause()
