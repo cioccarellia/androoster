@@ -76,43 +76,6 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
 
         softwareDetailsIcon.setColorFilter(ATHUtil.resolveColor(this@UIDashboard, R.attr.iconColor), PorterDuff.Mode.SRC_IN)
         hardwareDetailsIcon.setColorFilter(ATHUtil.resolveColor(this@UIDashboard, R.attr.iconColor), PorterDuff.Mode.SRC_IN)
-        boostIcon.setColorFilter(ATHUtil.resolveColor(this@UIDashboard, R.attr.iconColor), PorterDuff.Mode.SRC_IN)
-
-        boostButton.setOnClickListener {
-            boostTitle.text = getString(R.string.dashboard_boosting)
-            boostContent.text = getString(R.string.dashboard_boosting_content)
-            Snackbar.make(findViewById(R.id.rootLayout), getString(R.string.dashboard_boosting_snack_killing), Snackbar.LENGTH_INDEFINITE)
-                    .show()
-            Handler().postDelayed({
-                doAsync {
-                    TerminalCore.crun("killall -9 android.process.media",
-                            "killall -9 mediaserver",
-                            "killall -9 com.facebook.android",
-                            "killall -9 com.instagram.android",
-                            "killall -9 com.facebook.pages.app",
-                            "killall -9 com.contextlogic.wish",
-                            "killall -9 com.amazon.mShop.android.shopping",
-                            "killall -9 com.google.android.street",
-                            "killall -9 com.google.android.apps.photos",
-                            "killall -9 com.facebook.katana")
-                    uiThread {
-                        Snackbar.make(findViewById(R.id.rootLayout), getString(R.string.dashboard_boosting_snack_sync), Snackbar.LENGTH_INDEFINITE)
-                                .show()
-                        doAsync {
-                            TerminalCore.run("sync", "echo 3 > /proc/sys/vm/drop_caches")
-                            TerminalCore.run("rm -rf ${Environment.getExternalStorageDirectory()}/.profig.os")
-                            uiThread {
-                                Snackbar.make(findViewById(R.id.rootLayout), getString(R.string.dashboard_boosting_snack_done), Snackbar.LENGTH_SHORT)
-                                        .show()
-                                boostButton.visibility = View.GONE
-                                boostTitle.text = getString(R.string.dashboard_boost_done_title)
-                                boostContent.text = getString(R.string.dashboard_boost_done_content)
-                            }
-                        }
-                    }
-                }
-            }, 500)
-        }
 
         val playServiceState = try {
             "Play Services: ${packageManager.getPackageInfo("com.google.android.gms", 0)?.versionName}\n"
@@ -166,7 +129,6 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         ATH.setBackgroundTint(collapsingToolbar, primaryColor)
         ATH.setBackgroundTint(fabTop, accentColor)
         ATH.setBackgroundTint(fabBottom, accentColor)
-        boostButton.setTextColor(accentColor)
         ATH.setTint(DashboardBase, primaryColor)
         toolbar.setBackgroundColor(primaryColor)
 
@@ -211,8 +173,7 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         }
         try {
             SettingsReflector.updateDashboardMenu(menu!!, preferencesBuilder)
-        } catch (n: KotlinNullPointerException) {
-        }
+        } catch (_: NullPointerException) {}
 
         val dispatcher = RecentWidgetProvider(this@UIDashboard)
 

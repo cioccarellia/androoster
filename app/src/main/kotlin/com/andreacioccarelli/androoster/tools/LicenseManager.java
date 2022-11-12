@@ -3,6 +3,7 @@ package com.andreacioccarelli.androoster.tools;
 import android.content.Context;
 import android.content.Intent;
 
+import com.andreacioccarelli.androoster.BuildConfig;
 import com.andreacioccarelli.androoster.dataset.KeyStore;
 import com.andreacioccarelli.androoster.ui.upgrade.UIUpgrade;
 import com.mikepenz.materialdrawer.Drawer;
@@ -22,7 +23,7 @@ public class LicenseManager {
         ctx.startActivity(new Intent(ctx, UIUpgrade.class));
     }
     public static boolean isPro(Context ctx) {
-        //if (BuildConfig.TESTING_RELEASE) return true;
+        if (BuildConfig.TESTING_RELEASE) return true;
         final PreferencesBuilder mBuilder = new PreferencesBuilder(ctx, PreferencesBuilder.defaultFilename);
 
         return mBuilder.getBoolean("pro", false);

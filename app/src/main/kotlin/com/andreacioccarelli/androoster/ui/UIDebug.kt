@@ -203,7 +203,7 @@ class UIDebug : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
         }
         try {
             SettingsReflector.updateMenu(menu!!, preferencesBuilder)
-        } catch (k: KotlinNullPointerException) {}
+        } catch (k: NullPointerException) {}
     }
 
     @SuppressLint("SetTextI18n")

@@ -31,31 +31,29 @@ class BootService : BroadcastReceiver() {
             TerminalCore.mount()
             val preferencesBuilder = PreferencesBuilder(context)
 
+            try {
+                if (!preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.HIDE_BOOT_NOTIFICATION, false)) {
+                    uiThread {
+                        createNotificationChannel(context)
 
-            val appsToKill = listOf("com.paget96.lspeed", "com.androidvip.hebf", "com.androidvip.hebfpro")
-            for (packageName in appsToKill) {
-                TerminalCore.arun("am force-stop $packageName")
-            }
+                        val pendingIntent = Intent(context, UIBoot::class.java)
+                        pendingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        val notificationIntent = PendingIntent.getActivity(context, 0, pendingIntent, if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE else 0)
 
-            if (!preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.HIDE_BOOT_NOTIFICATION, false)) {
-                uiThread {
-                    createNotificationChannel(context)
+                        val notificationBuilder = NotificationCompat.Builder(context, "boot_notification")
+                                .setSmallIcon(R.drawable.notification_default)
+                                .setContentTitle(context.getString(R.string.service_boot_title))
+                                .setContentText(context.getString(R.string.service_boot_content_small))
+                                .setStyle(NotificationCompat.BigTextStyle()
+                                        .bigText(context.getString(R.string.service_boot_content_large)))
+                                .setContentIntent(notificationIntent)
 
-                    val pendingIntent = Intent(context, UIBoot::class.java)
-                    pendingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    val notificationIntent = PendingIntent.getActivity(context, 0, pendingIntent, 0)
-
-                    val notificationBuilder = NotificationCompat.Builder(context, "boot_notification")
-                            .setSmallIcon(R.drawable.notification_default)
-                            .setContentTitle(context.getString(R.string.service_boot_title))
-                            .setContentText(context.getString(R.string.service_boot_content_small))
-                            .setStyle(NotificationCompat.BigTextStyle()
-                                    .bigText(context.getString(R.string.service_boot_content_large)))
-                            .setContentIntent(notificationIntent)
-
-                    val notificationManager = NotificationManagerCompat.from(context)
-                    notificationManager.notify(0, notificationBuilder.build())
+                        val notificationManager = NotificationManagerCompat.from(context)
+                        notificationManager.notify(0, notificationBuilder.build())
+                    }
                 }
+            } catch (_: IllegalArgumentException) {
+
             }
         }
     }

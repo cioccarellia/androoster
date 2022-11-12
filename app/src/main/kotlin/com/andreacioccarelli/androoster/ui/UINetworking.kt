@@ -353,7 +353,7 @@ class UINetworking : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
         try {
             SettingsReflector.updateMenu(menu!!, preferencesBuilder)
-        } catch (k: KotlinNullPointerException) {}
+        } catch (k: NullPointerException) {}
     }
 
     private fun setUpDrawer(toolbar: Toolbar) {

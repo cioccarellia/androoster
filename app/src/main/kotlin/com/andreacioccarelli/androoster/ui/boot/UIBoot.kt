@@ -490,8 +490,11 @@ class UIBoot : BaseActivity(), LaunchStruct {
             // Crashlytics.setString("details_busybox", busyboxOutput)
 
             uiThread {
-                if (COMPATIBILITY_MODE) bootApp() else
+                if (COMPATIBILITY_MODE) {
+                    bootApp()
+                } else {
                     checkRoot()
+                }
             }
         }
     }

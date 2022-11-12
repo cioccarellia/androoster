@@ -11,7 +11,6 @@ import com.andreacioccarelli.androoster.tools.GradientGenerator
 import com.andreacioccarelli.androoster.tools.PreferencesBuilder
 import com.andreacioccarelli.androoster.tools.UI
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
-import com.andreacioccarelli.billingprotector.BillingProtector
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
 import kotlinx.android.synthetic.main.upgrade_activity_v2.*
@@ -23,7 +22,6 @@ import org.jetbrains.anko.vibrator
 class UIUpgrade : BaseActivity() {
 
     var pro = false
-    private lateinit var bp: BillingProtector
     lateinit var UI: UI
     private var hasPurchased = false
 
@@ -34,8 +32,6 @@ class UIUpgrade : BaseActivity() {
         animateContent(content as ViewGroup)
 
         pro = PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean("pro", false)
-
-        bp = BillingProtector(baseContext)
 
         UI = UI(baseContext)
 

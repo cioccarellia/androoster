@@ -164,7 +164,7 @@ class UIGeneral : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         }
         try {
             SettingsReflector.updateMenu(menu!!, preferencesBuilder)
-        } catch(k: KotlinNullPointerException) {}
+        } catch(k: NullPointerException) {}
     }
 
     private fun setUpDrawer(toolbar: Toolbar) {

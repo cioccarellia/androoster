@@ -632,8 +632,8 @@
     <string name="location">Italy</string>
     <string name="write_an_email">Send me an email</string>
     <string name="add_to_google_plus_circles">Add to Google Plus circles</string>
-    <string name="follow_on_twitter">Follow on Twitter</string>
-    <string name="follow_on_github">Follow on Github</string>
+    <string name="follow_on_twitter">My Twitter</string>
+    <string name="follow_on_github">My Github</string>
     <string name="visit_website">Visit Website</string>
     <string name="special_thanks_to">Special thanks to</string>
     <string name="aidan_follestad">Aidan Follestad</string>

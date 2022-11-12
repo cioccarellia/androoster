@@ -486,7 +486,7 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         }
         try {
             SettingsReflector.updateMenu(menu!!, preferencesBuilder)
-        } catch (k: KotlinNullPointerException) {}
+        } catch (k: NullPointerException) {}
         
         val accentColor = ThemeStore.primaryColor(this)
         

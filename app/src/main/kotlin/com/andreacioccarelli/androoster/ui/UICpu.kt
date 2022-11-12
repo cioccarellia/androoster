@@ -197,7 +197,7 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
                     uiThread { createWidget() }
                 }
             }
-        } catch (k: KotlinNullPointerException) {}
+        } catch (k: NullPointerException) {}
     }
 
     private fun setUpDrawer(toolbar: Toolbar) {

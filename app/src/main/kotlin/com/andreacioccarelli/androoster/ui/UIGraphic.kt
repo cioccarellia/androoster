@@ -448,7 +448,7 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         }
         try {
             SettingsReflector.updateMenu(menu!!, preferencesBuilder)
-        } catch (k: KotlinNullPointerException) {}
+        } catch (k: NullPointerException) {}
     }
 
 

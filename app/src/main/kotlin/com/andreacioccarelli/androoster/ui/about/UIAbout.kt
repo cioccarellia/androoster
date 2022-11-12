@@ -27,6 +27,7 @@ import com.andreacioccarelli.androoster.interfaces.ClickListener
 import com.andreacioccarelli.androoster.tools.CryptoFactory
 import com.andreacioccarelli.androoster.tools.PreferencesBuilder
 import com.andreacioccarelli.androoster.tools.UI
+import com.andreacioccarelli.androoster.ui.about.UIAbout.LIBRARIES.CODE_URL
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.kabouzeid.appthemehelper.ThemeStore
 import kotlinx.android.synthetic.main.activity_about.*
@@ -61,6 +62,7 @@ class UIAbout : BaseActivity(), View.OnClickListener {
     }
     
     object LIBRARIES {
+        internal const val CODE_URL = "https://github.com/cioccarellia/androoster"
         internal const val MATERIAL_DIALOGS = "https://github.com/afollestad/material-dialogs"
         internal const val ASSENT = "https://github.com/afollestad/assent"
         internal const val MATERIAL_DRAWER = "https://github.com/mikepenz/MaterialDrawer"
@@ -141,6 +143,7 @@ class UIAbout : BaseActivity(), View.OnClickListener {
 
     private fun setUpOnClickListeners() {
         layoutLicenses.setOnClickListener(this)
+        layoutCode.setOnClickListener(this)
         layoutTranslations.setOnClickListener(this)
 
         rateOnGooglePlay.setOnClickListener(this)
@@ -164,10 +167,9 @@ class UIAbout : BaseActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        vibrator.vibrate(120)
-
         when (v) {
             layoutLicenses -> showLicenseDialog()
+            layoutCode -> openUrl(CODE_URL)
             layoutTranslations -> showTranslatorsDialog()
             rateOnGooglePlay -> openUrl(RATE_ON_GOOGLE_PLAY)
             appDetails -> openAppDetails()
@@ -274,7 +276,6 @@ class UIAbout : BaseActivity(), View.OnClickListener {
         libList.add(Library("AppIntro", AUTHORS.PAOLO_ROTOLO, LICENSE_APACHE2, LIBRARIES.APP_INTRO))
         libList.add(Library("Chrome Custom Tabs", AUTHORS.GOOGLE, LICENSE_CCBY3, LIBRARIES.CHROME_CUSTOM_TABS))
         libList.add(Library("Material Icons", AUTHORS.GOOGLE, LICENSE_APACHE2, LIBRARIES.MATERIAL_DESIGN_ICONS))
-
     }
 
     private fun initializeTranslators() {
@@ -300,11 +301,9 @@ class UIAbout : BaseActivity(), View.OnClickListener {
         }
 
         internal inner class LibraryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
             val CardView: CardView = itemView.findViewById(R.id.LibraryCard)
             val libraryTitle: TextView = itemView.findViewById(R.id.LibraryTitle)
             val LibraryContent: TextView = itemView.findViewById(R.id.LibraryContent)
-
         }
     }
 
@@ -325,10 +324,8 @@ class UIAbout : BaseActivity(), View.OnClickListener {
         }
 
         internal inner class LibraryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
             val translatorsRoot: LinearLayout = itemView.findViewById(R.id.translator_root)
             val translatorTitle: TextView = itemView.findViewById(R.id.translator_title)
-
         }
     }
 

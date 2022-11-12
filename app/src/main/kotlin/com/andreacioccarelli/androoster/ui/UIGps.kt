@@ -172,7 +172,7 @@ class UIGps : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
         }
         try {
             SettingsReflector.updateMenu(menu!!, preferencesBuilder)
-        } catch (k: KotlinNullPointerException) {}
+        } catch (k: NullPointerException) {}
     }
 
     private fun setUpDrawer(toolbar: Toolbar) {

@@ -17,7 +17,11 @@ object SettingsReflector {
         } catch (npe: NullPointerException) {}
     }
 
-    fun updateDashboardMenu(menu: Menu, preferenceBuilder: PreferencesBuilder) {
+    fun updateDashboardMenu(menu: Menu?, preferenceBuilder: PreferencesBuilder) {
+        if (menu == null) {
+            return
+        }
+
         try {
             if (preferenceBuilder.getPreferenceBoolean(SettingStore.GENERAL.SHOW_SETTINGS_IN_TOOLBAR, false)) {
                 menu.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
@@ -30,6 +34,6 @@ object SettingsReflector {
             menu.getItem(3).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
             menu.getItem(4).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
             menu.getItem(5).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
-        } catch (npe: NullPointerException) {}
+        } catch (_: NullPointerException) {}
     }
 }

@@ -181,6 +181,60 @@
 
         </LinearLayout>
 
+
+
+
+        <LinearLayout
+            android:id="@+id/layout_release"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/rectSelector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/md_listitem_height"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:focusable="true">
+
+            <com.andreacioccarelli.androoster.service.IconImageView
+                android:id="@+id/icon_licenses"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/code"
+                tools:ignore="ContentDescription,UnusedAttribute" />
+
+            <LinearLayout
+                android:id="@+id/layoutCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginStart="32dp"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:textColor="?primaryTextColour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Source Code"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:textColor="?tertiaryTextColour"
+                    android:id="@+id/code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="https://github.com/cioccarellia/androoster"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
         <LinearLayout
             android:id="@+id/layoutLicenses"
             android:layout_width="match_parent"
