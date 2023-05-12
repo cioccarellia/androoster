@@ -263,12 +263,12 @@ open class BaseActivity : ATHToolbarActivity(), FrameworkSurface {
 
     @Suppress("unused")
     fun isCompatibility(): Boolean {
-        return BuildConfig.COMPATIBILITY_MODE
+        return false
     }
 
     @Suppress("unused")
     fun isTesting(): Boolean {
-        return BuildConfig.TESTING_RELEASE
+        return false
     }
 
     fun isPackageInstalled(packagename: String): Boolean {

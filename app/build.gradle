@@ -10,12 +10,12 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 
 apply plugin: "com.android.application"
 apply plugin: "kotlin-android"
-apply plugin: "kotlin-android-extensions"
 apply plugin: "com.github.konifar.gradle.unused-resources-remover"
 
 android {
     compileSdkVersion 33
     buildToolsVersion "33.0.0"
+    namespace 'com.andreacioccarelli.androoster'
 
     defaultConfig {
         applicationId "com.andreacioccarelli.androoster"
@@ -25,9 +25,6 @@ android {
         versionName "1.5.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-
-        buildConfigField "boolean", "COMPATIBILITY_MODE", "false"
-        buildConfigField "boolean", "TESTING_RELEASE", "false"
     }
 
     buildTypes {
@@ -39,12 +36,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    dexOptions {
-        preDexLibraries = true
+        sourceCompatibility JavaVersion.VERSION_19
+        targetCompatibility JavaVersion.VERSION_19
     }
 
     lintOptions {
@@ -87,7 +80,7 @@ dependencies {
 
 
     // Dummy for google play
-    implementation "com.android.billingclient:billing:5.1.0"
+    implementation "com.android.billingclient:billing:6.0.0"
 
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

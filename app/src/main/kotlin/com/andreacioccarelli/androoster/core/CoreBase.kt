@@ -1,7 +1,5 @@
 package com.andreacioccarelli.androoster.core
 
-import com.andreacioccarelli.androoster.BuildConfig
-
 /**
  * Created by andrea on 2017/nov.
  * Part of the package com.andreacioccarelli.androoster.core
@@ -11,7 +9,7 @@ import com.andreacioccarelli.androoster.BuildConfig
 open class CoreBase : FrameworkSurface {
     object SETTINGS {
         fun put(namespace: String, key: String, value: String) {
-            if (BuildConfig.COMPATIBILITY_MODE) return
+            if (false) return
             TerminalCore.SETTINGS.put(namespace, key, value)
         }
 
@@ -32,14 +30,14 @@ open class CoreBase : FrameworkSurface {
         }
 
         fun delete(namespace: String, key: String) {
-            if (BuildConfig.COMPATIBILITY_MODE) return
+            if (false) return
             TerminalCore.SETTINGS.delete(namespace, key)
         }
     }
 
     object BACKUP {
         fun create() {
-            if (BuildConfig.COMPATIBILITY_MODE) return
+            if (false) return
             TerminalCore.mount()
             RootFile(FrameworkSurface.buildprop_path).copy(FrameworkSurface.backup_buildprop_path)
             RootFile(FrameworkSurface.sysctl_path).copy(FrameworkSurface.backup_sysctl_path)
@@ -47,7 +45,7 @@ open class CoreBase : FrameworkSurface {
         }
 
         fun restore() {
-            if (BuildConfig.COMPATIBILITY_MODE) return
+            if (false) return
             TerminalCore.mount()
             RootFile(FrameworkSurface.backup_buildprop_path).copy(FrameworkSurface.buildprop_path)
             RootFile(FrameworkSurface.backup_sysctl_path).copy(FrameworkSurface.sysctl_path)
@@ -58,7 +56,7 @@ open class CoreBase : FrameworkSurface {
     companion object {
 
         fun sysctl(property: String, value: String) {
-            if (BuildConfig.COMPATIBILITY_MODE) return
+            if (false) return
             val sysctl = RootFile(FrameworkSurface.sysctl_path)
             sysctl.removeLine(property)
             sysctl.writenl("$property = $value")
@@ -70,7 +68,7 @@ open class CoreBase : FrameworkSurface {
         }
 
         fun buildprop(property: String, value: String) {
-            if (BuildConfig.COMPATIBILITY_MODE) return
+            if (false) return
             val buildprop = RootFile(FrameworkSurface.buildprop_path)
             buildprop.removeLine(property)
             buildprop.writenl(property + '='.toString() + value)
@@ -79,7 +77,7 @@ open class CoreBase : FrameworkSurface {
         }
 
         fun remove_buildprop(property: String) {
-            if (BuildConfig.COMPATIBILITY_MODE) return
+            if (false) return
             val buildprop = RootFile(FrameworkSurface.buildprop_path)
             buildprop.removeLine(property)
             TerminalCore.mountro()
@@ -94,7 +92,7 @@ open class CoreBase : FrameworkSurface {
         }
 
         fun setprop(property: String, value: String) {
-            if (BuildConfig.COMPATIBILITY_MODE) return
+            if (false) return
             TerminalCore.run("setprop $property $value")
         }
 

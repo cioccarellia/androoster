@@ -100,8 +100,8 @@ class UIBoot : BaseActivity(), LaunchStruct {
         setContentView(R.layout.boot)
         preferencesBuilder = PreferencesBuilder(baseContext)
 
-        TESTING_RELEASE = BuildConfig.TESTING_RELEASE
-        COMPATIBILITY_MODE = BuildConfig.COMPATIBILITY_MODE
+        TESTING_RELEASE = false
+        COMPATIBILITY_MODE = false
         just_bought = preferencesBuilder.getBoolean("just_bought", false)
         preferencesBuilder.putBoolean("just_bought", false)
 
@@ -177,7 +177,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
 
 
         // Crashlytics.setBool("is_debug", isDebug)
-        // Crashlytics.setBool("is_testing", BuildConfig.TESTING_RELEASE)
+        // Crashlytics.setBool("is_testing", false)
 
         val prefs = PreferencesBuilder(baseContext, PreferencesBuilder.defaultFilename)
         val hashBuilder = PreferencesBuilder(baseContext, PreferencesBuilder.Hashes, CryptoFactory.md5(KeyStore.hashedDecryptionKey))
@@ -543,7 +543,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
             // Crashlytics.setString("details_root", rootDetails)
 
             preferencesBuilder.putInt(XmlKeys.LAST_VERSION_CODE, BuildConfig.VERSION_CODE)
-            preferencesBuilder.putBoolean(XmlKeys.LAST_IS_TEST_RELEASE, BuildConfig.TESTING_RELEASE)
+            preferencesBuilder.putBoolean(XmlKeys.LAST_IS_TEST_RELEASE, false)
         }
 
 
