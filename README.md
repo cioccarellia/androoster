@@ -1,4 +1,9 @@
-# Androoster
+<p align="center">
+  <a href="https://github.com/cioccarellia/androoster" target="_blank"><img width="100" src="https://raw.githubusercontent.com/cioccarellia/androoster/master/app/src/main/res/drawable/launcher.png"></a>
+</p>
+<h1 align="center">Androoster</h1>
+</p>
+
 This repository hosts the code used for building Androoster (Tweaking Toolbox), available on the [Play Store](https://play.google.com/store/apps/details?id=com.andreacioccarelli.androoster), with approximately 150k downloads.
 
 ## Context
