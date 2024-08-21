@@ -28,7 +28,7 @@ The current version has been slightly modified from the OG one (I fixed some iss
 This code is also here for all the russian guys on 4pda redistributing pirated versions of my software, this way you can take it straight from the source code without reverse-engineering the apk. Now the software is 100% free though, so there should be no reason to.
 
 ## Disclaimers
-This project won't receive any new feature. At least none by me. I'll happily push bug fixes and make maintenance updates once in a long while though.
+This project won't receive any new feature. I'll happily merge bug fixes and make maintenance updates once in a long while though.
 
 ## Updates
-Currently the project doesn't compile (with approx. 1000 errors) because anko isn't compatible anymore, so I have to rebuild it and re-link all the views.
+Project builds and runs, so if you want to clone it and modify it you are welcome to do so
