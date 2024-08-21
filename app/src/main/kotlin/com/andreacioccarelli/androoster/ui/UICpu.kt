@@ -7,16 +7,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.CardView
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.core.Core
 import com.andreacioccarelli.androoster.core.HardwareCore
-import com.andreacioccarelli.androoster.dataset.KeyStore
 import com.andreacioccarelli.androoster.dataset.XmlKeys
 import com.andreacioccarelli.androoster.interfaces.Governors
 import com.andreacioccarelli.androoster.tools.*
@@ -80,12 +81,12 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
         setUpDrawer(toolbar)
         FabManager.setup(findViewById(R.id.fabTop), findViewById(R.id.fabBottom), this@UICpu, drawer, preferencesBuilder)
 
-        findViewById(R.id.CardCPU3).setOnClickListener { SwitchCPU3.performClick() }
-        CardCPU4.setOnClickListener { SwitchCPU4.performClick() }
-        CardCPU5.setOnClickListener { SwitchCPU5.performClick() }
+        findViewById<CardView>(R.id.CardCPU3).setOnClickListener { findViewById<SwitchCompat>(R.id.SwitchCPU3).performClick() }
+        findViewById<CardView>(R.id.CardCPU4).setOnClickListener { findViewById<SwitchCompat>(R.id.SwitchCPU4).performClick() }
+        findViewById<CardView>(R.id.CardCPU5).setOnClickListener { findViewById<SwitchCompat>(R.id.SwitchCPU5).performClick() }
 
-        SwitchCPU3.setOnClickListener {
-            if (SwitchCPU3.isChecked) {
+        findViewById<SwitchCompat>(R.id.SwitchCPU3).setOnClickListener {
+            if (findViewById<SwitchCompat>(R.id.SwitchCPU3).isChecked) {
                 Core.qcom_tweaks(true)
                 Core.set_execution_mode(true)
                 UI.on()
@@ -121,8 +122,8 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
             }
         }
 
-        SwitchCPU4.setOnClickListener {
-            if (SwitchCPU4.isChecked) {
+        findViewById<SwitchCompat>(R.id.SwitchCPU4).setOnClickListener {
+            if (findViewById<SwitchCompat>(R.id.SwitchCPU4).isChecked) {
                 Core.optimize_cpu_usage(true)
                 preferencesBuilder.putBoolean("CPU4", true)
                 UI.on()
@@ -133,8 +134,8 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
             }
         }
 
-        SwitchCPU5.setOnClickListener {
-            if (SwitchCPU5.isChecked) {
+        findViewById<SwitchCompat>(R.id.SwitchCPU5).setOnClickListener {
+            if (findViewById<SwitchCompat>(R.id.SwitchCPU5).isChecked) {
                 Core.cpu_boost(true)
                 preferencesBuilder.putBoolean("CPU5", true)
                 UI.on()
@@ -162,10 +163,10 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
         ATH.setBackgroundTint(findViewById(R.id.fabBottom), accentColor)
         toolbar.setBackgroundColor(primaryColor)
 
-        ATH.setTint(SwitchCPU3, accentColor)
-        ATH.setTint(SwitchCPU4, accentColor)
-        ATH.setTint(SwitchCPU5, accentColor)
-        ATH.setTint(CPUBase, primaryColor)
+        ATH.setTint(findViewById<SwitchCompat>(R.id.SwitchCPU3), accentColor)
+        ATH.setTint(findViewById<SwitchCompat>(R.id.SwitchCPU4), accentColor)
+        ATH.setTint(findViewById<SwitchCompat>(R.id.SwitchCPU5), accentColor)
+        ATH.setTint(findViewById(R.id.CPUBase), primaryColor)
     }
 
 
@@ -391,7 +392,7 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
             cachedGovernor = governor
 
             CoroutineScope(Dispatchers.Main).launch {
-                dashboard_cpu_content.text = "${getString(R.string.dashboard_widget_hardware_cpu)}: $arch\n" +
+                findViewById<TextView>(R.id.dashboard_cpu_content).text = "${getString(R.string.dashboard_widget_hardware_cpu)}: $arch\n" +
                         "${getString(R.string.dashboard_widget_hardware_cpu_cores)}: $cores\n" +
                         "${getString(R.string.dashboard_widget_hardware_title)}: ${Build.MANUFACTURER}"
                 grabGovernorInfo()
@@ -400,8 +401,8 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
     }
 
     private fun grabGovernorInfo() {
-        TitleCPU1.text = cachedGovernor.capitalize()
-        ContentCPU1.text = getString(CPUGovernorDocs.grab(cachedGovernor))
+        findViewById<TextView>(R.id.TitleCPU1).text = cachedGovernor.capitalize()
+        findViewById<TextView>(R.id.ContentCPU1).text = getString(CPUGovernorDocs.grab(cachedGovernor))
     }
 
     override fun onBackPressed() {

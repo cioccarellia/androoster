@@ -4,8 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatSeekBar
+import android.support.v7.widget.AppCompatSpinner
+import android.support.v7.widget.CardView
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
@@ -13,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import com.afollestad.materialdialogs.DialogAction
@@ -20,9 +26,15 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.core.Core
 import com.andreacioccarelli.androoster.core.HardwareCore
-import com.andreacioccarelli.androoster.dataset.KeyStore
 import com.andreacioccarelli.androoster.dataset.XmlKeys
-import com.andreacioccarelli.androoster.tools.*
+import com.andreacioccarelli.androoster.tools.CryptoFactory
+import com.andreacioccarelli.androoster.tools.FabManager
+import com.andreacioccarelli.androoster.tools.LaunchManager
+import com.andreacioccarelli.androoster.tools.LaunchStruct
+import com.andreacioccarelli.androoster.tools.LicenseManager
+import com.andreacioccarelli.androoster.tools.PreferencesBuilder
+import com.andreacioccarelli.androoster.tools.RebootDialog
+import com.andreacioccarelli.androoster.tools.UI
 import com.andreacioccarelli.androoster.ui.about.UIAbout
 import com.andreacioccarelli.androoster.ui.backup.UIBackup
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
@@ -38,9 +50,10 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.kernel.*
-import kotlinx.android.synthetic.main.kernel_content.*
-import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.Timer
 import kotlin.concurrent.schedule
 
 class UIKernel : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, LaunchStruct {
@@ -57,6 +70,46 @@ class UIKernel : BaseActivity(), NavigationView.OnNavigationItemSelectedListener
     var menu: Menu? = null
 
     internal var doubleBackToExitPressedOnce = false
+
+
+
+
+
+
+
+
+    val fabTop: FloatingActionButton get() = findViewById(R.id.fabTop)
+    val fabBottom: FloatingActionButton get() = findViewById(R.id.fabBottom)
+    val toolbar_layout: CollapsingToolbarLayout get() = findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
+
+    private val SwitchKernel1: SwitchCompat get() = findViewById(R.id.SwitchKernel1)
+    private val SwitchKernel2: SwitchCompat get() = findViewById(R.id.SwitchKernel2)
+    private val SwitchKernel3: SwitchCompat get() = findViewById(R.id.SwitchKernel3)
+    private val SwitchKernel4: SwitchCompat get() = findViewById(R.id.SwitchKernel4)
+    private val SwitchKernel6: SwitchCompat get() = findViewById(R.id.SwitchKernel6)
+    private val SwitchKernel7: SwitchCompat get() = findViewById(R.id.SwitchKernel7)
+
+    private val CardKernel1: CardView get() = findViewById(R.id.CardKernel1)
+    private val CardKernel2: CardView get() = findViewById(R.id.CardKernel2)
+    private val CardKernel3: CardView get() = findViewById(R.id.CardKernel3)
+    private val CardKernel4: CardView get() = findViewById(R.id.CardKernel4)
+    private val CardKernel5: CardView get() = findViewById(R.id.CardKernel5)
+    private val CardKernel6: CardView get() = findViewById(R.id.CardKernel6)
+    private val CardKernel7: CardView get() = findViewById(R.id.CardKernel7)
+    private val CardKernel8: CardView get() = findViewById(R.id.CardKernel8)
+
+    private val SpinnerKernel8: AppCompatSpinner get() = findViewById(R.id.SpinnerKernel8)
+
+    private val ButtonKernel5: AppCompatButton get() = findViewById(R.id.ButtonKernel5)
+
+    private val KernelBase: ImageView get() = findViewById(R.id.KernelBase)
+
+
+
+
+
+
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +129,7 @@ class UIKernel : BaseActivity(), NavigationView.OnNavigationItemSelectedListener
         FabManager.setup(fabTop, fabBottom, this@UIKernel, drawer, preferencesBuilder)
 
         createWidget()
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         CardKernel1.setOnClickListener { SwitchKernel1.performClick() }
         CardKernel2.setOnClickListener { SwitchKernel2.performClick() }
@@ -329,7 +382,7 @@ class UIKernel : BaseActivity(), NavigationView.OnNavigationItemSelectedListener
 
     private fun createWidget() {
         CoroutineScope(Dispatchers.Main).launch {
-            dashboard_kernel.text = Core.kernel_info()
+            findViewById<TextView>(R.id.dashboard_kernel).text = Core.kernel_info()
         }
     }
 

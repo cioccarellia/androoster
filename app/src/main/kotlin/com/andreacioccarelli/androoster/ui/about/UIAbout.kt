@@ -19,23 +19,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toolbar
 import com.afollestad.materialdialogs.MaterialDialog
-import com.andreacioccarelli.androoster.BuildConfig
 import com.andreacioccarelli.androoster.R
-import com.andreacioccarelli.androoster.dataset.KeyStore
 import com.andreacioccarelli.androoster.interfaces.ClickListener
-import com.andreacioccarelli.androoster.tools.CryptoFactory
 import com.andreacioccarelli.androoster.tools.PreferencesBuilder
 import com.andreacioccarelli.androoster.tools.UI
 import com.andreacioccarelli.androoster.ui.about.UIAbout.LIBRARIES.CODE_URL
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.kabouzeid.appthemehelper.ThemeStore
-import kotlinx.android.synthetic.main.activity_about.*
-import kotlinx.android.synthetic.main.card_about_app.*
-import kotlinx.android.synthetic.main.card_actions.*
-import kotlinx.android.synthetic.main.card_author.*
-import kotlinx.android.synthetic.main.card_special_thanks.*
-import org.jetbrains.anko.vibrator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 
 @Suppress("ConstantConditionIf")
@@ -91,7 +86,7 @@ class UIAbout : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         pro = PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean("pro", false)
         setContentView(R.layout.activity_about)
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
         setDrawUnderStatusbar(true)
         UI = UI(baseContext)
 
@@ -120,41 +115,37 @@ class UIAbout : BaseActivity(), View.OnClickListener {
     }
 
     private fun setUpToolbar() {
-        toolbar.setBackgroundColor(ThemeStore.primaryColor(this))
-        setSupportActionBar(toolbar)
+        findViewById<android.support.v7.widget.Toolbar>(R.id.toolbar).setBackgroundColor(ThemeStore.primaryColor(this))
+        setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     private fun setUpAppDetails() {
-        release.text = if (BuildConfig.VERSION_NAME.contains("beta"))
-            getString(R.string.app_name_beta) else getString(R.string.app_name_official)
+        findViewById<TextView>(R.id.release).text = getString(R.string.app_name_official)
     }
 
     @SuppressLint("SetTextI18n")
     private fun setUpAppVersion() {
-        appVersion.text = "${BuildConfig.VERSION_NAME} ${if (pro) getString(R.string.app_name_suffix_pro) else ""}"
+        findViewById<TextView>(R.id.appVersion).text = "v2024 " + if (pro) getString(R.string.app_name_suffix_pro) else ""
     }
 
     private fun setUpPackageName() {
-        appPackageName.text = packageName
+        findViewById<TextView>(R.id.appPackageName).text = packageName
     }
 
     private fun setUpOnClickListeners() {
-        layoutLicenses.setOnClickListener(this)
-        layoutCode.setOnClickListener(this)
-        layoutTranslations.setOnClickListener(this)
-
-        rateOnGooglePlay.setOnClickListener(this)
-        appDetails.setOnClickListener(this)
-
-        writeMail.setOnClickListener(this)
-        followOnGithub.setOnClickListener(this)
-        followOnTwitter.setOnClickListener(this)
-
-        aidanFollestadTwitter.setOnClickListener(this)
-        aidanFollestadGitHub.setOnClickListener(this)
-        karimGitHub.setOnClickListener(this)
+        findViewById<LinearLayout>(R.id.layoutLicenses).setOnClickListener(this)
+        findViewById<LinearLayout>(R.id.layoutCode).setOnClickListener(this)
+        findViewById<LinearLayout>(R.id.layoutTranslations).setOnClickListener(this)
+        findViewById<LinearLayout>(R.id.rateOnGooglePlay).setOnClickListener(this)
+        findViewById<LinearLayout>(R.id.appDetails).setOnClickListener(this)
+        findViewById<LinearLayout>(R.id.writeMail).setOnClickListener(this)
+        findViewById<LinearLayout>(R.id.followOnGithub).setOnClickListener(this)
+        findViewById<LinearLayout>(R.id.followOnTwitter).setOnClickListener(this)
+        findViewById<LinearLayout>(R.id.aidanFollestadTwitter).setOnClickListener(this)
+        findViewById<LinearLayout>(R.id.aidanFollestadGitHub).setOnClickListener(this)
+        findViewById<LinearLayout>(R.id.karimGitHub).setOnClickListener(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -167,12 +158,12 @@ class UIAbout : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v) {
-            layoutLicenses -> showLicenseDialog()
-            layoutCode -> openUrl(CODE_URL)
-            layoutTranslations -> showTranslatorsDialog()
-            rateOnGooglePlay -> openUrl(RATE_ON_GOOGLE_PLAY)
-            appDetails -> openAppDetails()
-            writeMail -> {
+            findViewById<LinearLayout>(R.id.layoutLicenses) -> showLicenseDialog()
+            findViewById<LinearLayout>(R.id.layoutCode) -> openUrl(CODE_URL)
+            findViewById<LinearLayout>(R.id.layoutTranslations) -> showTranslatorsDialog()
+            findViewById<LinearLayout>(R.id.rateOnGooglePlay) -> openUrl(RATE_ON_GOOGLE_PLAY)
+            findViewById<LinearLayout>(R.id.appDetails) -> openAppDetails()
+            findViewById<LinearLayout>(R.id.writeMail) -> {
                 try {
                     startActivity(email)
                 } catch (e: ActivityNotFoundException) {
@@ -180,17 +171,17 @@ class UIAbout : BaseActivity(), View.OnClickListener {
                 }
 
             }
-            followOnGithub -> openUrl(GITHUB)
-            followOnTwitter -> openUrl(TWITTER)
-            aidanFollestadTwitter -> openUrl(SPECIAL_THANKS.AIDAN_FOLLESTAD_TWITTER)
-            aidanFollestadGitHub -> openUrl(SPECIAL_THANKS.AIDAN_FOLLESTAD_GITHUB)
-            karimGitHub -> openUrl(SPECIAL_THANKS.KARIM_ABOU_GITHUB)
+            findViewById<LinearLayout>(R.id.followOnGithub) -> openUrl(GITHUB)
+            findViewById<LinearLayout>(R.id.followOnTwitter) -> openUrl(TWITTER)
+            findViewById<LinearLayout>(R.id.aidanFollestadTwitter) -> openUrl(SPECIAL_THANKS.AIDAN_FOLLESTAD_TWITTER)
+            findViewById<LinearLayout>(R.id.aidanFollestadGitHub) -> openUrl(SPECIAL_THANKS.AIDAN_FOLLESTAD_GITHUB)
+            findViewById<LinearLayout>(R.id.karimGitHub) -> openUrl(SPECIAL_THANKS.KARIM_ABOU_GITHUB)
         }
     }
 
     private fun openAppDetails() {
         try {
-            val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             intent.data = Uri.parse("package:$packageName")
             startActivity(intent)
         } catch (e: ActivityNotFoundException) {
@@ -219,7 +210,6 @@ class UIAbout : BaseActivity(), View.OnClickListener {
         recyclerView?.addOnItemTouchListener(LicensesTouchListener(applicationContext, recyclerView, object : ClickListener {
             override fun onClick(view: View, position: Int) {
                 openUrl(libList[position].URL)
-                vibrator.vibrate(150)
             }
 
             override fun onLongClick(view: View, position: Int) {}

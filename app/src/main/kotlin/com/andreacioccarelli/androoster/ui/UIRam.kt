@@ -3,7 +3,12 @@ package com.andreacioccarelli.androoster.ui
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.AppCompatButton
+import android.support.v7.widget.AppCompatSpinner
+import android.support.v7.widget.CardView
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
@@ -11,6 +16,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.tools.LicenseManager
 import com.andreacioccarelli.androoster.R
@@ -37,8 +44,9 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.ram.*
-import kotlinx.android.synthetic.main.ram_content.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -58,6 +66,49 @@ class UIRam : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, F
 
     private var doubleBackToExitPressedOnce = false
 
+
+
+
+
+    val fabTop: FloatingActionButton get() = findViewById(R.id.fabTop)
+    val fabBottom: FloatingActionButton get() = findViewById(R.id.fabBottom)
+    val toolbar_layout: CollapsingToolbarLayout get() = findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
+
+    private val Switch1RAM3: SwitchCompat get() = findViewById(R.id.Switch1RAM3)
+    private val Switch2RAM3: SwitchCompat get() = findViewById(R.id.Switch2RAM3)
+    private val SwitchRAM2: SwitchCompat get() = findViewById(R.id.SwitchRAM2)
+    private val SwitchRAM6: SwitchCompat get() = findViewById(R.id.SwitchRAM6)
+    private val SwitchRAM7: SwitchCompat get() = findViewById(R.id.SwitchRAM7)
+
+    private val CardRAM0: CardView get() = findViewById(R.id.CardRAM0)
+    private val CardRAM1: CardView get() = findViewById(R.id.CardRAM1)
+    private val CardRAM2: CardView get() = findViewById(R.id.CardRAM2)
+    private val CardRAM3_1: CardView get() = findViewById(R.id.CardRAM3_1)
+    private val CardRAM3_2: CardView get() = findViewById(R.id.CardRAM3_2)
+    private val CardRAM4: CardView get() = findViewById(R.id.CardRAM4)
+    private val CardRAM6: CardView get() = findViewById(R.id.CardRAM6)
+    private val CardRAM7: CardView get() = findViewById(R.id.CardRAM7)
+
+    private val SpinnerRAM0: AppCompatSpinner get() = findViewById(R.id.SpinnerRAM0)
+    private val spinnerRAM1: AppCompatSpinner get() = findViewById(R.id.spinnerRAM1)
+
+    private val RAMBase: ImageView get() = findViewById(R.id.RAMBase)
+
+    private val render1RAM: TextView get() = findViewById(R.id.render1RAM)
+    private val render2RAM: TextView get() = findViewById(R.id.render2RAM)
+    private val render3RAM: TextView get() = findViewById(R.id.render3RAM)
+    private val render4RAM: TextView get() = findViewById(R.id.render4RAM)
+    private val render5RAM: TextView get() = findViewById(R.id.render5RAM)
+    private val render6RAM: TextView get() = findViewById(R.id.render6RAM)
+    private val lmk_state: TextView get() = findViewById(R.id.lmk_state)
+    private val dashboard_ram_content: TextView get() = findViewById(R.id.dashboard_ram_content)
+
+
+
+
+
+
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ram)
@@ -74,7 +125,7 @@ class UIRam : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, F
         preferencesBuilder = PreferencesBuilder(this@UIRam)
         UI = UI(this@UIRam)
         pro = PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean("pro", false)
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         preferencesBuilder.putInt(XmlKeys.LAST_OPENED, LaunchStruct.RAM_ACTIVITY)
         setUpDrawer(toolbar)

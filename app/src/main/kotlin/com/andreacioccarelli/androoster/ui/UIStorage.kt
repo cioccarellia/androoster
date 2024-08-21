@@ -9,13 +9,19 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.AppCompatButton
+import android.support.v7.widget.AppCompatSpinner
+import android.support.v7.widget.CardView
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.R
@@ -40,13 +46,15 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.storage.*
-import kotlinx.android.synthetic.main.storage_content.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.lang.RuntimeException
 import java.util.*
 import kotlin.concurrent.schedule
 
-class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, Governors, LaunchStruct {
+class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, Governors,
+    LaunchStruct {
 
     internal lateinit var DRAWER_SETTINGS: PrimaryDrawerItem
     internal lateinit var DRAWER_BACKUP: PrimaryDrawerItem
@@ -59,6 +67,48 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
     lateinit var drawer: Drawer
     var ran = false
     var menu: Menu? = null
+
+
+    val fabTop: FloatingActionButton get() = findViewById(R.id.fabTop)
+    val fabBottom: FloatingActionButton get() = findViewById(R.id.fabBottom)
+    val toolbar_layout: CollapsingToolbarLayout get() = findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
+
+    private val SwitchROM3: SwitchCompat get() = findViewById(R.id.SwitchROM3)
+    private val SwitchROM4: SwitchCompat get() = findViewById(R.id.SwitchROM4)
+    private val SwitchROM5: SwitchCompat get() = findViewById(R.id.SwitchROM5)
+
+    private val CardROM2: CardView get() = findViewById(R.id.CardROM2)
+    private val CardROM3: CardView get() = findViewById(R.id.CardROM3)
+    private val CardROM4: CardView get() = findViewById(R.id.CardROM4)
+    private val CardROM5: CardView get() = findViewById(R.id.CardROM5)
+
+    private val SpinnerRAM0: AppCompatSpinner get() = findViewById(R.id.SpinnerRAM0)
+    private val spinnerRAM1: AppCompatSpinner get() = findViewById(R.id.spinnerRAM1)
+
+    private val storageBase: ImageView get() = findViewById(R.id.storageBase)
+    private val appSdmaidLayoutIcon: ImageView get() = findViewById(R.id.appSdmaidLayoutIcon)
+
+    private val TitleROM2: TextView get() = findViewById(R.id.TitleROM2)
+    private val TitleROM3: TextView get() = findViewById(R.id.TitleROM3)
+    private val TitleROM4: TextView get() = findViewById(R.id.TitleROM4)
+    private val TitleROM5: TextView get() = findViewById(R.id.TitleROM5)
+    private val TitleROM6: TextView get() = findViewById(R.id.TitleROM6)
+    private val TitleROM7: TextView get() = findViewById(R.id.TitleROM7)
+
+    private val ContentROM2: TextView get() = findViewById(R.id.ContentROM2)
+    private val ContentROM3: TextView get() = findViewById(R.id.ContentROM3)
+    private val ContentROM4: TextView get() = findViewById(R.id.ContentROM4)
+    private val ContentROM5: TextView get() = findViewById(R.id.ContentROM5)
+    private val ContentROM6: TextView get() = findViewById(R.id.ContentROM6)
+    private val ContentROM7: TextView get() = findViewById(R.id.ContentROM7)
+
+
+    private val ButtonROM6: AppCompatButton get() = findViewById(R.id.ButtonROM6)
+    private val ButtonROM7: AppCompatButton get() = findViewById(R.id.ButtonROM7)
+
+    private val dashboard_rom_content: TextView get() = findViewById(R.id.dashboard_rom_content)
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.storage)
@@ -68,7 +118,7 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         UI = UI(this@UIStorage)
         pro = PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean("pro", false)
         preferencesBuilder = PreferencesBuilder(this@UIStorage)
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         preferencesBuilder.putInt(XmlKeys.LAST_OPENED, LaunchStruct.STORAGE_ACTIVITY)
         RecentWidget.collect(this@UIStorage, LaunchStruct.STORAGE_ACTIVITY)
@@ -81,62 +131,60 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             if (!ran) {
                 ran = true
                 val dialog = MaterialDialog.Builder(this@UIStorage)
-                        .title(R.string.storage_fstrim_dialog_title)
-                        .content(R.string.storage_fstrim_dialog_content)
-                        .cancelable(false)
-                        .progress(true, 0)
-                        .progressIndeterminateStyle(true)
-                        .show()
+                    .title(R.string.storage_fstrim_dialog_title)
+                    .content(R.string.storage_fstrim_dialog_content)
+                    .cancelable(false)
+                    .progress(true, 0)
+                    .progressIndeterminateStyle(true)
+                    .show()
 
                 Handler().postDelayed({
                     CoroutineScope(Dispatchers.Main).launch {
                         var isNotInstalled = true
                         try {
-                             isNotInstalled = run("fstrim").getStderr().contains("not found")
-                        } catch (ise: java.lang.IllegalStateException) {}
-                        catch (re: RuntimeException) {}
-
-                        if (isNotInstalled) {
-                            CoroutineScope(Dispatchers.Main).launch {
-                                ran = false
-                                dialog.dismiss()
-                                MaterialDialog.Builder(it)
-                                        .title(R.string.storage_fstrim_dialog_not_found_title)
-                                        .content(R.string.storage_fstrim_dialog_not_found_content)
-                                        .positiveText(R.string.action_ok)
-                                        .show()
-                            }
-                            return@doAsync
+                            isNotInstalled = run("fstrim").getStderr().contains("not found")
+                        } catch (ise: java.lang.IllegalStateException) {
+                        } catch (re: RuntimeException) {
                         }
 
-                        CoroutineScope(Dispatchers.Main).launch { dialog.setTitle(R.string.storage_fstrim_dialog_progress_title) }
-                        TerminalCore.mount()
+                        if (!isNotInstalled) {
+                            CoroutineScope(Dispatchers.Main).launch { dialog.setTitle(R.string.storage_fstrim_dialog_progress_title) }
+                            TerminalCore.mount()
 
-                        val resultList = ArrayList<String>()
-                        val pathList = Arrays.asList("/system", "/data", "/cache")
-                        val untrustedPaths = Arrays.asList("/su", "/magisk")
+                            val resultList = ArrayList<String>()
+                            val pathList = Arrays.asList("/system", "/data", "/cache")
+                            val untrustedPaths = Arrays.asList("/su", "/magisk")
 
 
-                        for (path in pathList) {
-                            CoroutineScope(Dispatchers.Main).launch { dialog.setContent(getString(R.string.storage_fstrim_dialog_progress_prefix) + " " + path) }
-                            resultList.add(run("fstrim -v $path").getStdout())
-                        }
-
-                        for (path in untrustedPaths) {
-                            if (RootFile(path).file.exists()) {
-                                CoroutineScope(Dispatchers.Main).launch { dialog.setContent(getString(R.string.storage_fstrim_dialog_progress_prefix) + " " + path) }
+                            for (path in pathList) {
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    dialog.setContent(
+                                        getString(R.string.storage_fstrim_dialog_progress_prefix) + " " + path
+                                    )
+                                }
                                 resultList.add(run("fstrim -v $path").getStdout())
                             }
-                        }
 
-                        CoroutineScope(Dispatchers.Main).launch {
-                            dialog.dismiss()
-                            TitleROM2.setText(R.string.storage_fstrim_dialog_title)
-                            ContentROM2.text = ""
-                            var showLastSpace = 0
-                            for (result in resultList) {
-                                showLastSpace++
-                                ContentROM2.append(result + (if (showLastSpace == resultList.size) "" else "\n"))
+                            for (path in untrustedPaths) {
+                                if (RootFile(path).file.exists()) {
+                                    CoroutineScope(Dispatchers.Main).launch {
+                                        dialog.setContent(
+                                            getString(R.string.storage_fstrim_dialog_progress_prefix) + " " + path
+                                        )
+                                    }
+                                    resultList.add(run("fstrim -v $path").getStdout())
+                                }
+                            }
+
+                            CoroutineScope(Dispatchers.Main).launch {
+                                dialog.dismiss()
+                                TitleROM2.setText(R.string.storage_fstrim_dialog_title)
+                                ContentROM2.text = ""
+                                var showLastSpace = 0
+                                for (result in resultList) {
+                                    showLastSpace++
+                                    ContentROM2.append(result + (if (showLastSpace == resultList.size) "" else "\n"))
+                                }
                             }
                         }
                     }
@@ -191,12 +239,12 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
         ButtonROM6.setOnClickListener { _ ->
             val d = MaterialDialog.Builder(this@UIStorage)
-                    .title(R.string.storage_mounting_title)
-                    .content(R.string.storage_mounting_content)
-                    .progress(true, 100)
-                    .cancelable(false)
-                    .progressIndeterminateStyle(true)
-                    .show()
+                .title(R.string.storage_mounting_title)
+                .content(R.string.storage_mounting_content)
+                .progress(true, 100)
+                .cancelable(false)
+                .progressIndeterminateStyle(true)
+                .show()
 
             Handler().postDelayed({
                 UI.success(getString(R.string.storage_mounting_success))
@@ -212,22 +260,27 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             if (isPackageInstalled("eu.thedarken.sdm")) {
                 try {
                     startActivity(packageManager.getLaunchIntentForPackage("eu.thedarken.sdm"))
-                } catch(anf: ActivityNotFoundException) {
+                } catch (anf: ActivityNotFoundException) {
                     /*
                     Crashlytics.logException(anf)
                     Crashlytics.log(1, "UIStorage", "eu.thedarken.sdm not found")
                     */
                 }
             } else {
-                startActivity(Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://play.google.com/store/apps/details?id=eu.thedarken.sdm")))
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=eu.thedarken.sdm")
+                    )
+                )
             }
         }
 
 
 
         if ((resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE ||
-                (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE
+        ) {
             appSdmaidLayoutIcon.visibility = View.VISIBLE
         } else {
             appSdmaidLayoutIcon.visibility = View.GONE
@@ -264,7 +317,7 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         ATH.setTint(SwitchROM4, accentColor)
         ATH.setTint(SwitchROM5, accentColor)
         ATH.setTint(ButtonROM6, accentColor)
-        ATH.setTint(ButtonROM7, ContextCompat.getColor(baseContext,R.color.sd_maid))
+        ATH.setTint(ButtonROM7, ContextCompat.getColor(baseContext, R.color.sd_maid))
         ATH.setTint(storageBase, primaryColor)
 
         if (isPackageInstalled("eu.thedarken.sdm")) {
@@ -285,10 +338,10 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
             CoroutineScope(Dispatchers.Main).launch {
                 dashboard_rom_content.text =
-                        "${getString(R.string.storage_widget_system)}: $systemPath\n" +
-                        "${getString(R.string.storage_widget_data)}: $dataPath\n" +
-                        "${getString(R.string.storage_widget_cache)}: /cache\n" +
-                        "${getString(R.string.storage_widget_storage)}: $storagePath"
+                    "${getString(R.string.storage_widget_system)}: $systemPath\n" +
+                            "${getString(R.string.storage_widget_data)}: $dataPath\n" +
+                            "${getString(R.string.storage_widget_cache)}: /cache\n" +
+                            "${getString(R.string.storage_widget_storage)}: $storagePath"
 
                 if (doesSuExist) dashboard_rom_content.append("\n${getString(R.string.storage_system_supersu)}: /su")
                 if (doesMagiskExist) dashboard_rom_content.append("\n${getString(R.string.storage_system_magisk)}: /magisk")
@@ -300,7 +353,11 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         super.onResume()
         FabManager.onResume(fabTop, fabBottom, preferencesBuilder)
         if (pro && drwInitialized) {
-            if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.STICKY_SETTINGS, false)) {
+            if (preferencesBuilder.getPreferenceBoolean(
+                    SettingStore.GENERAL.STICKY_SETTINGS,
+                    false
+                )
+            ) {
                 drawer.removeAllStickyFooterItems()
                 drawer.removeItem(20)
                 drawer.addStickyFooterItem(DRAWER_SETTINGS)
@@ -318,12 +375,11 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         }
         try {
             SettingsReflector.updateMenu(menu!!, preferencesBuilder)
-        } catch (k: NullPointerException) {}
+        } catch (k: NullPointerException) {
+        }
 
         CoroutineScope(Dispatchers.Main).launch {
-            val updatedState = isPackageInstalled("eu.thedarken.sdm")
-            if (isPackageInstalled("eu.thedarken.sdm") == updatedState) return@doAsync
-            if (updatedState) {
+            if (isPackageInstalled("eu.thedarken.sdm")) {
                 CoroutineScope(Dispatchers.Main).launch {
                     ButtonROM7.text = getString(R.string.action_open)
                     TitleROM7.text = getString(R.string.storage_sdmaid_open_title)
@@ -342,71 +398,90 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
     private fun setUpDrawer(toolbar: Toolbar) {
         DrawerBuilder().withActivity(this@UIStorage).build()
 
-        val DRAWER_DASHBOARD = PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_dashboard).withIcon(R.drawable.dashboard).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.DASHBOARD_ACTIVITY)
-            false
-        }
-        val DRAWER_CPU = PrimaryDrawerItem().withIdentifier(2).withName(R.string.drawer_cpu).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.CPU_ACTIVITY)
-            false
-        }
-        val DRAWER_RAM = PrimaryDrawerItem().withIdentifier(3).withName(R.string.drawer_ram).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.RAM_ACTIVITY)
-            false
-        }
-        val DRAWER_BATTERY = PrimaryDrawerItem().withIdentifier(4).withName(R.string.drawer_battery).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.BATTERY_ACTIVITY)
-            false
-        }
-        val DRAWER_KERNEL = PrimaryDrawerItem().withIdentifier(5).withName(R.string.drawer_kernel).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.KERNEL_ACTIVITY)
-            false
-        }
-        val DRAWER_TWEAKS = PrimaryDrawerItem().withIdentifier(6).withName(R.string.drawer_tweaks).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.GENERAL_ACTIVITY)
-            false
-        }
+        val DRAWER_DASHBOARD =
+            PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_dashboard)
+                .withIcon(R.drawable.dashboard).withOnDrawerItemClickListener { _, _, _ ->
+                    handleIntent(LaunchStruct.DASHBOARD_ACTIVITY)
+                    false
+                }
+        val DRAWER_CPU = PrimaryDrawerItem().withIdentifier(2).withName(R.string.drawer_cpu)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.CPU_ACTIVITY)
+                false
+            }
+        val DRAWER_RAM = PrimaryDrawerItem().withIdentifier(3).withName(R.string.drawer_ram)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.RAM_ACTIVITY)
+                false
+            }
+        val DRAWER_BATTERY = PrimaryDrawerItem().withIdentifier(4).withName(R.string.drawer_battery)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.BATTERY_ACTIVITY)
+                false
+            }
+        val DRAWER_KERNEL = PrimaryDrawerItem().withIdentifier(5).withName(R.string.drawer_kernel)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.KERNEL_ACTIVITY)
+                false
+            }
+        val DRAWER_TWEAKS = PrimaryDrawerItem().withIdentifier(6).withName(R.string.drawer_tweaks)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.GENERAL_ACTIVITY)
+                false
+            }
         val DRAWER_STORAGE = PrimaryDrawerItem().withIdentifier(7).withName(R.string.drawer_storage)
-        val DRAWER_INTERNET = PrimaryDrawerItem().withIdentifier(8).withName(R.string.drawer_net).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.INTERNET_ACTIVITY)
-            false
-        }
-        val DRAWER_DEBUG = PrimaryDrawerItem().withIdentifier(9).withName(R.string.drawer_debug).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.DEBUG_ACTIVITY)
-            false
-        }
-        val DRAWER_GPS = PrimaryDrawerItem().withIdentifier(11).withName(R.string.drawer_gps).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.GPS_ACTIVITY)
-            false
-        }
-        val DRAWER_HARDWARE = PrimaryDrawerItem().withIdentifier(12).withName(R.string.drawer_hardware).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.HARDWARE_ACTIVITY)
-            false
-        }
-        val DRAWER_GRAPHICS = PrimaryDrawerItem().withIdentifier(13).withName(R.string.drawer_graphics).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.GRAPHICS_ACTIVITY)
-            false
-        }
-        val DRAWER_ABOUT = PrimaryDrawerItem().withIdentifier(14).withName(R.string.drawer_about).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.ABOUT_ACTIVITY)
-            false
-        }
-        val DRAWER_BUY_PRO_VERSION = PrimaryDrawerItem().withIdentifier(15).withName(R.string.drawer_pro).withOnDrawerItemClickListener { _, _, _ ->
-            LicenseManager.startProActivity(this@UIStorage, this@UIStorage, drawer)
-            false
-        }
+        val DRAWER_INTERNET = PrimaryDrawerItem().withIdentifier(8).withName(R.string.drawer_net)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.INTERNET_ACTIVITY)
+                false
+            }
+        val DRAWER_DEBUG = PrimaryDrawerItem().withIdentifier(9).withName(R.string.drawer_debug)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.DEBUG_ACTIVITY)
+                false
+            }
+        val DRAWER_GPS = PrimaryDrawerItem().withIdentifier(11).withName(R.string.drawer_gps)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.GPS_ACTIVITY)
+                false
+            }
+        val DRAWER_HARDWARE =
+            PrimaryDrawerItem().withIdentifier(12).withName(R.string.drawer_hardware)
+                .withOnDrawerItemClickListener { _, _, _ ->
+                    handleIntent(LaunchStruct.HARDWARE_ACTIVITY)
+                    false
+                }
+        val DRAWER_GRAPHICS =
+            PrimaryDrawerItem().withIdentifier(13).withName(R.string.drawer_graphics)
+                .withOnDrawerItemClickListener { _, _, _ ->
+                    handleIntent(LaunchStruct.GRAPHICS_ACTIVITY)
+                    false
+                }
+        val DRAWER_ABOUT = PrimaryDrawerItem().withIdentifier(14).withName(R.string.drawer_about)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.ABOUT_ACTIVITY)
+                false
+            }
+        val DRAWER_BUY_PRO_VERSION =
+            PrimaryDrawerItem().withIdentifier(15).withName(R.string.drawer_pro)
+                .withOnDrawerItemClickListener { _, _, _ ->
+                    LicenseManager.startProActivity(this@UIStorage, this@UIStorage, drawer)
+                    false
+                }
 
 
-        DRAWER_BACKUP = PrimaryDrawerItem().withIdentifier(19L).withName(R.string.drawer_backup).withOnDrawerItemClickListener { _, _, _ ->
-            startActivity(Intent(this@UIStorage, UIBackup::class.java))
-            false
-        }
+        DRAWER_BACKUP = PrimaryDrawerItem().withIdentifier(19L).withName(R.string.drawer_backup)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                startActivity(Intent(this@UIStorage, UIBackup::class.java))
+                false
+            }
 
 
-        DRAWER_SETTINGS = PrimaryDrawerItem().withIdentifier(20).withName(R.string.drawer_settings).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.SETTINGS_ACTIVITY)
-            false
-        }
+        DRAWER_SETTINGS = PrimaryDrawerItem().withIdentifier(20).withName(R.string.drawer_settings)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.SETTINGS_ACTIVITY)
+                false
+            }
 
 
         if (!preferencesBuilder.getBoolean(XmlKeys.DARK_THEME_APPLIED, false)) {
@@ -448,60 +523,67 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
         val factory = layoutInflater
         val DrawerHeader = factory.inflate(R.layout.drawer_header, null)
-        BaseActivity.setDrawerHeader(DrawerHeader.findViewById(R.id.Title), DrawerHeader.findViewById(R.id.Content), DrawerHeader.findViewById(R.id.Image), DrawerHeader.findViewById(R.id.RootLayout), this@UIStorage, pro)
+        BaseActivity.setDrawerHeader(
+            DrawerHeader.findViewById(R.id.Title),
+            DrawerHeader.findViewById(R.id.Content),
+            DrawerHeader.findViewById(R.id.Image),
+            DrawerHeader.findViewById(R.id.RootLayout),
+            this@UIStorage,
+            pro
+        )
 
 
         if (pro) {
             drawer = DrawerBuilder()
-                    .withActivity(this@UIStorage)
-                    .withToolbar(toolbar)
-                    .addDrawerItems(
-                            DRAWER_STORAGE,
-                            DRAWER_DASHBOARD,
-                            DividerDrawerItem(),
-                            DRAWER_CPU,
-                            DRAWER_RAM,
-                            DRAWER_BATTERY,
-                            DRAWER_KERNEL,
-                            DRAWER_TWEAKS,
-                            DRAWER_INTERNET,
-                            DRAWER_DEBUG,
-                            DRAWER_GPS,
-                            DRAWER_HARDWARE,
-                            DRAWER_GRAPHICS,
-                            DividerDrawerItem(),
-                            DRAWER_BACKUP,
-                            DRAWER_ABOUT,
-                            DRAWER_SETTINGS
-                    )
-                    .withHeader(DrawerHeader)
-                    .build()
+                .withActivity(this@UIStorage)
+                .withToolbar(toolbar)
+                .addDrawerItems(
+                    DRAWER_STORAGE,
+                    DRAWER_DASHBOARD,
+                    DividerDrawerItem(),
+                    DRAWER_CPU,
+                    DRAWER_RAM,
+                    DRAWER_BATTERY,
+                    DRAWER_KERNEL,
+                    DRAWER_TWEAKS,
+                    DRAWER_INTERNET,
+                    DRAWER_DEBUG,
+                    DRAWER_GPS,
+                    DRAWER_HARDWARE,
+                    DRAWER_GRAPHICS,
+                    DividerDrawerItem(),
+                    DRAWER_BACKUP,
+                    DRAWER_ABOUT,
+                    DRAWER_SETTINGS
+                )
+                .withHeader(DrawerHeader)
+                .build()
         } else {
             drawer = DrawerBuilder()
-                    .withActivity(this@UIStorage)
-                    .withToolbar(toolbar)
-                    .addDrawerItems(
-                            DRAWER_STORAGE,
-                            DRAWER_DASHBOARD,
-                            DividerDrawerItem(),
-                            DRAWER_CPU,
-                            DRAWER_RAM,
-                            DRAWER_BATTERY,
-                            DRAWER_KERNEL,
-                            DRAWER_TWEAKS,
-                            DRAWER_INTERNET,
-                            DRAWER_DEBUG,
-                            DRAWER_GPS,
-                            DRAWER_HARDWARE,
-                            DRAWER_GRAPHICS,
-                            DividerDrawerItem(),
-                            DRAWER_BACKUP,
-                            DRAWER_ABOUT,
-                            DRAWER_SETTINGS
-                    )
-                    .addStickyDrawerItems(DRAWER_BUY_PRO_VERSION)
-                    .withHeader(DrawerHeader)
-                    .build()
+                .withActivity(this@UIStorage)
+                .withToolbar(toolbar)
+                .addDrawerItems(
+                    DRAWER_STORAGE,
+                    DRAWER_DASHBOARD,
+                    DividerDrawerItem(),
+                    DRAWER_CPU,
+                    DRAWER_RAM,
+                    DRAWER_BATTERY,
+                    DRAWER_KERNEL,
+                    DRAWER_TWEAKS,
+                    DRAWER_INTERNET,
+                    DRAWER_DEBUG,
+                    DRAWER_GPS,
+                    DRAWER_HARDWARE,
+                    DRAWER_GRAPHICS,
+                    DividerDrawerItem(),
+                    DRAWER_BACKUP,
+                    DRAWER_ABOUT,
+                    DRAWER_SETTINGS
+                )
+                .addStickyDrawerItems(DRAWER_BUY_PRO_VERSION)
+                .withHeader(DrawerHeader)
+                .build()
         }
 
         drwInitialized = true
@@ -519,11 +601,15 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 closeApp()
                 return
             }
-            if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.PRESS_TWICE_TO_EXIT, false)) {
+            if (preferencesBuilder.getPreferenceBoolean(
+                    SettingStore.GENERAL.PRESS_TWICE_TO_EXIT,
+                    false
+                )
+            ) {
                 this.doubleBackToExitPressedOnce = true
                 UI.normal(getString(R.string.click_again_to_exit))
 
-                Timer().schedule(1500){ doubleBackToExitPressedOnce = false }
+                Timer().schedule(1500) { doubleBackToExitPressedOnce = false }
             } else {
                 super.onBackPressed()
             }
@@ -534,11 +620,16 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         menuInflater.inflate(R.menu.overflow, menu)
         this.menu = menu
         menu.getItem(0).isVisible = true
-        menu.getItem(1).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.ABOUT, true)
-        menu.getItem(2).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.DASHBOARD, true)
-        menu.getItem(3).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
-        menu.getItem(4).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
-        menu.getItem(5).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
+        menu.getItem(1).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.ABOUT, true)
+        menu.getItem(2).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.DASHBOARD, true)
+        menu.getItem(3).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
+        menu.getItem(4).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
+        menu.getItem(5).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
 
         val d: String? = packageManager.getInstallerPackageName(packageName)
         if (d != null) {
@@ -559,22 +650,27 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 startActivity(Intent(this@UIStorage, UIAbout::class.java))
                 return true
             }
+
             R.id.menu_dashboard -> {
                 startActivity(Intent(this@UIStorage, UIDashboard::class.java))
                 return true
             }
+
             R.id.menu_settings -> {
                 startActivity(Intent(this@UIStorage, UISettings::class.java))
                 return true
             }
+
             R.id.menu_drawer -> {
                 drawer.openDrawer()
                 return true
             }
+
             R.id.menu_backup -> {
                 startActivity(Intent(this@UIStorage, UIBackup::class.java))
                 return true
             }
+
             R.id.menu_reboot -> {
                 RebootDialog.show(this)
                 return true

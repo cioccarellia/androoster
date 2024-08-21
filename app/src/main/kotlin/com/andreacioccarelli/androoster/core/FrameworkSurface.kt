@@ -2,8 +2,6 @@ package com.andreacioccarelli.androoster.core
 
 import android.annotation.SuppressLint
 
-import com.andreacioccarelli.androoster.BuildConfig
-
 /**
  * Created by andrea on 2017/nov.
  * Part of the package com.andreacioccarelli.androoster.core
@@ -18,7 +16,7 @@ interface FrameworkSurface {
         const val sysctl_path = "/system/etc/sysctl.conf"
         const val buildprop_path = "/system/build.prop"
         @SuppressLint("SdCardPath")
-        val data_dir = "/data/data/" + BuildConfig.APPLICATION_ID + '/'.toString()
+        val data_dir = "/data/data/com.andreacioccarelli.androoster/"
         val backup_path = data_dir + "backup/"
         val backup_sysctl_path = data_dir + "backup/sysctl.conf"
         val backup_buildprop_path = data_dir + "backup/build.prop"

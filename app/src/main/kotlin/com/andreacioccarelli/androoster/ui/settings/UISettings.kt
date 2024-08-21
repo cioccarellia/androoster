@@ -966,10 +966,6 @@ class UISettings : BaseActivity(), ColorChooserDialog.ColorCallback, LaunchStruc
             auth_setup_hint_layout.isErrorEnabled = false
         }
 
-        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-
-        }
-
         companion object {
             internal const val AUTH_PIN = 0
             internal const val AUTH_PASSWORD = 1
@@ -1005,6 +1001,13 @@ class UISettings : BaseActivity(), ColorChooserDialog.ColorCallback, LaunchStruc
                     preference.summary = stringValue
                 }
             }
+        }
+
+        override fun onSharedPreferenceChanged(
+            sharedPreferences: SharedPreferences?,
+            key: String?
+        ) {
+
         }
     }
 

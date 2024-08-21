@@ -5,8 +5,13 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.AppCompatButton
+import android.support.v7.widget.AppCompatSpinner
+import android.support.v7.widget.CardView
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,6 +20,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.afollestad.materialdialogs.DialogAction
@@ -45,8 +51,9 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.hardware.*
-import kotlinx.android.synthetic.main.hardware_content.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -63,6 +70,60 @@ class UIHardware : BaseActivity(), NavigationView.OnNavigationItemSelectedListen
     internal var drawerInitialized = false
 
     internal var doubleBackToExitPressedOnce = false
+
+
+
+
+
+
+
+
+
+    val fabTop: FloatingActionButton get() = findViewById(R.id.fabTop)
+    val fabBottom: FloatingActionButton get() = findViewById(R.id.fabBottom)
+    val toolbar_layout: CollapsingToolbarLayout get() = findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
+
+    private val SwitchHardware1: SwitchCompat get() = findViewById(R.id.SwitchHardware1)
+    private val SwitchHardware2: SwitchCompat get() = findViewById(R.id.SwitchHardware2)
+    private val SwitchHardware4: SwitchCompat get() = findViewById(R.id.SwitchHardware4)
+    private val SwitchHardware5: SwitchCompat get() = findViewById(R.id.SwitchHardware5)
+    private val SwitchHardware6: SwitchCompat get() = findViewById(R.id.SwitchHardware6)
+    private val SwitchHardware7: SwitchCompat get() = findViewById(R.id.SwitchHardware7)
+
+    private val CardHardware1: CardView get() = findViewById(R.id.CardHardware1)
+    private val CardHardware2: CardView get() = findViewById(R.id.CardHardware2)
+    private val CardHardware4: CardView get() = findViewById(R.id.CardHardware4)
+    private val CardHardware5: CardView get() = findViewById(R.id.CardHardware5)
+    private val CardHardware6: CardView get() = findViewById(R.id.CardHardware6)
+    private val CardHardware7: CardView get() = findViewById(R.id.CardHardware7)
+    private val CardHardware8: CardView get() = findViewById(R.id.CardHardware8)
+
+    private val SpinnerRAM0: AppCompatSpinner get() = findViewById(R.id.SpinnerRAM0)
+    private val spinnerRAM1: AppCompatSpinner get() = findViewById(R.id.spinnerRAM1)
+
+    private val HardwareBase: ImageView get() = findViewById(R.id.HardwareBase)
+
+    private val render1RAM: TextView get() = findViewById(R.id.render1RAM)
+    private val render2RAM: TextView get() = findViewById(R.id.render2RAM)
+    private val render3RAM: TextView get() = findViewById(R.id.render3RAM)
+    private val render4RAM: TextView get() = findViewById(R.id.render4RAM)
+    private val render5RAM: TextView get() = findViewById(R.id.render5RAM)
+    private val render6RAM: TextView get() = findViewById(R.id.render6RAM)
+
+
+    private val ButtonHardware8: AppCompatButton get() = findViewById(R.id.ButtonHardware8)
+
+    private val dashboard_hardware_content: TextView get() = findViewById(R.id.dashboard_hardware_content)
+
+
+
+
+
+
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +142,7 @@ class UIHardware : BaseActivity(), NavigationView.OnNavigationItemSelectedListen
         FabManager.setup(fabTop, fabBottom, this@UIHardware, drawer, preferencesBuilder)
 
         updateDashboard()
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         CardHardware1.setOnClickListener { _ -> SwitchHardware1.performClick() }
         CardHardware2.setOnClickListener { _ -> SwitchHardware2.performClick() }
@@ -249,8 +310,8 @@ class UIHardware : BaseActivity(), NavigationView.OnNavigationItemSelectedListen
 
             val widgetColor = ThemeSingleton.get().widgetColor
 
-            MDTintHelper.setTint(input,
-                    if (widgetColor == 0) ContextCompat.getColor(this@UIHardware, R.color.accent) else widgetColor)
+            //MDTintHelper.setTint(input,
+            //        if (widgetColor == 0) ContextCompat.getColor(this@UIHardware, R.color.accent) else widgetColor)
 
             editDialog.show()
             positiveAction!!.isEnabled = false

@@ -3,7 +3,10 @@ package com.andreacioccarelli.androoster.ui
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.CardView
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
@@ -28,8 +31,9 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.general.*
-import kotlinx.android.synthetic.main.general_content.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -45,6 +49,29 @@ class UIGeneral : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
     lateinit var drawer: Drawer
     var menu: Menu? = null
 
+
+
+
+
+    val fabTop: FloatingActionButton get() = findViewById(R.id.fabTop)
+    val fabBottom: FloatingActionButton get() = findViewById(R.id.fabBottom)
+
+    private val SwitchGeneral0: SwitchCompat get() = findViewById(R.id.SwitchGeneral0)
+    private val SwitchGeneral1: SwitchCompat get() = findViewById(R.id.SwitchGeneral1)
+    private val SwitchGeneral4: SwitchCompat get() = findViewById(R.id.SwitchGeneral4)
+    private val SwitchGeneral5: SwitchCompat get() = findViewById(R.id.SwitchGeneral5)
+
+    private val CardGeneral0: CardView get() = findViewById(R.id.CardGeneral0)
+    private val CardGeneral1: CardView get() = findViewById(R.id.CardGeneral1)
+    private val CardGeneral4: CardView get() = findViewById(R.id.CardGeneral4)
+    private val CardGeneral5: CardView get() = findViewById(R.id.CardGeneral5)
+
+
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.general)
@@ -56,7 +83,7 @@ class UIGeneral : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         pro = PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean("pro", false)
 
         preferencesBuilder = PreferencesBuilder(this@UIGeneral)
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         preferencesBuilder.putInt(XmlKeys.LAST_OPENED, LaunchStruct.GENERAL_ACTIVITY)
         setUpDrawer(toolbar)

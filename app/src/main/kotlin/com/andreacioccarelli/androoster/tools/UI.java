@@ -76,7 +76,7 @@ public class UI {
             if (shouldTintBasingOnBehavior) {
                 Toasty.info(mActivity, text, 0).show();
             } else {
-                Toasty.custom(mActivity, text, R.drawable.ic_info_outline_white_48dp, ThemeStore.accentColor(mActivity),0,true,true).show();
+                Toasty.custom(mActivity, text, es.dmoral.toasty.R.drawable.ic_info_outline_white_48dp, ThemeStore.accentColor(mActivity),0,true,true).show();
             }
         } else {
             Toasty.normal(mActivity, text, 0).show();

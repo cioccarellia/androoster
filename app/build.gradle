@@ -21,7 +21,7 @@ android {
         applicationId "com.andreacioccarelli.androoster"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 55
+        versionCode 56
         versionName "1.5.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -31,7 +31,8 @@ android {
         release {
             minifyEnabled true
             shrinkResources false
-            proguardFiles getDefaultProguardFile("proguard-android.txt") // "proguard-rules.txt", "proguard-rules.pro"
+            proguardFiles getDefaultProguardFile("proguard-android.txt")
+            // "proguard-rules.txt", "proguard-rules.pro"
         }
     }
 
@@ -46,6 +47,16 @@ android {
 
     lintOptions {
         abortOnError true
+    }
+
+
+    packagingOptions {
+        exclude("META-INF/LICENSE")
+        exclude("META-INF/*.properties")
+        exclude("META-INF/AL2.0")
+        exclude("META-INF/LGPL2.1")
+        exclude("META-INF/LGPL2.1")
+        exclude("META-INF/androidx.customview_customview.version")
     }
 
     sourceSets {
@@ -87,10 +98,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0-RC.2")
 
     // Dummy for google play
-    implementation("com.android.billingclient:billing:7.0.0") {
-        exclude group: 'androidx.core'
-        exclude module: 'androidx.core'
-    }
+    // implementation("com.android.billingclient:billing:7.0.0") {
+    //     exclude group: 'androidx.core'
+    //     exclude module: 'androidx.core'
+    // }
 
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

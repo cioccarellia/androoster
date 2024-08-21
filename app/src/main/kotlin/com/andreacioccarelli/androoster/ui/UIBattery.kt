@@ -8,8 +8,13 @@ import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.AppCompatButton
+import android.support.v7.widget.CardView
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,7 +23,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
+import az.plainpie.PieView
 import az.plainpie.animation.PieStrokeWidthAnimation
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
@@ -46,8 +53,9 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.battery.*
-import kotlinx.android.synthetic.main.battery_content.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -77,24 +85,27 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
     private var editDialog: MaterialDialog? = null
     private val errorColor = Color.parseColor("#F44336")
 
+
+
+
     private val BatteryReceiver = object : BroadcastReceiver() {
         @SuppressLint("SetTextI18n")
         override fun onReceive(mContext: Context, intent: Intent) {
             val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
             when {
-                level <= 20 -> batteryGraphic.setPercentageBackgroundColor(red)
-                level <= 35 -> batteryGraphic.setPercentageBackgroundColor(yellow)
-                else -> batteryGraphic.setPercentageBackgroundColor(green)
+                level <= 20 -> findViewById<PieView>(R.id.batteryGraphic).setPercentageBackgroundColor(red)
+                level <= 35 -> findViewById<PieView>(R.id.batteryGraphic).setPercentageBackgroundColor(yellow)
+                else -> findViewById<PieView>(R.id.batteryGraphic).setPercentageBackgroundColor(green)
             }
 
-            batteryGraphic.percentage = level.toFloat()
+            findViewById<PieView>(R.id.batteryGraphic).percentage = level.toFloat()
 
             val accentColor = ThemeStore.accentColor(mContext)
 
             if (level == 100) {
-                ATH.setTint(ButtonBattery2, accentColor)
+                ATH.setTint(findViewById(R.id.ButtonBattery2), accentColor)
             } else {
-                ATH.setTint(ButtonBattery2, errorColor)
+                ATH.setTint(findViewById(R.id.ButtonBattery2), errorColor)
             }
             BatteryLevel = level
 
@@ -106,11 +117,11 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL
 
             val temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0).toFloat() / 10
-            val temperature = temp.toString() + " C"
+            val temperature = "$temp C"
 
             pluggedIn = isCharging
 
-            ContentBattery1.text =
+            findViewById<TextView>(R.id.ContentBattery1).text =
                     "${getString(R.string.battery_widget_status)}: ${
                     if (isCharging)
                         getString(R.string.battery_widget_status_charging)
@@ -165,19 +176,19 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
         capacity = HardwareCore.getBatteryCapacity(this@UIBattery)
 
-        batteryGraphic.setMaxPercentage(100f)
+        findViewById<PieView>(R.id.batteryGraphic).setMaxPercentage(100f)
 
         if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.ENABLE_ANIMATIONS, true)) {
-            val animation = PieStrokeWidthAnimation(batteryGraphic)
+            val animation = PieStrokeWidthAnimation(findViewById<PieView>(R.id.batteryGraphic))
             animation.duration = 800
-            batteryGraphic.startAnimation(animation)
+            findViewById<PieView>(R.id.batteryGraphic).startAnimation(animation)
         }
 
         screenSize = resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK
         if (screenSize == Configuration.SCREENLAYOUT_SIZE_SMALL) {
-            batteryGraphic.setPercentageTextSize(16f)
+            findViewById<PieView>(R.id.batteryGraphic).setPercentageTextSize(16f)
         } else if (screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE) {
-            batteryGraphic.setPercentageTextSize(24f)
+            findViewById<PieView>(R.id.batteryGraphic).setPercentageTextSize(24f)
         }
 
         registerReceiver(BatteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -186,19 +197,17 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
         preferencesBuilder.putInt(XmlKeys.LAST_OPENED, LaunchStruct.BATTERY_ACTIVITY)
 
-        animateContent(content as ViewGroup)
+        animateContent(findViewById<PieView>(R.id.content) as ViewGroup)
         setUpDrawer(toolbar)
-        FabManager.setup(fabTop, fabBottom, this@UIBattery, drawer, preferencesBuilder)
+        FabManager.setup(findViewById(R.id.fabTop), findViewById(R.id.fabBottom), this@UIBattery, drawer, preferencesBuilder)
 
-        SwitchBattery3.isChecked = preferencesBuilder.getBoolean("Battery3", false)
-        SwitchBattery4.isChecked = preferencesBuilder.getBoolean("Battery4", false)
-        SwitchBattery6.isChecked = preferencesBuilder.getBoolean("Battery6", false)
-        // SwitchBattery7.isChecked = preferencesBuilder.getBoolean("Battery7", false)
-        // SwitchBattery8.isChecked = preferencesBuilder.getBoolean("Battery8", false)
-        SwitchBattery9.isChecked = preferencesBuilder.getBoolean("Battery9", false)
+        findViewById<SwitchCompat>(R.id.SwitchBattery3).isChecked = preferencesBuilder.getBoolean("Battery3", false)
+        findViewById<SwitchCompat>(R.id.SwitchBattery4).isChecked = preferencesBuilder.getBoolean("Battery4", false)
+        findViewById<SwitchCompat>(R.id.SwitchBattery6).isChecked = preferencesBuilder.getBoolean("Battery6", false)
+        findViewById<SwitchCompat>(R.id.SwitchBattery9).isChecked = preferencesBuilder.getBoolean("Battery9", false)
 
 
-        ButtonBattery2.setOnClickListener { _ ->
+        findViewById<AppCompatButton>(R.id.ButtonBattery2).setOnClickListener { _ ->
             if (wiped) {
                 UI.warning(getString(R.string.battery_statistics_just_wiped))
             } else {
@@ -235,7 +244,7 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         }
 
 
-        ButtonBattery5.setOnClickListener { _ ->
+        findViewById<AppCompatButton>(R.id.ButtonBattery5).setOnClickListener { _ ->
             var scanInterval = 0
             editDialog = MaterialDialog.Builder(this@UIBattery)
                     .title(R.string.edit_dialog_target_property)
@@ -313,23 +322,21 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
             val widgetColor = ThemeSingleton.get().widgetColor
 
-            MDTintHelper.setTint(SecondsInput!!,
-                    if (widgetColor == 0) ContextCompat.getColor(this@UIBattery, R.color.accent) else widgetColor)
+            //MDTintHelper.setTint(SecondsInput!!,
+            //        if (widgetColor == 0) ContextCompat.getColor(this@UIBattery, R.color.accent) else widgetColor)
 
             editDialog!!.show()
             positiveAction!!.isEnabled = true
         }
 
 
-        CardBattery3.setOnClickListener { _ -> SwitchBattery3.performClick() }
-        CardBattery4.setOnClickListener { _ -> SwitchBattery4.performClick() }
-        CardBattery6.setOnClickListener { _ -> SwitchBattery6.performClick() }
-        // CardBattery7.setOnClickListener { _ -> SwitchBattery7.performClick() }
-        // CardBattery8.setOnClickListener { _ -> SwitchBattery8.performClick() }
-        CardBattery9.setOnClickListener { _ -> SwitchBattery9.performClick() }
+        findViewById<CardView>(R.id.CardBattery3).setOnClickListener { _ -> findViewById<SwitchCompat>(R.id.SwitchBattery3).performClick() }
+        findViewById<CardView>(R.id.CardBattery4).setOnClickListener { _ -> findViewById<SwitchCompat>(R.id.SwitchBattery4).performClick() }
+        findViewById<CardView>(R.id.CardBattery6).setOnClickListener { _ -> findViewById<SwitchCompat>(R.id.SwitchBattery6).performClick() }
+        findViewById<CardView>(R.id.CardBattery9).setOnClickListener { _ -> findViewById<SwitchCompat>(R.id.SwitchBattery9).performClick() }
 
-        SwitchBattery3.setOnClickListener { _ ->
-            if (SwitchBattery3.isChecked) {
+        findViewById<SwitchCompat>(R.id.SwitchBattery3).setOnClickListener { _ ->
+            if (findViewById<SwitchCompat>(R.id.SwitchBattery3).isChecked) {
                 preferencesBuilder.putBoolean("Battery3", true)
                 UI.on()
                 Core.set_internal_async_battery(true)
@@ -342,8 +349,8 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             }
         }
 
-        SwitchBattery4.setOnClickListener { _ ->
-            if (SwitchBattery4.isChecked) {
+        findViewById<SwitchCompat>(R.id.SwitchBattery4).setOnClickListener { _ ->
+            if (findViewById<SwitchCompat>(R.id.SwitchBattery4).isChecked) {
                 preferencesBuilder.putBoolean("Battery4", true)
                 UI.on()
             } else {
@@ -353,8 +360,8 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         }
 
 
-        SwitchBattery6.setOnClickListener { _ ->
-            if (SwitchBattery6.isChecked) {
+        findViewById<SwitchCompat>(R.id.SwitchBattery6).setOnClickListener { _ ->
+            if (findViewById<SwitchCompat>(R.id.SwitchBattery6).isChecked) {
                 preferencesBuilder.putBoolean("Battery6", true)
                 UI.on()
                 Core.set_sleep_mode(true)
@@ -405,9 +412,9 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             }
         }*/
 
-        SwitchBattery9.setOnClickListener { _ ->
+        findViewById<SwitchCompat>(R.id.SwitchBattery9).setOnClickListener { _ ->
             Thread.sleep(500)
-            if (SwitchBattery9.isChecked) {
+            if (findViewById<SwitchCompat>(R.id.SwitchBattery9).isChecked) {
                 preferencesBuilder.putBoolean("Battery9", true)
                 CoroutineScope(Dispatchers.Main).launch { 
                     fixBatteryDrain()
@@ -422,8 +429,8 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            cardBatteryDoze.visibility = View.VISIBLE
-            buttonBatteryDoze.setOnClickListener {
+            findViewById<CardView>(R.id.cardBatteryDoze).visibility = View.VISIBLE
+            findViewById<AppCompatButton>(R.id.buttonBatteryDoze).setOnClickListener {
                 try {
                     startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
                 } catch (anf: ActivityNotFoundException) {
@@ -433,7 +440,7 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
             }
         } else {
-            cardBatteryDoze.visibility = View.GONE
+            findViewById<CardView>(R.id.cardBatteryDoze).visibility = View.GONE
         }
 
 
@@ -441,30 +448,28 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         val primaryColor = ThemeStore.primaryColor(this)
         val primaryDarkColor = ThemeStore.primaryColorDark(this)
 
-        toolbar_layout.title = title
-        toolbar_layout.setStatusBarScrimColor(primaryDarkColor)
+        findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
+        findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).setStatusBarScrimColor(primaryDarkColor)
 
         ATH.setActivityToolbarColor(this, toolbar, primaryColor)
-        ATH.setBackgroundTint(toolbar_layout, primaryColor)
-        ATH.setBackgroundTint(fabTop, accentColor)
-        ATH.setBackgroundTint(fabBottom, accentColor)
+        ATH.setBackgroundTint(findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout), primaryColor)
+        ATH.setBackgroundTint(findViewById(R.id.fabTop), accentColor)
+        ATH.setBackgroundTint(findViewById(R.id.fabBottom), accentColor)
         toolbar.setBackgroundColor(primaryColor)
 
-        ATH.setTint(buttonBatteryDoze, accentColor)
-        ATH.setTint(ButtonBattery2, errorColor)
-        ATH.setTint(ButtonBattery5, accentColor)
-        ATH.setTint(SwitchBattery3, accentColor)
-        ATH.setTint(SwitchBattery4, accentColor)
-        ATH.setTint(SwitchBattery6, accentColor)
-        // ATH.setTint(SwitchBattery7, accentColor)
-        // ATH.setTint(SwitchBattery8, accentColor)
-        ATH.setTint(SwitchBattery9, accentColor)
+        ATH.setTint(findViewById<AppCompatButton>(R.id.buttonBatteryDoze), accentColor)
+        ATH.setTint(findViewById<AppCompatButton>(R.id.ButtonBattery2), errorColor)
+        ATH.setTint(findViewById<AppCompatButton>(R.id.ButtonBattery5), accentColor)
+        ATH.setTint(findViewById<SwitchCompat>(R.id.SwitchBattery3), accentColor)
+        ATH.setTint(findViewById<SwitchCompat>(R.id.SwitchBattery4), accentColor)
+        ATH.setTint(findViewById<SwitchCompat>(R.id.SwitchBattery6), accentColor)
+        ATH.setTint(findViewById<SwitchCompat>(R.id.SwitchBattery9), accentColor)
     }
 
 
     override fun onResume() {
         super.onResume()
-        FabManager.onResume(fabTop, fabBottom, preferencesBuilder)
+        FabManager.onResume(findViewById(R.id.fabTop), findViewById(R.id.fabBottom), preferencesBuilder)
         if (pro && drawerInitialized) {
             if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.STICKY_SETTINGS, false)) {
                 drawer.removeAllStickyFooterItems()
@@ -489,9 +494,9 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         
         val accentColor = ThemeStore.primaryColor(this)
         
-        ATH.setTint(buttonBatteryDoze, accentColor)
-        ATH.setTint(ButtonBattery2, errorColor)
-        ATH.setTint(ButtonBattery5, accentColor)
+        ATH.setTint(findViewById<AppCompatButton>(R.id.buttonBatteryDoze), accentColor)
+        ATH.setTint(findViewById<AppCompatButton>(R.id.ButtonBattery2), errorColor)
+        ATH.setTint(findViewById<AppCompatButton>(R.id.ButtonBattery5), accentColor)
     }
 
     private fun setUpDrawer(toolbar: Toolbar) {

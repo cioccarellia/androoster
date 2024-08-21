@@ -5,11 +5,17 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.AppCompatButton
+import android.support.v7.widget.CardView
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.afollestad.assent.Assent
 import com.andreacioccarelli.androoster.tools.LicenseManager
 import com.andreacioccarelli.androoster.R
@@ -35,8 +41,9 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.gps_content.*
-import kotlinx.android.synthetic.main.gps.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
 import kotlin.concurrent.schedule
@@ -54,6 +61,26 @@ class UIGps : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
     internal var drawerInitialized = false
 
     internal var doubleBackToExitPressedOnce = false
+
+
+
+
+    val fabTop: FloatingActionButton get() = findViewById(R.id.fabTop)
+    val fabBottom: FloatingActionButton get() = findViewById(R.id.fabBottom)
+    val toolbar_layout: CollapsingToolbarLayout get() = findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
+
+    private val SwitchGPS2: SwitchCompat get() = findViewById(R.id.SwitchGPS2)
+
+    private val CardGPS2: CardView get() = findViewById(R.id.CardGPS2)
+
+    private val ButtonGPS1: AppCompatButton get() = findViewById(R.id.ButtonGPS1)
+    private val ButtonGPS3: AppCompatButton get() = findViewById(R.id.ButtonGPS3)
+
+    private val GPSBase: ImageView get() = findViewById(R.id.GPSBase)
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +107,7 @@ class UIGps : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
 
         preferencesBuilder.putInt(XmlKeys.LAST_OPENED, LaunchStruct.GPS_ACTIVITY)
         setUpDrawer(toolbar)
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         FabManager.setup(fabTop, fabBottom, this@UIGps, drawer, preferencesBuilder)
 

@@ -2,6 +2,9 @@ package com.andreacioccarelli.androoster.core
 
 import com.jrummyapps.android.shell.CommandResult
 import com.jrummyapps.android.shell.Shell
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * Created by andrea on 2017/nov.

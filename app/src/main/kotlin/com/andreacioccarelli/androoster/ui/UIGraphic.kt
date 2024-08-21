@@ -3,12 +3,18 @@ package com.andreacioccarelli.androoster.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatSeekBar
+import android.support.v7.widget.CardView
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
@@ -38,9 +44,9 @@ import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
-import kotlinx.android.synthetic.main.graph.*
-import kotlinx.android.synthetic.main.graph_content.*
-import org.jetbrains.anko.vibrator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -68,6 +74,32 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         val STATE_2x5 = "2.5"
         val STATE_3x0 = "3.0"
     }
+
+
+
+    val fabTop: FloatingActionButton get() = findViewById(R.id.fabTop)
+    val fabBottom: FloatingActionButton get() = findViewById(R.id.fabBottom)
+    val toolbar_layout: CollapsingToolbarLayout get() = findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
+
+    private val SwitchGraph1: SwitchCompat get() = findViewById(R.id.SwitchGraph1)
+    private val SwitchGraph2: SwitchCompat get() = findViewById(R.id.SwitchGraph2)
+    private val SwitchGraph3: SwitchCompat get() = findViewById(R.id.SwitchGraph3)
+    private val SwitchGraph4: SwitchCompat get() = findViewById(R.id.SwitchGraph4)
+    private val SwitchGraph5: SwitchCompat get() = findViewById(R.id.SwitchGraph5)
+
+    private val CardGraph1: CardView get() = findViewById(R.id.CardGraph1)
+    private val CardGraph2: CardView get() = findViewById(R.id.CardGraph2)
+    private val CardGraph3: CardView get() = findViewById(R.id.CardGraph3)
+    private val CardGraph4: CardView get() = findViewById(R.id.CardGraph4)
+    private val CardGraph5: CardView get() = findViewById(R.id.CardGraph5)
+    private val cardAnimations: CardView get() = findViewById(R.id.cardAnimations)
+
+    private val buttonAnimations: AppCompatButton get() = findViewById(R.id.buttonAnimations)
+
+    private val graphBase: ImageView get() = findViewById(R.id.graphBase)
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -205,12 +237,10 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    vibrator.vibrate(30)
                 }
 
                 @SuppressLint("SetTextI18n")
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    vibrator.vibrate(30)
                     when (progress) {
                         0 -> textView1.text = "$dfuText1 (${AnimationStates.STATE_0x0})"
                         1 -> textView1.text = "$dfuText1 (${AnimationStates.STATE_0x5})"
@@ -258,11 +288,9 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    vibrator.vibrate(30)
                 }
 
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    vibrator.vibrate(30)
                     when (progress) {
                         0 -> textView2.text = "$dfuText2 (${AnimationStates.STATE_0x0})"
                         1 -> textView2.text = "$dfuText2 (${AnimationStates.STATE_0x5})"
@@ -310,11 +338,9 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    vibrator.vibrate(30)
                 }
 
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    vibrator.vibrate(30)
                     when (progress) {
                         0 -> textView3.text = "$dfuText3 (${AnimationStates.STATE_0x0})"
                         1 -> textView3.text = "$dfuText3 (${AnimationStates.STATE_0x5})"
@@ -390,7 +416,7 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         SwitchGraph5.isChecked = preferencesBuilder.getBoolean("GPU5", false)
 
         createWidget()
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         toolbar_layout.title = title
         toolbar_layout.setStatusBarScrimColor(primaryDarkColor)
@@ -416,7 +442,7 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             val glversion = HardwareCore.getGLVersion(this@UIGraphic)
 
             CoroutineScope(Dispatchers.Main).launch {
-                dashboard_graph_content.text =
+                findViewById<TextView>(R.id.dashboard_graph_content).text =
                         getString(R.string.graphic_widget_opengl) + " $glversion.0\n" +
                         getString(R.string.graphic_widget_resolution) + " ${resources.displayMetrics.heightPixels}${'x'}${resources.displayMetrics.widthPixels}\n" +
                         getString(R.string.graphic_widget_density) + " ${(resources.displayMetrics.density * 160f).toInt()}${getString(R.string.graphic_dpi_suffix)}"
@@ -446,7 +472,7 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         }
         try {
             SettingsReflector.updateMenu(menu!!, preferencesBuilder)
-        } catch (k: NullPointerException) {}
+        } catch (_: NullPointerException) {}
     }
 
 

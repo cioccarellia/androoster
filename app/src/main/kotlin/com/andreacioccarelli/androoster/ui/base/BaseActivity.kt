@@ -23,7 +23,6 @@ import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.andreacioccarelli.androoster.BuildConfig
 import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.core.FrameworkSurface
 import com.andreacioccarelli.androoster.core.TerminalCore
@@ -253,12 +252,6 @@ open class BaseActivity : ATHToolbarActivity(), FrameworkSurface {
         android.os.Process.killProcess(android.os.Process.myPid())
         run("am force-stop $packageName")
     }
-
-    val isDebug: Boolean
-    get() {
-        return BuildConfig.DEBUG || BuildConfig.BUILD_TYPE == "debug"
-    }
-
 
     @Suppress("unused")
     fun isCompatibility(): Boolean {

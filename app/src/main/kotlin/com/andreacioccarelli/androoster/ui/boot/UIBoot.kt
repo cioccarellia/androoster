@@ -17,15 +17,12 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import com.afollestad.assent.Assent
 import com.afollestad.assent.AssentCallback
-import com.afollestad.digitus.Digitus
-import com.afollestad.digitus.DigitusCallback
-import com.afollestad.digitus.DigitusErrorType
-import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
-import com.andreacioccarelli.androoster.BuildConfig
 import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.core.RootFile
 import com.andreacioccarelli.androoster.dataset.KeyStore
@@ -41,14 +38,16 @@ import com.jrummyapps.android.shell.Shell
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.boot.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
 class UIBoot : BaseActivity(), LaunchStruct {
 
     private var TESTING_RELEASE: Boolean = false
-    private var COMPATIBILITY_MODE: Boolean = false
+    private var COMPATIBILITY_MODE: Boolean = true
     private var root: Boolean = false
     private var bbInstalled: Boolean = false
     private var fs: Boolean = false
@@ -99,7 +98,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
         preferencesBuilder = PreferencesBuilder(baseContext)
 
         TESTING_RELEASE = false
-        COMPATIBILITY_MODE = false
+        COMPATIBILITY_MODE = true
         just_bought = preferencesBuilder.getBoolean("just_bought", false)
         preferencesBuilder.putBoolean("just_bought", false)
 
@@ -107,15 +106,17 @@ class UIBoot : BaseActivity(), LaunchStruct {
         Assent.setActivity(this@UIBoot, this@UIBoot)
 
         if (!dark) {
-            splashIcon.setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.launcher_light))
+            findViewById<ImageView>(R.id.splashIcon).setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.launcher_light))
         }
-        ATH.setTint(progressBar, ThemeStore.accentColor(this@UIBoot))
+        ATH.setTint(findViewById<ProgressBar>(R.id.progressBar), ThemeStore.accentColor(this@UIBoot))
 
         if (preferencesBuilder.getBoolean("firstAppStart", true)) {
             startActivity(Intent(this@UIBoot, UIWizard::class.java))
         } else {
             initApp()
+            checkEnv()
         }
+
     }
 
     private fun initApp() {
@@ -166,9 +167,9 @@ class UIBoot : BaseActivity(), LaunchStruct {
             CoroutineScope(Dispatchers.Main).launch {
                 preferencesBuilder.putBoolean("firstBoot", false)
                 val backupManager = BackupManager(baseContext)
-                backupManager.addBackup(true)
+                //backupManager.addBackup(true)
 
-                BackupPreferencesPatcher(preferencesBuilder, null, baseContext).patchPreferences(RootFile("/system/build.prop").content)
+                // BackupPreferencesPatcher(preferencesBuilder, null, baseContext).patchPreferences(RootFile("/system/build.prop").content)
             }
         }
 
@@ -186,123 +187,6 @@ class UIBoot : BaseActivity(), LaunchStruct {
         // Crashlytics.setBool("is_dark_mode", preferencesBuilder.getBoolean(XmlKeys.DARK_THEME_APPLIED, false))
         // Crashlytics.setBool("has_xposed", isPackageInstalled("de.robv.android.xposed.installer"))
 
-
-        locked = preferencesBuilder.getBoolean("locked", false)
-        lockType = preferencesBuilder.getInt("lockType", -1)
-        Handler().postDelayed({
-            if (locked && !just_bought) {
-                // Crashlytics.setBool("is_locked", true)
-                if (preferencesBuilder.getPreferenceBoolean(SettingStore.LOGIN.ALLOW_FINGERPRINT, false)) {
-
-                    progressBar.visibility = View.GONE
-                    loginDialog = MaterialDialog.Builder(this@UIBoot)
-                            .title(R.string.settings_unlock_title)
-                            .customView(R.layout.login_fingerprint_dialog, true)
-                            .cancelable(false)
-                            .positiveText(getString(R.string.action_use) + " " +
-                                    if (lockType == LOCK_PASSWORD)
-                                        getString(R.string.dialog_password).toUpperCase(Locale.getDefault())
-                                    else
-                                        getString(R.string.dialog_pin).toUpperCase(Locale.getDefault()))
-                            .onPositive { dialog, which ->
-                                loginDialog.dismiss()
-                                Digitus.get().stopListening()
-                                showAppLockscreen(lockType)
-                            }
-                            .autoDismiss(false)
-                            .build()
-
-                    notificationFingerprint = loginDialog.customView!!.findViewById(R.id.fingerprint_status)
-                    fingerprintBase = loginDialog.customView!!.findViewById(R.id.fingerprint_base)
-                    FingerprintIcon = loginDialog.customView!!.findViewById(R.id.fingerprint_icon)
-                    loginDialog.getActionButton(DialogAction.POSITIVE).visibility = View.GONE
-                    ATH.setTint(fingerprintBase, ThemeStore.primaryColor(this@UIBoot))
-
-                    val fingerprintListener = Digitus.init(this@UIBoot,
-                            getString(R.string.app_name),
-                            69,
-                            object : DigitusCallback {
-                                override fun onDigitusReady(digitus: Digitus) {}
-
-                                override fun onDigitusListening(b: Boolean) {
-                                    scanNumber++
-                                }
-
-                                override fun onDigitusAuthenticated(digitus: Digitus) {
-                                    FingerprintIcon.setImageResource(R.drawable.icon_success)
-                                    notificationFingerprint.text = getString(R.string.dialog_auth_success)
-                                    auth_success_feedback()
-                                    setFingerprintBaseSuccess()
-                                    digitus.stopListening()
-                                    Handler().postDelayed({
-                                        loginDialog.dismiss()
-                                        checkEnv()
-                                    }, 300)
-                                }
-
-                                override fun onDigitusError(digitus: Digitus, type: DigitusErrorType, e: Exception) {
-                                    auth_error_feedback()
-                                    unsuccessfulScansNumber++
-
-                                    if (unsuccessfulScansNumber >= 3) {
-                                        loginDialog.getActionButton(DialogAction.POSITIVE).visibility = View.VISIBLE
-                                    }
-
-                                    when (type) {
-                                        DigitusErrorType.FINGERPRINT_NOT_RECOGNIZED -> {
-                                            FingerprintIcon.setImageResource(R.drawable.icon_error)
-                                            setFingerprintBaseError()
-                                            notificationFingerprint.text = getString(R.string.dialog_auth_error)
-                                            scheduleClear()
-                                        }
-                                        DigitusErrorType.FINGERPRINTS_UNSUPPORTED -> {
-                                            loginDialog.dismiss()
-                                            preferencesBuilder.putPreferenceBoolean(SettingStore.LOGIN.ALLOW_FINGERPRINT, false)
-                                            showAppLockscreen(lockType)
-                                        }
-                                        DigitusErrorType.HELP_ERROR -> {
-                                            FingerprintIcon.setImageResource(R.drawable.icon_warning)
-                                            setFingerprintBaseWarning()
-                                            notificationFingerprint.text = getString(R.string.fingerprint_scanning_error)
-                                            scheduleClear()
-                                        }
-                                        DigitusErrorType.PERMISSION_DENIED -> {
-                                            FingerprintIcon.setImageResource(R.drawable.icon_warning)
-                                            setFingerprintBaseWarning()
-                                            notificationFingerprint.text = getString(R.string.fingerprint_error_permission)
-                                        }
-                                        DigitusErrorType.REGISTRATION_NEEDED -> {
-                                            FingerprintIcon.setImageResource(R.drawable.icon_warning)
-                                            setFingerprintBaseWarning()
-                                            notificationFingerprint.text = getString(R.string.fingerprint_no_fingers)
-                                        }
-                                        DigitusErrorType.UNRECOVERABLE_ERROR -> {
-                                            FingerprintIcon.setImageResource(R.drawable.icon_error)
-                                            setFingerprintBaseError()
-                                            notificationFingerprint.text = getString(R.string.fingerprint_too_many_attempts)
-                                            loginDialog.getActionButton(DialogAction.POSITIVE).visibility = View.VISIBLE
-                                        }
-                                    }
-                                }
-                            })
-
-                    try {
-                        fingerprintListener.startListening()
-                    } catch (re: RuntimeException) {
-                        // Crashlytics.logException(re)
-                        // Crashlytics.log("Cannot authenticate with fingerprint")
-                        UI.unconditionalError(getString(R.string.cannot_use_figerprint))
-                        showAppLockscreen(lockType)
-                    }
-                    loginDialog.show()
-                } else {
-                    showAppLockscreen(lockType)
-                }
-            } else {
-                // Crashlytics.setBool("is_locked", false)
-                checkEnv()
-            }
-        }, 107)
     }
 
 
@@ -311,7 +195,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
             val hashedPassword = preferencesBuilder.getString("login_password_dialog", "Sofia")
             val failedAttempts = intArrayOf(0)
 
-            progressBar.visibility = View.GONE
+            findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
             loginDialog = MaterialDialog.Builder(this@UIBoot)
                     .title(R.string.settings_unlock_title)
                     .customView(R.layout.login_password_dialog, true)
@@ -378,7 +262,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
             val hashedPassword = preferencesBuilder.getString("login_password_dialog", "Sofia")
             val failedAttempts = intArrayOf(0)
 
-            progressBar.visibility = View.GONE
+            findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
             loginDialog = MaterialDialog.Builder(this@UIBoot)
                     .title(R.string.settings_unlock_title)
                     .customView(R.layout.login_password_dialog, true)
@@ -461,8 +345,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
     }
 
     internal fun checkEnv() {
-        progressBar.visibility = View.VISIBLE
-
+        findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
 
         /*
         val d: String? = packageManager.getInstallerPackageName(packageName)
@@ -489,15 +372,16 @@ class UIBoot : BaseActivity(), LaunchStruct {
 
             CoroutineScope(Dispatchers.Main).launch {
                 if (COMPATIBILITY_MODE) {
+                    Toasty.warning(this@UIBoot, "Root not detected, application running in compatibility mode", Toast.LENGTH_LONG).show()
                     bootApp()
                 } else {
-                    checkRoot()
+                    checkRootStrict()
                 }
             }
         }
     }
 
-    private fun checkRoot() {
+    private fun checkRootStrict() {
         if (!root) {
             MaterialDialog.Builder(this@UIBoot)
                     .title(R.string.root_error_title)
@@ -510,10 +394,10 @@ class UIBoot : BaseActivity(), LaunchStruct {
                         Handler().postDelayed({
                             if (run("su").isSuccessful) {
                                 checkBusybox()
-                                progressBar.visibility = View.VISIBLE
+                                findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
                             } else {
                                 UI.unconditionalError(getString(R.string.root_error_toast))
-                                progressBar.visibility = View.GONE
+                                findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
 
                                 val packageName = RootEnvironmentMapper.getSuperuserPackage(baseContext)
                                 if (isPackageInstalled(packageName)) {
@@ -540,7 +424,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
             preferencesBuilder.putString("rootManagerDetails", rootDetails)
             // Crashlytics.setString("details_root", rootDetails)
 
-            preferencesBuilder.putInt(XmlKeys.LAST_VERSION_CODE, BuildConfig.VERSION_CODE)
+            preferencesBuilder.putInt(XmlKeys.LAST_VERSION_CODE, 56)
             preferencesBuilder.putBoolean(XmlKeys.LAST_IS_TEST_RELEASE, false)
         }
 
@@ -563,7 +447,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
                 CoroutineScope(Dispatchers.Main).launch { checkPermissions() }
             } else {
                 CoroutineScope(Dispatchers.Main).launch {
-                    progressBar.visibility = View.GONE
+                    findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
                     MaterialDialog.Builder(this@UIBoot)
                             .title(R.string.busybox_error_title)
                             .content(R.string.busybox_error_content)
@@ -584,20 +468,22 @@ class UIBoot : BaseActivity(), LaunchStruct {
     }
 
     private fun checkPermissions() {
-        checkingPermissions = true
+        bootApp()
+        return
+
+        checkingPermissions = false
         if (permission_write_external) {
             checkingPermissions = false
-            bootApp()
         } else {
             arePermissionsAllowed = false
             Assent.requestPermissions(AssentCallback {
                 if (it.allPermissionsGranted()) {
                     arePermissionsAllowed = true
-                    progressBar.visibility = View.VISIBLE
+                    findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
                     bootApp()
                 } else {
                     arePermissionsAllowed = false
-                    progressBar.visibility = View.GONE
+                    findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
 
                     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                     intent.data = Uri.parse("package:$packageName")
@@ -611,7 +497,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
                                 Assent.requestPermissions( AssentCallback{
                                     if (it.allPermissionsGranted()) {
                                         arePermissionsAllowed = true
-                                        progressBar.visibility = View.VISIBLE
+                                        findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
                                         bootApp()
                                     } else {
                                         arePermissionsAllowed = false

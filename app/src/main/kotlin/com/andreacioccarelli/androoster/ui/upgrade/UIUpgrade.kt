@@ -3,8 +3,12 @@ package com.andreacioccarelli.androoster.ui.upgrade
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.AppCompatButton
+import android.support.v7.widget.CardView
 import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.tools.GradientGenerator
@@ -13,11 +17,6 @@ import com.andreacioccarelli.androoster.tools.UI
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
-import kotlinx.android.synthetic.main.upgrade_activity_v2.*
-import kotlinx.android.synthetic.main.upgrade_content_v2.*
-import org.jetbrains.anko.image
-import org.jetbrains.anko.textColor
-import org.jetbrains.anko.vibrator
 
 class UIUpgrade : BaseActivity() {
 
@@ -28,8 +27,8 @@ class UIUpgrade : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.upgrade_activity_v2)
-        setSupportActionBar(toolbar)
-        animateContent(content as ViewGroup)
+        setSupportActionBar(findViewById(R.id.toolbar))
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         pro = PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean("pro", false)
 
@@ -63,25 +62,23 @@ class UIUpgrade : BaseActivity() {
 
         setStatusbarColor(ThemeStore.primaryColor(this))
         ATH.setStatusbarColor(this, primaryDarkColor)
-        ATH.setBackgroundTint(appbar_layout, primaryColor)
+        ATH.setBackgroundTint(findViewById(R.id.appbar_layout), primaryColor)
 
-        toolbar.setBackgroundColor(primaryColor)
-        separator_text.textColor = accentColor
+        findViewById<Toolbar>(R.id.toolbar).setBackgroundColor(primaryColor)
+        findViewById<TextView>(R.id.separator_text).setTextColor(accentColor)
 
         if (dark) {
 
         } else {
-            icon.image = ContextCompat.getDrawable(baseContext, R.drawable.launcher_light)
-            //Performances issue: Image loaded twice
+            findViewById<ImageView>(R.id.icon).setImageResource(R.drawable.launcher_light)
         }
 
-        upgradeButton.background = GradientGenerator.get(baseContext, GradientDrawable.Orientation.TL_BR, 16f)
+        findViewById<CardView>(R.id.upgradeButton).background = GradientGenerator.get(baseContext, GradientDrawable.Orientation.TL_BR, 16f)
     }
 
     @Suppress("WhenWithOnlyElse")
     private fun setupViews() {
-        upgradeButton.setOnClickListener {
-            vibrator.vibrate(100)
+        findViewById<AppCompatButton>(R.id.upgradeButton).setOnClickListener {
             PreferencesBuilder(this, PreferencesBuilder.defaultFilename).putBoolean("pro", true)
 
             MaterialDialog.Builder(this)

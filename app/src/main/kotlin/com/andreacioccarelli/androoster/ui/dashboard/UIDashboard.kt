@@ -10,12 +10,15 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.CardView
 import android.support.v7.widget.Toolbar
 import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
-import com.andreacioccarelli.androoster.BuildConfig
 import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.core.HardwareCore
 import com.andreacioccarelli.androoster.core.TerminalCore
@@ -35,8 +38,6 @@ import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
-import kotlinx.android.synthetic.main.dashboard.*
-import kotlinx.android.synthetic.main.dashboard_content.*
 import java.util.*
 
 class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, LaunchStruct {
@@ -51,17 +52,20 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
     var menu: Menu? = null
 
 
+    val fabTop: FloatingActionButton get() = findViewById(R.id.fabTop)
+    val fabBottom: FloatingActionButton get() = findViewById(R.id.fabBottom)
+
     @SuppressLint("HardwareIds", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dashboard)
-        setSupportActionBar(toolbar)
-        animateContent(content as ViewGroup)
+        setSupportActionBar(findViewById(R.id.toolbar))
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         val prefs = PreferencesBuilder(baseContext, PreferencesBuilder.defaultFilename)
         RecentWidget.init(this@UIDashboard)
 
-        setUpDrawer(toolbar)
+        setUpDrawer(findViewById(R.id.toolbar))
 
         preferencesBuilder = PreferencesBuilder(baseContext)
         preferencesBuilder.putInt(XmlKeys.LAST_OPENED, LaunchStruct.DASHBOARD_ACTIVITY)
@@ -72,46 +76,74 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             title = getString(R.string.app_name)
         }
 
-        softwareDetailsIcon.setColorFilter(ATHUtil.resolveColor(this@UIDashboard, R.attr.iconColor), PorterDuff.Mode.SRC_IN)
-        hardwareDetailsIcon.setColorFilter(ATHUtil.resolveColor(this@UIDashboard, R.attr.iconColor), PorterDuff.Mode.SRC_IN)
+        findViewById<ImageView>(R.id.softwareDetailsIcon).setColorFilter(
+            ATHUtil.resolveColor(
+                this@UIDashboard,
+                R.attr.iconColor
+            ), PorterDuff.Mode.SRC_IN
+        )
+        findViewById<ImageView>(R.id.hardwareDetailsIcon).setColorFilter(
+            ATHUtil.resolveColor(
+                this@UIDashboard,
+                R.attr.iconColor
+            ), PorterDuff.Mode.SRC_IN
+        )
 
         val playServiceState = try {
-            "Play Services: ${packageManager.getPackageInfo("com.google.android.gms", 0)?.versionName}\n"
+            "Play Services: ${
+                packageManager.getPackageInfo(
+                    "com.google.android.gms",
+                    0
+                )?.versionName
+            }\n"
         } catch (r: Exception) {
             ""
         }
 
-        softwareDetails.text =
-                "${getString(R.string.dashboard_widget_software_android_version)}: ${Build.VERSION.RELEASE}\n" +
-                        "${getString(R.string.dashboard_widget_software_bootloader)}: ${Build.BOOTLOADER}\n" +
-                        "${getString(R.string.dashboard_widget_software_fingerprint)}: ${Build.FINGERPRINT}\n" +
-                        "${getString(R.string.dashboard_widget_software_root)}: ${preferencesBuilder.getString("rootManagerDetails", getString(R.string.dashboard_widget_software_root_installed))}\n" +
-                        "${getString(R.string.dashboard_widget_software_build)}: ${Build.ID}\n" +
-                        "${getString(R.string.dashboard_widget_software_android_id)}: ${HardwareCore.getAndroidId(baseContext)}\n" +
-                        playServiceState +
-                        "${getString(R.string.dashboard_widget_software_kernel)}: ${preferencesBuilder.getString("kernelDetails", "Linux")}"
+        findViewById<TextView>(R.id.softwareDetails).text =
+            "${getString(R.string.dashboard_widget_software_android_version)}: ${Build.VERSION.RELEASE}\n" +
+                    "${getString(R.string.dashboard_widget_software_bootloader)}: ${Build.BOOTLOADER}\n" +
+                    "${getString(R.string.dashboard_widget_software_fingerprint)}: ${Build.FINGERPRINT}\n" +
+                    "${getString(R.string.dashboard_widget_software_root)}: ${
+                        preferencesBuilder.getString(
+                            "rootManagerDetails",
+                            getString(R.string.dashboard_widget_software_root_installed)
+                        )
+                    }\n" +
+                    "${getString(R.string.dashboard_widget_software_build)}: ${Build.ID}\n" +
+                    "${getString(R.string.dashboard_widget_software_android_id)}: ${
+                        HardwareCore.getAndroidId(
+                            baseContext
+                        )
+                    }\n" +
+                    playServiceState +
+                    "${getString(R.string.dashboard_widget_software_kernel)}: ${
+                        preferencesBuilder.getString(
+                            "kernelDetails",
+                            "Linux"
+                        )
+                    }"
 
 
-        hardwareDetails.text = "RAM: ${HardwareCore.ram}\n" +
+        findViewById<TextView>(R.id.hardwareDetails).text = "RAM: ${HardwareCore.ram}\n" +
                 "${getString(R.string.dashboard_widget_hardware_cpu)}: " +
                 "${HardwareCore.cores} ${getString(R.string.dashboard_widget_hardware_cpu_cores)}\n" +
-                "${getString(R.string.dashboard_widget_hardware_battery)}: ${HardwareCore.getBatteryCapacity(this@UIDashboard).replace(".0", "")}\n" +
-                "${getString(R.string.dashboard_widget_hardware_serial)}: ${getDeviceSerial(baseContext)}\n" +
+                "${getString(R.string.dashboard_widget_hardware_battery)}: ${
+                    HardwareCore.getBatteryCapacity(
+                        this@UIDashboard
+                    ).replace(".0", "")
+                }\n" +
+                "${getString(R.string.dashboard_widget_hardware_serial)}: ${
+                    getDeviceSerial(
+                        baseContext
+                    )
+                }\n" +
                 "${getString(R.string.dashboard_widget_hardware_brand)}: ${Build.MANUFACTURER}\n" +
                 "${getString(R.string.ram_widget_check)}: ${Build.HARDWARE}\n" +
                 "${getString(R.string.dashboard_widget_hardware_device)}: ${DeviceName.getDeviceName()}\n" +
                 getString(R.string.graphic_widget_resolution) + " ${resources.displayMetrics.heightPixels}${'x'}${resources.displayMetrics.widthPixels}\n" +
                 getString(R.string.graphic_widget_density) + " ${(resources.displayMetrics.density * 160f).toInt()}dpi"
 
-        if (!networkAvailable) {
-            // Crashlytics.setBool("is_internet_on", false)
-        } else {
-            notificationTitle.text = getString(R.string.dashboard_update_title_checking) + " " + BuildConfig.VERSION_NAME
-            notificationTextView.text = getString(R.string.dashboard_update_content_checking)
-                    .replace("%s", packageName)
-                    .replace("%b", BuildConfig.VERSION_CODE.toString())
-                    .replace("%k", BuildConfig.BUILD_TYPE)
-        }
 
         val accentColor = ThemeStore.accentColor(this)
         val primaryColor = ThemeStore.primaryColor(this)
@@ -123,37 +155,47 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         collapsingToolbar.title = title
         collapsingToolbar.setStatusBarScrimColor(primaryDarkColor)
 
-        ATH.setActivityToolbarColor(this, toolbar, primaryColor)
+        ATH.setActivityToolbarColor(this, findViewById(R.id.toolbar), primaryColor)
         ATH.setBackgroundTint(collapsingToolbar, primaryColor)
         ATH.setBackgroundTint(fabTop, accentColor)
         ATH.setBackgroundTint(fabBottom, accentColor)
-        ATH.setTint(DashboardBase, primaryColor)
-        toolbar.setBackgroundColor(primaryColor)
+        ATH.setTint(findViewById(R.id.DashboardBase), primaryColor)
+        findViewById<Toolbar>(R.id.toolbar).setBackgroundColor(primaryColor)
 
         // Free pack
         if (!prefs.getBoolean("notified_pro_version", false) && !prefs.getBoolean("pro", false)) {
             MaterialDialog.Builder(this)
-                    .title("Free Androoster Pro")
-                    .content("""Androoster has just become free. 
+                .title("Free Androoster Pro")
+                .content(
+                    """Androoster has just become free. 
                         |You can enable pro version by visiting the upgrade page and clicking the upgrade button, no purchase is required anymore. 
                         |This software has been around for a long time and I felt it was time to make it available for everyone. 
-                        |Thank you very much to everybody who supported my work through purchases, and I wish you all happy tweaking and learning.""".trimMargin())
-                    .positiveText("COOL")
-                    .onPositive { dialog, which ->
-                        dialog.dismiss()
-                        prefs.putBoolean("notified_pro_version", true)
-                    }
-                    .autoDismiss(false)
-                    .cancelable(false)
-                    .show()
+                        |Thank you very much to everybody who supported my work through purchases, and I wish you all happy tweaking and learning.""".trimMargin()
+                )
+                .positiveText("COOL")
+                .onPositive { dialog, which ->
+                    dialog.dismiss()
+                    prefs.putBoolean("notified_pro_version", true)
+                }
+                .autoDismiss(false)
+                .cancelable(false)
+                .show()
         }
     }
 
     override fun onResume() {
         super.onResume()
         FabManager.onResume(fabTop, fabBottom, preferencesBuilder)
-        if (PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean("pro", false) && drawerInitialized) {
-            if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.STICKY_SETTINGS, false)) {
+        if (PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean(
+                "pro",
+                false
+            ) && drawerInitialized
+        ) {
+            if (preferencesBuilder.getPreferenceBoolean(
+                    SettingStore.GENERAL.STICKY_SETTINGS,
+                    false
+                )
+            ) {
                 drawer.removeAllStickyFooterItems()
                 drawer.removeItem(20)
                 drawer.addStickyFooterItem(DRAWER_SETTINGS)
@@ -171,7 +213,8 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         }
         try {
             SettingsReflector.updateDashboardMenu(menu!!, preferencesBuilder)
-        } catch (_: NullPointerException) {}
+        } catch (_: NullPointerException) {
+        }
 
         val dispatcher = RecentWidgetProvider(this@UIDashboard)
 
@@ -180,38 +223,48 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         val third = RecentWidget.getThird(this@UIDashboard)
 
         if (first == LaunchStruct.NULL || second == LaunchStruct.NULL || third == LaunchStruct.NULL) {
-            recentWidget.visibility = View.GONE
+            findViewById<CardView>(R.id.recentWidget).visibility = View.GONE
         } else {
             val locale = Locale.getDefault()
 
             try {
-                recentIcon1.apply {
+                findViewById<ImageView>(R.id.recentIcon1).apply {
                     setImageResource(dispatcher.getIcon(first))
                     setColorFilter(ThemeStore.accentColor(this@UIDashboard))
                 }
 
-                recentLayout1.setOnClickListener { _ -> startActivity(dispatcher.getIntent(first)) }
-                recentText1.text = getString(dispatcher.getTitleRes(first)).toUpperCase(locale)
+                findViewById<TextView>(R.id.recentLayout1).setOnClickListener { _ ->
+                    startActivity(
+                        dispatcher.getIntent(first)
+                    )
+                }
+                findViewById<TextView>(R.id.recentText1).text =
+                    getString(dispatcher.getTitleRes(first)).toUpperCase(locale)
 
 
-                recentIcon2.apply {
+                findViewById<ImageView>(R.id.recentIcon2).apply {
                     setImageResource(dispatcher.getIcon(second))
                     setColorFilter(ThemeStore.accentColor(this@UIDashboard))
                 }
 
-                recentLayout2.setOnClickListener { _ -> startActivity(dispatcher.getIntent(second)) }
-                recentText2.text = getString(dispatcher.getTitleRes(second)).toUpperCase(locale)
+                findViewById<TextView>(R.id.recentLayout2).setOnClickListener { _ ->
+                    startActivity(
+                        dispatcher.getIntent(second)
+                    )
+                }
+                findViewById<TextView>(R.id.recentText2).text =
+                    getString(dispatcher.getTitleRes(second)).toUpperCase(locale)
 
 
-                recentIcon3.apply {
+                findViewById<ImageView>(R.id.recentIcon3).apply {
                     setImageResource(dispatcher.getIcon(third))
                     setColorFilter(ThemeStore.accentColor(this@UIDashboard))
                 }
 
-                recentLayout3.setOnClickListener { _ -> startActivity(dispatcher.getIntent(third)) }
-                recentText3.text = getString(dispatcher.getTitleRes(third)).toUpperCase(locale)
+                findViewById<TextView>(R.id.recentLayout3).setOnClickListener { _ -> startActivity(dispatcher.getIntent(third)) }
+                findViewById<TextView>(R.id.recentText3).text = getString(dispatcher.getTitleRes(third)).toUpperCase(locale)
             } catch (rnf: IllegalStateException) {
-                recentWidget.visibility = View.GONE
+                findViewById<CardView>(R.id.recentWidget).visibility = View.GONE
             }
         }
     }
@@ -234,71 +287,91 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
     }
 
     private fun setUpDrawer(toolbar: Toolbar) {
-        val DRAWER_DASHBOARD = PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_dashboard).withIcon(R.drawable.dashboard)
-        val DRAWER_CPU = PrimaryDrawerItem().withIdentifier(2).withName(R.string.drawer_cpu).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.CPU_ACTIVITY)
-            false
-        }
-        val DRAWER_RAM = PrimaryDrawerItem().withIdentifier(3).withName(R.string.drawer_ram).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.RAM_ACTIVITY)
-            false
-        }
-        val DRAWER_BATTERY = PrimaryDrawerItem().withIdentifier(4).withName(R.string.drawer_battery).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.BATTERY_ACTIVITY)
-            false
-        }
-        val DRAWER_KERNEL = PrimaryDrawerItem().withIdentifier(5).withName(R.string.drawer_kernel).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.KERNEL_ACTIVITY)
-            false
-        }
-        val DRAWER_TWEAKS = PrimaryDrawerItem().withIdentifier(6).withName(R.string.drawer_tweaks).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.GENERAL_ACTIVITY)
-            false
-        }
-        val DRAWER_STORAGE = PrimaryDrawerItem().withIdentifier(7).withName(R.string.drawer_storage).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.STORAGE_ACTIVITY)
-            false
-        }
-        val DRAWER_INTERNET = PrimaryDrawerItem().withIdentifier(8).withName(R.string.drawer_net).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.INTERNET_ACTIVITY)
-            false
-        }
-        val DRAWER_DEBUG = PrimaryDrawerItem().withIdentifier(9).withName(R.string.drawer_debug).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.DEBUG_ACTIVITY)
-            false
-        }
-        val DRAWER_GPS = PrimaryDrawerItem().withIdentifier(11).withName(R.string.drawer_gps).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.GPS_ACTIVITY)
-            false
-        }
-        val DRAWER_HARDWARE = PrimaryDrawerItem().withIdentifier(12).withName(R.string.drawer_hardware).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.HARDWARE_ACTIVITY)
-            false
-        }
-        val DRAWER_GRAPHICS = PrimaryDrawerItem().withIdentifier(13).withName(R.string.drawer_graphics).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.GRAPHICS_ACTIVITY)
-            false
-        }
-        val DRAWER_ABOUT = PrimaryDrawerItem().withIdentifier(14).withName(R.string.drawer_about).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.ABOUT_ACTIVITY)
-            false
-        }
-        val DRAWER_BUY_PRO_VERSION = PrimaryDrawerItem().withIdentifier(15).withName(R.string.drawer_pro).withOnDrawerItemClickListener { _, _, _ ->
-            LicenseManager.startProActivity(this@UIDashboard, this@UIDashboard, drawer)
-            false
-        }
+        val DRAWER_DASHBOARD =
+            PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_dashboard)
+                .withIcon(R.drawable.dashboard)
+        val DRAWER_CPU = PrimaryDrawerItem().withIdentifier(2).withName(R.string.drawer_cpu)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.CPU_ACTIVITY)
+                false
+            }
+        val DRAWER_RAM = PrimaryDrawerItem().withIdentifier(3).withName(R.string.drawer_ram)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.RAM_ACTIVITY)
+                false
+            }
+        val DRAWER_BATTERY = PrimaryDrawerItem().withIdentifier(4).withName(R.string.drawer_battery)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.BATTERY_ACTIVITY)
+                false
+            }
+        val DRAWER_KERNEL = PrimaryDrawerItem().withIdentifier(5).withName(R.string.drawer_kernel)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.KERNEL_ACTIVITY)
+                false
+            }
+        val DRAWER_TWEAKS = PrimaryDrawerItem().withIdentifier(6).withName(R.string.drawer_tweaks)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.GENERAL_ACTIVITY)
+                false
+            }
+        val DRAWER_STORAGE = PrimaryDrawerItem().withIdentifier(7).withName(R.string.drawer_storage)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.STORAGE_ACTIVITY)
+                false
+            }
+        val DRAWER_INTERNET = PrimaryDrawerItem().withIdentifier(8).withName(R.string.drawer_net)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.INTERNET_ACTIVITY)
+                false
+            }
+        val DRAWER_DEBUG = PrimaryDrawerItem().withIdentifier(9).withName(R.string.drawer_debug)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.DEBUG_ACTIVITY)
+                false
+            }
+        val DRAWER_GPS = PrimaryDrawerItem().withIdentifier(11).withName(R.string.drawer_gps)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.GPS_ACTIVITY)
+                false
+            }
+        val DRAWER_HARDWARE =
+            PrimaryDrawerItem().withIdentifier(12).withName(R.string.drawer_hardware)
+                .withOnDrawerItemClickListener { _, _, _ ->
+                    handleIntent(LaunchStruct.HARDWARE_ACTIVITY)
+                    false
+                }
+        val DRAWER_GRAPHICS =
+            PrimaryDrawerItem().withIdentifier(13).withName(R.string.drawer_graphics)
+                .withOnDrawerItemClickListener { _, _, _ ->
+                    handleIntent(LaunchStruct.GRAPHICS_ACTIVITY)
+                    false
+                }
+        val DRAWER_ABOUT = PrimaryDrawerItem().withIdentifier(14).withName(R.string.drawer_about)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.ABOUT_ACTIVITY)
+                false
+            }
+        val DRAWER_BUY_PRO_VERSION =
+            PrimaryDrawerItem().withIdentifier(15).withName(R.string.drawer_pro)
+                .withOnDrawerItemClickListener { _, _, _ ->
+                    LicenseManager.startProActivity(this@UIDashboard, this@UIDashboard, drawer)
+                    false
+                }
 
 
-        DRAWER_BACKUP = PrimaryDrawerItem().withIdentifier(19L).withName(R.string.drawer_backup).withOnDrawerItemClickListener { _, _, _ ->
-            startActivity(Intent(this@UIDashboard, UIBackup::class.java))
-            false
-        }
+        DRAWER_BACKUP = PrimaryDrawerItem().withIdentifier(19L).withName(R.string.drawer_backup)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                startActivity(Intent(this@UIDashboard, UIBackup::class.java))
+                false
+            }
 
 
-        DRAWER_SETTINGS = PrimaryDrawerItem().withIdentifier(20).withName(R.string.drawer_settings).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.SETTINGS_ACTIVITY)
-            false
-        }
+        DRAWER_SETTINGS = PrimaryDrawerItem().withIdentifier(20).withName(R.string.drawer_settings)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.SETTINGS_ACTIVITY)
+                false
+            }
 
         if (!preferencesBuilder.getBoolean(XmlKeys.DARK_THEME_APPLIED, false)) {
             DRAWER_DASHBOARD.withIcon(R.drawable.drawer_black_dashboard)
@@ -338,59 +411,66 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
 
         val factory = layoutInflater
         val DrawerHeader = factory.inflate(R.layout.drawer_header, null)
-        BaseActivity.setDrawerHeader(DrawerHeader.findViewById(R.id.Title), DrawerHeader.findViewById(R.id.Content), DrawerHeader.findViewById(R.id.Image), DrawerHeader.findViewById(R.id.RootLayout), this@UIDashboard, PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean("pro", false))
+        BaseActivity.setDrawerHeader(
+            DrawerHeader.findViewById(R.id.Title),
+            DrawerHeader.findViewById(R.id.Content),
+            DrawerHeader.findViewById(R.id.Image),
+            DrawerHeader.findViewById(R.id.RootLayout),
+            this@UIDashboard,
+            PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean("pro", false)
+        )
 
         if (PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean("pro", false)) {
             drawer = DrawerBuilder()
-                    .withActivity(this@UIDashboard)
-                    .withToolbar(toolbar)
-                    .addDrawerItems(
-                            DRAWER_DASHBOARD,
-                            DividerDrawerItem(),
-                            DRAWER_CPU,
-                            DRAWER_RAM,
-                            DRAWER_BATTERY,
-                            DRAWER_KERNEL,
-                            DRAWER_TWEAKS,
-                            DRAWER_STORAGE,
-                            DRAWER_INTERNET,
-                            DRAWER_DEBUG,
-                            DRAWER_GPS,
-                            DRAWER_HARDWARE,
-                            DRAWER_GRAPHICS,
-                            DividerDrawerItem(),
-                            DRAWER_BACKUP,
-                            DRAWER_ABOUT,
-                            DRAWER_SETTINGS
-                    )
-                    .withHeader(DrawerHeader)
-                    .build()
+                .withActivity(this@UIDashboard)
+                .withToolbar(toolbar)
+                .addDrawerItems(
+                    DRAWER_DASHBOARD,
+                    DividerDrawerItem(),
+                    DRAWER_CPU,
+                    DRAWER_RAM,
+                    DRAWER_BATTERY,
+                    DRAWER_KERNEL,
+                    DRAWER_TWEAKS,
+                    DRAWER_STORAGE,
+                    DRAWER_INTERNET,
+                    DRAWER_DEBUG,
+                    DRAWER_GPS,
+                    DRAWER_HARDWARE,
+                    DRAWER_GRAPHICS,
+                    DividerDrawerItem(),
+                    DRAWER_BACKUP,
+                    DRAWER_ABOUT,
+                    DRAWER_SETTINGS
+                )
+                .withHeader(DrawerHeader)
+                .build()
         } else {
             drawer = DrawerBuilder()
-                    .withActivity(this@UIDashboard)
-                    .withToolbar(toolbar)
-                    .addDrawerItems(
-                            DRAWER_DASHBOARD,
-                            DividerDrawerItem(),
-                            DRAWER_CPU,
-                            DRAWER_RAM,
-                            DRAWER_BATTERY,
-                            DRAWER_KERNEL,
-                            DRAWER_TWEAKS,
-                            DRAWER_STORAGE,
-                            DRAWER_INTERNET,
-                            DRAWER_DEBUG,
-                            DRAWER_GPS,
-                            DRAWER_HARDWARE,
-                            DRAWER_GRAPHICS,
-                            DividerDrawerItem(),
-                            DRAWER_BACKUP,
-                            DRAWER_ABOUT,
-                            DRAWER_SETTINGS
-                    )
-                    .addStickyDrawerItems(DRAWER_BUY_PRO_VERSION)
-                    .withHeader(DrawerHeader)
-                    .build()
+                .withActivity(this@UIDashboard)
+                .withToolbar(toolbar)
+                .addDrawerItems(
+                    DRAWER_DASHBOARD,
+                    DividerDrawerItem(),
+                    DRAWER_CPU,
+                    DRAWER_RAM,
+                    DRAWER_BATTERY,
+                    DRAWER_KERNEL,
+                    DRAWER_TWEAKS,
+                    DRAWER_STORAGE,
+                    DRAWER_INTERNET,
+                    DRAWER_DEBUG,
+                    DRAWER_GPS,
+                    DRAWER_HARDWARE,
+                    DRAWER_GRAPHICS,
+                    DividerDrawerItem(),
+                    DRAWER_BACKUP,
+                    DRAWER_ABOUT,
+                    DRAWER_SETTINGS
+                )
+                .addStickyDrawerItems(DRAWER_BUY_PRO_VERSION)
+                .withHeader(DrawerHeader)
+                .build()
         }
 
         drawerInitialized = true
@@ -410,15 +490,23 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         menuInflater.inflate(R.menu.overflow, menu)
         this.menu = menu
 
-        if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.SHOW_SETTINGS_IN_TOOLBAR, false)) {
+        if (preferencesBuilder.getPreferenceBoolean(
+                SettingStore.GENERAL.SHOW_SETTINGS_IN_TOOLBAR,
+                false
+            )
+        ) {
             menu.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         }
         menu.getItem(0).isVisible = true
-        menu.getItem(1).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.ABOUT, true)
+        menu.getItem(1).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.ABOUT, true)
         menu.getItem(2).isVisible = false
-        menu.getItem(3).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
-        menu.getItem(4).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
-        menu.getItem(5).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
+        menu.getItem(3).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
+        menu.getItem(4).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
+        menu.getItem(5).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
         return true
     }
 
@@ -430,10 +518,12 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                 startActivity(Intent(this@UIDashboard, UISettings::class.java))
                 return true
             }
+
             R.id.menu_about -> {
                 startActivity(Intent(this@UIDashboard, UIAbout::class.java))
                 return true
             }
+
             R.id.menu_dashboard -> return true
             R.id.menu_drawer -> {
                 drawer.openDrawer()
@@ -444,6 +534,7 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                 startActivity(Intent(this@UIDashboard, UIBackup::class.java))
                 return true
             }
+
             R.id.menu_reboot -> {
                 RebootDialog.show(this)
                 return true

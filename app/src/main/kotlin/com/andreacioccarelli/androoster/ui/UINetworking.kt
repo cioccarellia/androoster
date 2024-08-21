@@ -5,7 +5,12 @@ import android.content.*
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.AppCompatButton
+import android.support.v7.widget.AppCompatSpinner
+import android.support.v7.widget.CardView
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.text.InputType
 import android.view.Menu
@@ -13,6 +18,7 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.R
@@ -37,9 +43,9 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.network.*
-import kotlinx.android.synthetic.main.network_content.*
-import org.jetbrains.anko.vibrator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -65,6 +71,54 @@ class UINetworking : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             refresh(context)
         }
     }
+
+
+
+
+
+
+
+
+    val fabTop: FloatingActionButton get() = findViewById(R.id.fabTop)
+    val fabBottom: FloatingActionButton get() = findViewById(R.id.fabBottom)
+    val toolbar_layout: CollapsingToolbarLayout get() = findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)
+
+    private val switchNetwork1: SwitchCompat get() = findViewById(R.id.switchNetwork1)
+    private val switchNetwork2: SwitchCompat get() = findViewById(R.id.switchNetwork2)
+    private val switchNetwork3: SwitchCompat get() = findViewById(R.id.switchNetwork3)
+    private val switchNetwork4: SwitchCompat get() = findViewById(R.id.switchNetwork4)
+    private val switchNetwork6: SwitchCompat get() = findViewById(R.id.switchNetwork6)
+    private val switchNetwork7: SwitchCompat get() = findViewById(R.id.switchNetwork7)
+    private val switchNetwork8: SwitchCompat get() = findViewById(R.id.switchNetwork8)
+    private val SwitchNET9: SwitchCompat get() = findViewById(R.id.SwitchNET9)
+
+    private val cardNetwork1: CardView get() = findViewById(R.id.cardNetwork1)
+    private val CardNET2: CardView get() = findViewById(R.id.CardNET2)
+    private val CardNET3: CardView get() = findViewById(R.id.CardNET3)
+    private val CardNET4: CardView get() = findViewById(R.id.CardNET4)
+    private val CardNET5: CardView get() = findViewById(R.id.CardNET5)
+    private val CardNET6: CardView get() = findViewById(R.id.CardNET6)
+    private val CardNET7: CardView get() = findViewById(R.id.CardNET7)
+    private val CardNET8: CardView get() = findViewById(R.id.CardNET8)
+    private val CardNET9: CardView get() = findViewById(R.id.CardNET9)
+
+    private val SpinnerKernel8: AppCompatSpinner get() = findViewById(R.id.SpinnerKernel8)
+
+    private val ButtonKernel5: AppCompatButton get() = findViewById(R.id.ButtonKernel5)
+
+    private val NetworkBase: ImageView get() = findViewById(R.id.NetworkBase)
+    private val NetworkDrawable: ImageView get() = findViewById(R.id.NetworkDrawable)
+
+
+    private val dashboard_net_content: TextView get() = findViewById(R.id.dashboard_net_content)
+
+
+
+
+
+
+
+
 
     @SuppressLint("SetTextI18n")
     private fun refresh(context: Context?) {
@@ -117,7 +171,7 @@ class UINetworking : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         dashboard_net_content.text = ""
         this.registerReceiver(this.networkConnectionReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
         refresh(baseContext)
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         cardNetwork1.setOnClickListener { switchNetwork1.performClick() }
         CardNET2.setOnClickListener { switchNetwork2.performClick() }
@@ -229,7 +283,6 @@ class UINetworking : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 val clip = ClipData.newPlainText("", defaultValue.text)
                 clipboard.setPrimaryClip(clip)
                 UI.info(getString(R.string.action_copied))
-                vibrator.vibrate(50)
             }
 
             ATH.setTint(editText, ThemeStore.accentColor(baseContext))

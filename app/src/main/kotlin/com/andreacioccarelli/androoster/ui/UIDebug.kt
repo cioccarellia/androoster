@@ -5,11 +5,16 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.CardView
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.TextView
 import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.core.Core
 import com.andreacioccarelli.androoster.core.CoreBase
@@ -33,8 +38,9 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.debug.*
-import kotlinx.android.synthetic.main.debug_content.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -56,6 +62,38 @@ class UIDebug : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
 
     internal var doubleBackToExitPressedOnce = false
 
+    val fabTop: FloatingActionButton
+        get() = findViewById(R.id.fabTop)
+    val fabBottom: FloatingActionButton
+        get() = findViewById(R.id.fabBottom)
+
+    val CardDebug1: CardView
+        get() = findViewById(R.id.CardDebug1)
+    val CardDebug2: CardView
+        get() = findViewById(R.id.CardDebug2)
+    val CardDebug3: CardView
+        get() = findViewById(R.id.CardDebug3)
+    val CardDebug4: CardView
+        get() = findViewById(R.id.CardDebug4)
+    val CardDebug5: CardView
+        get() = findViewById(R.id.CardDebug5)
+    val CardDebug6: CardView
+        get() = findViewById(R.id.CardDebug6)
+
+
+    val SwitchDebug1: SwitchCompat
+        get() = findViewById(R.id.SwitchDebug1)
+    val SwitchDebug2: SwitchCompat
+        get() = findViewById(R.id.SwitchDebug2)
+    val SwitchDebug3: SwitchCompat
+        get() = findViewById(R.id.SwitchDebug3)
+    val SwitchDebug4: SwitchCompat
+        get() = findViewById(R.id.SwitchDebug4)
+    val SwitchDebug5: SwitchCompat
+        get() = findViewById(R.id.SwitchDebug5)
+    val SwitchDebug6: SwitchCompat
+        get() = findViewById(R.id.SwitchDebug6)
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,10 +109,12 @@ class UIDebug : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
         preferencesBuilder.putInt(XmlKeys.LAST_OPENED, LaunchStruct.DEBUG_ACTIVITY)
 
         createWidget()
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         setUpDrawer(toolbar)
         FabManager.setup(fabTop, fabBottom, this@UIDebug, drawer, preferencesBuilder)
+
+
 
         CardDebug1.setOnClickListener { SwitchDebug1.performClick() }
         CardDebug2.setOnClickListener { SwitchDebug2.performClick() }
@@ -100,7 +140,7 @@ class UIDebug : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
             }
 
             preferencesBuilder.putBoolean("Debug1", adbEnabled)
-            dashboard_debug_content.text =
+            findViewById<TextView>(R.id.dashboard_debug_content).text =
                     "ADB: ${if (adbEnabled) getString(R.string.state_enabled) else getString(R.string.state_disabled)}\n" +
                     "Tags: $tags\n"+
                     getString(R.string.debug_widget_official) + " $isOfficial"
@@ -155,17 +195,17 @@ class UIDebug : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
             }
         }
 
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         val accentColor = ThemeStore.accentColor(this)
         val primaryColor = ThemeStore.primaryColor(this)
         val primaryDarkColor = ThemeStore.primaryColorDark(this)
 
-        toolbar_layout.title = title
-        toolbar_layout.setStatusBarScrimColor(primaryDarkColor)
+        findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
+        findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).setStatusBarScrimColor(primaryDarkColor)
 
         ATH.setActivityToolbarColor(this, toolbar, primaryColor)
-        ATH.setBackgroundTint(toolbar_layout, primaryColor)
+        ATH.setBackgroundTint(findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout), primaryColor)
         ATH.setBackgroundTint(fabTop, accentColor)
         ATH.setBackgroundTint(fabBottom, accentColor)
         toolbar.setBackgroundColor(primaryColor)
@@ -176,7 +216,7 @@ class UIDebug : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
         ATH.setTint(SwitchDebug4, accentColor)
         ATH.setTint(SwitchDebug5, accentColor)
         ATH.setTint(SwitchDebug6, accentColor)
-        ATH.setTint(DebugBase, primaryColor)
+        ATH.setTint(findViewById(R.id.DebugBase), primaryColor)
     }
 
     override fun onResume() {
@@ -219,7 +259,7 @@ class UIDebug : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
 
             CoroutineScope(Dispatchers.Main).launch {
                 SwitchDebug1.isChecked = adbEnabled
-                dashboard_debug_content.text =
+                findViewById<TextView>(R.id.dashboard_debug_content).text =
                         "${getString(R.string.debug_widget_adb)}: $adbString\n" +
                         "${getString(R.string.debug_widget_tags)}: $tags\n" +
                         "${getString(R.string.debug_widget_official)}: $isOfficial"
