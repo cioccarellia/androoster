@@ -40,7 +40,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.kernel.*
 import kotlinx.android.synthetic.main.kernel_content.*
-import org.jetbrains.anko.doAsync
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -329,7 +328,7 @@ class UIKernel : BaseActivity(), NavigationView.OnNavigationItemSelectedListener
     }
 
     private fun createWidget() {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             dashboard_kernel.text = Core.kernel_info()
         }
     }

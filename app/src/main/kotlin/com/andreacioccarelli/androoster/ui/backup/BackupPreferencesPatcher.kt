@@ -9,8 +9,9 @@ import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.core.FrameworkSurface
 import com.andreacioccarelli.androoster.dataset.XmlKeys
 import com.andreacioccarelli.androoster.tools.PreferencesBuilder
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.ByteArrayInputStream
 import java.io.InputStreamReader
@@ -32,14 +33,14 @@ class BackupPreferencesPatcher(val patcher: PreferencesBuilder, val dialog: Mate
         if (dialog == null) workWithDialog = false
         var reader: BufferedReader
 
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             reader = BufferedReader(
                     InputStreamReader(ByteArrayInputStream(rawContent.toByteArray(Charsets.UTF_8)), "UTF-8"))
 
             var i = 1
             while (reader.readLine() != null) {
                 if (workWithDialog) {
-                    uiThread {
+                    CoroutineScope(Dispatchers.Main).launch {
                         dialog?.setContent("${ctx.getString(R.string.backup_dialog_importing)} #$i")
                     }
                     Thread.sleep(2)
@@ -52,7 +53,7 @@ class BackupPreferencesPatcher(val patcher: PreferencesBuilder, val dialog: Mate
             reader.close()
 
             if (workWithDialog) {
-                uiThread {
+                CoroutineScope(Dispatchers.Main).launch {
                     dialog!!.progressBar.visibility = View.GONE
                     dialog.setTitle(R.string.backup_dialog_done_title)
                     dialog.setContent(R.string.backup_dialog_done_content)

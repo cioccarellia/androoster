@@ -42,8 +42,6 @@ import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.boot.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -165,7 +163,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
 
         if (preferencesBuilder.getBoolean("firstBoot", true) ||
                 !preferencesBuilder.getBoolean("first_boot_successful", false)) {
-            doAsync {
+            CoroutineScope(Dispatchers.Main).launch {
                 preferencesBuilder.putBoolean("firstBoot", false)
                 val backupManager = BackupManager(baseContext)
                 backupManager.addBackup(true)
@@ -476,7 +474,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
         }*/
 
 
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             root = Shell.SU.available()
             val busyboxOutput = Shell.SH.run("busybox").getStdout()
             bbInstalled = !busyboxOutput.contains("not found")
@@ -489,7 +487,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
             // Crashlytics.setBool("has_busybox", bbInstalled)
             // Crashlytics.setString("details_busybox", busyboxOutput)
 
-            uiThread {
+            CoroutineScope(Dispatchers.Main).launch {
                 if (COMPATIBILITY_MODE) {
                     bootApp()
                 } else {
@@ -537,7 +535,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
     }
 
     private fun checkBusybox() {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             val rootDetails = RootEnvironmentMapper.getSuperuserApp(true, this@UIBoot)
             preferencesBuilder.putString("rootManagerDetails", rootDetails)
             // Crashlytics.setString("details_root", rootDetails)
@@ -547,7 +545,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
         }
 
 
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             isSedInstalled = false
             isSedInstalled = bbInstalled || Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1 && !Shell.SU.run("sed").getStdout().toLowerCase().contains("not found")
 
@@ -562,9 +560,9 @@ class UIBoot : BaseActivity(), LaunchStruct {
             if (isSedInstalled) {
                 // Crashlytics.log(0, "UIBoot - busybox check", "Busybox not found. Output: $sedCheck")
                 environmentChecksPassed = true
-                uiThread { checkPermissions() }
+                CoroutineScope(Dispatchers.Main).launch { checkPermissions() }
             } else {
-                uiThread {
+                CoroutineScope(Dispatchers.Main).launch {
                     progressBar.visibility = View.GONE
                     MaterialDialog.Builder(this@UIBoot)
                             .title(R.string.busybox_error_title)

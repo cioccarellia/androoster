@@ -1,6 +1,5 @@
 buildscript {
-    ext.kotlin_version = "1.8.20"
-    ext.anko_version = "0.10.8"
+    ext.kotlin_version = "1.9.20"
 
     repositories {
         google()
@@ -9,10 +8,11 @@ buildscript {
         maven { url "https://dl.bintray.com/drummer-aidan/maven" }
         maven { url "https://plugins.gradle.org/m2/" }
         mavenCentral()
+        jcenter()
 
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:8.0.1"
+        classpath 'com.android.tools.build:gradle:8.5.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "gradle.plugin.com.github.konifar.gradle:plugin:0.3.3"
     }
@@ -26,6 +26,7 @@ allprojects {
         maven { url "https://dl.bintray.com/drummer-aidan/maven" }
         maven { url "https://plugins.gradle.org/m2/" }
         mavenCentral()
+        jcenter()
     }
 }
 

@@ -39,8 +39,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.ram.*
 import kotlinx.android.synthetic.main.ram_content.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -67,7 +65,7 @@ class UIRam : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, F
         setSupportActionBar(toolbar)
         RecentWidget.collect(this@UIRam, LaunchStruct.RAM_ACTIVITY)
 
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             ramString = HardwareCore.ram
             ram = HardwareCore.ramInGb
             updateWidget()
@@ -128,7 +126,7 @@ class UIRam : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, F
 
         var i0 = ""; var i1 = ""; var i2 = ""; var i3 = ""; var i4 = ""; var i5 = ""
 
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             val buildprop = run("cat " + FrameworkSurface.buildprop_path).getStdout().trim { it <= ' ' }
 
              i0 = HardwareCore.Companion.BUILD.heapsize
@@ -148,7 +146,7 @@ class UIRam : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, F
                 preferencesBuilder.putString("RamBackup5", i5)
             }
 
-            uiThread {
+            CoroutineScope(Dispatchers.Main).launch {
                 render1RAM.text = preferencesBuilder.getString("RAMRender0", i0)
                 render2RAM.text = preferencesBuilder.getString("RAMRender1", i1)
                 render3RAM.text = preferencesBuilder.getString("RAMRender2", i2)
@@ -177,7 +175,7 @@ class UIRam : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, F
                             render4RAM.text = i3
                             render5RAM.text = i4
                             render6RAM.text = i5
-                            doAsync { preferencesBuilder.putInt("RAMProfile", 0) }
+                            CoroutineScope(Dispatchers.Main).launch { preferencesBuilder.putInt("RAMProfile", 0) }
                         }
                         1 -> {
                             UI.success(getString(R.string.ram_runtime_switch).replace("%p",
@@ -190,7 +188,7 @@ class UIRam : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, F
                             render5RAM.text = "48 MB"
                             render6RAM.text = "o=v,m=y"
 
-                            doAsync {
+                            CoroutineScope(Dispatchers.Main).launch {
                                 preferencesBuilder.putInt("RAMProfile", 1)
 
                                 Core.set_heapsize("128m")
@@ -213,7 +211,7 @@ class UIRam : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, F
                             render5RAM.text = "64 MB"
                             render6RAM.text = "o=v,m=y,v=a"
 
-                            doAsync {
+                            CoroutineScope(Dispatchers.Main).launch {
                                 preferencesBuilder.putInt("RAMProfile", 2)
 
                                 Core.set_heapsize("256m")
@@ -237,7 +235,7 @@ class UIRam : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, F
                             render5RAM.text = "128 MB"
                             render6RAM.text = "v=n o=a"
 
-                            doAsync {
+                            CoroutineScope(Dispatchers.Main).launch {
                                 preferencesBuilder.putInt("RAMProfile", 3)
 
                                 Core.set_heapsize("512m")
@@ -261,7 +259,7 @@ class UIRam : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, F
                             render5RAM.text = "128 MB"
                             render6RAM.text = "v=n o=a"
 
-                            doAsync {
+                            CoroutineScope(Dispatchers.Main).launch {
                                 preferencesBuilder.putInt("RAMProfile", 4)
 
                                 Core.set_heapsize("1024m")
@@ -462,10 +460,10 @@ class UIRam : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, F
     }
 
     fun updateWidget() {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             val heap = HardwareCore.Companion.BUILD.heapsize
 
-            uiThread {
+            CoroutineScope(Dispatchers.Main).launch {
                 dashboard_ram_content.text = "" +
                         "${getString(R.string.ram_widget_ram)}: $ramString\n" +
                         "${getString(R.string.ram_widget_heap)}: $heap\n" +

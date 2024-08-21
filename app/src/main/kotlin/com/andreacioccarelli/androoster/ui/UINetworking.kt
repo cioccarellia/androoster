@@ -39,7 +39,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.network.*
 import kotlinx.android.synthetic.main.network_content.*
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.vibrator
 import java.util.*
 import kotlin.concurrent.schedule
@@ -206,7 +205,7 @@ class UINetworking : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                 UI.success(getString(R.string.net_changer_success).replace("%h", text))
                                 editDialog.dismiss()
 
-                                doAsync {
+                                CoroutineScope(Dispatchers.Main).launch {
                                     Core.set_hostname(text)
                                 }
                             }

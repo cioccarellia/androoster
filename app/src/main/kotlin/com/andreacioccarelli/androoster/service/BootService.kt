@@ -15,8 +15,9 @@ import com.andreacioccarelli.androoster.interfaces.Governors
 import com.andreacioccarelli.androoster.tools.PreferencesBuilder
 import com.andreacioccarelli.androoster.ui.boot.UIBoot
 import com.andreacioccarelli.androoster.ui.settings.SettingStore
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 /**
@@ -27,13 +28,13 @@ import org.jetbrains.anko.uiThread
 class BootService : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             TerminalCore.mount()
             val preferencesBuilder = PreferencesBuilder(context)
 
             try {
                 if (!preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.HIDE_BOOT_NOTIFICATION, false)) {
-                    uiThread {
+                    CoroutineScope(Dispatchers.Main).launch {
                         createNotificationChannel(context)
 
                         val pendingIntent = Intent(context, UIBoot::class.java)

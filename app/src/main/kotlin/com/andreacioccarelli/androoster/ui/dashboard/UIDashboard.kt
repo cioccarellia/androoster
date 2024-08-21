@@ -37,8 +37,6 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import kotlinx.android.synthetic.main.dashboard.*
 import kotlinx.android.synthetic.main.dashboard_content.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.util.*
 
 class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, LaunchStruct {

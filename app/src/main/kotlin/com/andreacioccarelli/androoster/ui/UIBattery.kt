@@ -48,7 +48,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.battery.*
 import kotlinx.android.synthetic.main.battery_content.*
-import org.jetbrains.anko.doAsync
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -410,7 +409,7 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             Thread.sleep(500)
             if (SwitchBattery9.isChecked) {
                 preferencesBuilder.putBoolean("Battery9", true)
-                doAsync { 
+                CoroutineScope(Dispatchers.Main).launch { 
                     fixBatteryDrain()
                 }
                 UI.on()

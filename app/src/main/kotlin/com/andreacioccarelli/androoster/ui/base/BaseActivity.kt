@@ -39,7 +39,6 @@ import com.kabouzeid.appthemehelper.ThemeStore
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity
 import com.kabouzeid.appthemehelper.util.ColorUtil
 import com.kabouzeid.appthemehelper.util.MaterialDialogsUtil
-import org.jetbrains.anko.doAsync
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -92,7 +91,7 @@ open class BaseActivity : ATHToolbarActivity(), FrameworkSurface {
         } else false
 
         /*
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             Crashlytics.setBool("is_dark_mode_enabled", dark)
             Crashlytics.setBool("107", p)
         }

@@ -35,8 +35,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.debug.*
 import kotlinx.android.synthetic.main.debug_content.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -208,7 +206,7 @@ class UIDebug : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
 
     @SuppressLint("SetTextI18n")
     private fun createWidget() {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             tags = Build.TAGS
             isOfficial = tags.contains("release-keys")
 
@@ -219,7 +217,7 @@ class UIDebug : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
             }
             adbString = if (adbEnabled) getString(R.string.state_enabled) else getString(R.string.state_disabled)
 
-            uiThread {
+            CoroutineScope(Dispatchers.Main).launch {
                 SwitchDebug1.isChecked = adbEnabled
                 dashboard_debug_content.text =
                         "${getString(R.string.debug_widget_adb)}: $adbString\n" +

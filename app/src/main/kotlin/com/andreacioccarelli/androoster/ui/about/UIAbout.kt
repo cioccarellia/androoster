@@ -35,7 +35,6 @@ import kotlinx.android.synthetic.main.card_about_app.*
 import kotlinx.android.synthetic.main.card_actions.*
 import kotlinx.android.synthetic.main.card_author.*
 import kotlinx.android.synthetic.main.card_special_thanks.*
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.vibrator
 import java.util.*
 
@@ -104,7 +103,7 @@ class UIAbout : BaseActivity(), View.OnClickListener {
         initializeLibraries()
         initializeTranslators()
 
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             email.action = Intent.ACTION_SENDTO
             email.data = Uri.parse("mailto:")
             email.putExtra(Intent.EXTRA_EMAIL, "andrea.cioccarelli01@gmail.com")

@@ -8,7 +8,6 @@ import android.util.Log
 import com.andreacioccarelli.androoster.core.RootFile
 import com.andreacioccarelli.androoster.core.TerminalCore
 import com.jrummyapps.android.shell.Shell
-import org.jetbrains.anko.doAsync
 
 /**
  * Created by andrea on 2018/apr.
@@ -54,7 +53,7 @@ class BackupManager (val context: Context) {
     }
 
     init {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             TerminalCore.mount()
             Shell.SU.run("mkdir $basePath")
         }
@@ -74,7 +73,7 @@ class BackupManager (val context: Context) {
             prefix = syntaxPrefixAuto
         }
 
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             Shell.SU.run("touch $backupFileName")
             val configBackupFile = RootFile(backupFileName)
 
@@ -84,14 +83,14 @@ class BackupManager (val context: Context) {
     }
 
     fun restoreBackup(file: RootFile) {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             TerminalCore.mount()
             RootFile("/system/build.prop").write(file.content)
         }
     }
 
     fun removeBackup(file: RootFile) {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             TerminalCore.mount()
             file.delete()
 
@@ -102,7 +101,7 @@ class BackupManager (val context: Context) {
     }
 
     fun removeUserBackups() {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             TerminalCore.run("rm -rf ${backupDirectory.path}/$backupPrefix*")
         }
     }

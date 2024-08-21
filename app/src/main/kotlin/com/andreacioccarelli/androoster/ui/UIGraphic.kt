@@ -40,8 +40,6 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import kotlinx.android.synthetic.main.graph.*
 import kotlinx.android.synthetic.main.graph_content.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import org.jetbrains.anko.vibrator
 import java.util.*
 import kotlin.concurrent.schedule
@@ -81,7 +79,7 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         UI = UI(this@UIGraphic)
         pro = PreferencesBuilder(this, PreferencesBuilder.defaultFilename).getBoolean("pro", false)
 
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             animScaleWindow = TerminalCore.SETTINGS.get("global", "window_animation_scale")
             animScaleTransition = TerminalCore.SETTINGS.get("global", "transition_animation_scale")
             animScaleAnimator = TerminalCore.SETTINGS.get("global", "animator_duration_scale")
@@ -414,10 +412,10 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
     @SuppressLint("SetTextI18n")
     private fun createWidget() {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             val glversion = HardwareCore.getGLVersion(this@UIGraphic)
 
-            uiThread {
+            CoroutineScope(Dispatchers.Main).launch {
                 dashboard_graph_content.text =
                         getString(R.string.graphic_widget_opengl) + " $glversion.0\n" +
                         getString(R.string.graphic_widget_resolution) + " ${resources.displayMetrics.heightPixels}${'x'}${resources.displayMetrics.widthPixels}\n" +

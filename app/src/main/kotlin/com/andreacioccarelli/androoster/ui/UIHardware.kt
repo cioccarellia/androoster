@@ -47,7 +47,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.hardware.*
 import kotlinx.android.synthetic.main.hardware_content.*
-import org.jetbrains.anko.doAsync
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -145,7 +144,7 @@ class UIHardware : BaseActivity(), NavigationView.OnNavigationItemSelectedListen
             }
         }
 
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             isInBatterySavingMode = Integer.valueOf(CoreBase.SETTINGS.get(FrameworkSurface.GLOBAL, "low_power")) == 1
         }
 

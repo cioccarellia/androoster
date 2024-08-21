@@ -2,7 +2,6 @@ package com.andreacioccarelli.androoster.core
 
 import com.jrummyapps.android.shell.CommandResult
 import com.jrummyapps.android.shell.Shell
-import org.jetbrains.anko.doAsync
 
 /**
  * Created by andrea on 2017/nov.
@@ -26,11 +25,11 @@ object TerminalCore {
     }
 
     fun arun(c: String) {
-        doAsync { Shell.SU.run(c) }
+        CoroutineScope(Dispatchers.Main).launch { Shell.SU.run(c) }
     }
 
     fun arun(vararg c: String) {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             Shell.SU.run(*c)
         }
     }
@@ -72,12 +71,12 @@ object TerminalCore {
     internal object SETTINGS {
         fun put(namespace: String, key: String, value: String) {
             // Crashlytics.log(0, "TerminalCore", "Settings put $namespace $key $value")
-            doAsync { Shell.SU.run("settings put " + namespace + ' '.toString() + key + ' '.toString() + value) }
+            CoroutineScope(Dispatchers.Main).launch { Shell.SU.run("settings put " + namespace + ' '.toString() + key + ' '.toString() + value) }
         }
 
         fun delete(namespace: String, key: String) {
             // Crashlytics.log(0, "TerminalCore", "Settings delete $namespace $key")
-            doAsync { Shell.SU.run("settings delete $namespace") }
+            CoroutineScope(Dispatchers.Main).launch { Shell.SU.run("settings delete $namespace") }
         }
 
         fun list(namespace: String): String {

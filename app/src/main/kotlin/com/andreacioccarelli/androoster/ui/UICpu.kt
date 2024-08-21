@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
@@ -33,10 +35,9 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.cpu.*
-import kotlinx.android.synthetic.main.cpu_content.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -74,12 +75,12 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
         preferencesBuilder.putInt(XmlKeys.LAST_OPENED, LaunchStruct.CPU_ACTIVITY)
 
         createWidget()
-        animateContent(content as ViewGroup)
+        animateContent(findViewById(R.id.content) as ViewGroup)
 
         setUpDrawer(toolbar)
-        FabManager.setup(fabTop, fabBottom, this@UICpu, drawer, preferencesBuilder)
+        FabManager.setup(findViewById(R.id.fabTop), findViewById(R.id.fabBottom), this@UICpu, drawer, preferencesBuilder)
 
-        CardCPU3.setOnClickListener { SwitchCPU3.performClick() }
+        findViewById(R.id.CardCPU3).setOnClickListener { SwitchCPU3.performClick() }
         CardCPU4.setOnClickListener { SwitchCPU4.performClick() }
         CardCPU5.setOnClickListener { SwitchCPU5.performClick() }
 
@@ -103,7 +104,7 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
                                         .progress(true, 100)
                                         .show()
 
-                                doAsync {
+                                CoroutineScope(Dispatchers.Main).launch {
                                     Core.clear_dalvik_cache(true)
                                 }
                             }
@@ -144,21 +145,21 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
             }
         }
 
-        SwitchCPU3.isChecked = preferencesBuilder.getBoolean("CPU3", false)
-        SwitchCPU4.isChecked = preferencesBuilder.getBoolean("CPU4", false)
-        SwitchCPU5.isChecked = preferencesBuilder.getBoolean("CPU5", false)
+        findViewById<SwitchCompat>(R.id.SwitchCPU3).isChecked = preferencesBuilder.getBoolean("CPU3", false)
+        findViewById<SwitchCompat>(R.id.SwitchCPU4).isChecked = preferencesBuilder.getBoolean("CPU4", false)
+        findViewById<SwitchCompat>(R.id.SwitchCPU5).isChecked = preferencesBuilder.getBoolean("CPU5", false)
 
         val accentColor = ThemeStore.accentColor(this)
         val primaryColor = ThemeStore.primaryColor(this)
         val primaryDarkColor = ThemeStore.primaryColorDark(this)
 
-        toolbar_layout.title = title
-        toolbar_layout.setStatusBarScrimColor(primaryDarkColor)
+        findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
+        findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).setStatusBarScrimColor(primaryDarkColor)
 
         ATH.setActivityToolbarColor(this, toolbar, primaryColor)
-        ATH.setBackgroundTint(toolbar_layout, primaryColor)
-        ATH.setBackgroundTint(fabTop, accentColor)
-        ATH.setBackgroundTint(fabBottom, accentColor)
+        ATH.setBackgroundTint(findViewById(R.id.toolbar_layout), primaryColor)
+        ATH.setBackgroundTint(findViewById(R.id.fabTop), accentColor)
+        ATH.setBackgroundTint(findViewById(R.id.fabBottom), accentColor)
         toolbar.setBackgroundColor(primaryColor)
 
         ATH.setTint(SwitchCPU3, accentColor)
@@ -171,7 +172,7 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
 
     override fun onResume() {
         super.onResume()
-        FabManager.onResume(fabTop, fabBottom, preferencesBuilder)
+        FabManager.onResume(findViewById(R.id.fabTop), findViewById(R.id.fabBottom), preferencesBuilder)
         if (pro && drawerInitialized) {
             if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.STICKY_SETTINGS, false)) {
                 drawer.removeAllStickyFooterItems()
@@ -192,9 +193,9 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
         try {
             SettingsReflector.updateMenu(menu!!, preferencesBuilder)
 
-            doAsync {
+            CoroutineScope(Dispatchers.Main).launch {
                 if (governor != cachedGovernor) {
-                    uiThread { createWidget() }
+                    CoroutineScope(Dispatchers.Main).launch { createWidget() }
                 }
             }
         } catch (k: NullPointerException) {}
@@ -384,12 +385,12 @@ class UICpu : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
     }
 
     private fun createWidget() {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             val arch = HardwareCore.arch
             val cores = HardwareCore.cores
             cachedGovernor = governor
 
-            uiThread {
+            CoroutineScope(Dispatchers.Main).launch {
                 dashboard_cpu_content.text = "${getString(R.string.dashboard_widget_hardware_cpu)}: $arch\n" +
                         "${getString(R.string.dashboard_widget_hardware_cpu_cores)}: $cores\n" +
                         "${getString(R.string.dashboard_widget_hardware_title)}: ${Build.MANUFACTURER}"

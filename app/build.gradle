@@ -13,16 +13,16 @@ apply plugin: "kotlin-android"
 apply plugin: "com.github.konifar.gradle.unused-resources-remover"
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion "33.0.0"
+    compileSdkVersion 35
+    buildToolsVersion "35.0.0"
     namespace 'com.andreacioccarelli.androoster'
 
     defaultConfig {
         applicationId "com.andreacioccarelli.androoster"
-        minSdkVersion 16
-        targetSdkVersion 33
-        versionCode 54
-        versionName "1.5.2"
+        minSdkVersion 21
+        targetSdkVersion 35
+        versionCode 55
+        versionName "1.5.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -36,8 +36,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_19
-        targetCompatibility JavaVersion.VERSION_19
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
     }
 
     lintOptions {
@@ -79,23 +83,21 @@ dependencies {
     implementation "com.android.support:support-media-compat:28.0.0"
 
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0-RC.2")
+
     // Dummy for google play
-    implementation "com.android.billingclient:billing:6.0.0"
+    implementation("com.android.billingclient:billing:7.0.0") {
+        exclude group: 'androidx.core'
+        exclude module: 'androidx.core'
+    }
 
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.anko:anko-commons:$anko_version"
-    implementation "org.jetbrains.anko:anko-sdk15:$anko_version"
 
     implementation("com.mikepenz:materialdrawer:6.0.7@aar") {
         transitive = true
     }
-    implementation "com.afollestad:digitus:0.3.0"
-    implementation("com.github.zawadz88.materialpopupmenu:material-popup-menu:2.2.0@aar") {
-        exclude group: "com.android.support"
-        exclude module: "support-v13"
-    }
-
     implementation "com.afollestad.material-dialogs:commons:0.9.6.0"
     implementation "com.afollestad:assent:0.2.5"
     //implementation "com.github.AndreaCioccarelli:BillingProtector:1.2.0"

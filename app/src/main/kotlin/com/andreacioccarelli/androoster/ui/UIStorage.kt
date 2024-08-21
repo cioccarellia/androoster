@@ -42,8 +42,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.storage.*
 import kotlinx.android.synthetic.main.storage_content.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.lang.RuntimeException
 import java.util.*
 import kotlin.concurrent.schedule
@@ -91,7 +89,7 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                         .show()
 
                 Handler().postDelayed({
-                    doAsync {
+                    CoroutineScope(Dispatchers.Main).launch {
                         var isNotInstalled = true
                         try {
                              isNotInstalled = run("fstrim").getStderr().contains("not found")
@@ -99,7 +97,7 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                         catch (re: RuntimeException) {}
 
                         if (isNotInstalled) {
-                            uiThread {
+                            CoroutineScope(Dispatchers.Main).launch {
                                 ran = false
                                 dialog.dismiss()
                                 MaterialDialog.Builder(it)
@@ -111,7 +109,7 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                             return@doAsync
                         }
 
-                        uiThread { dialog.setTitle(R.string.storage_fstrim_dialog_progress_title) }
+                        CoroutineScope(Dispatchers.Main).launch { dialog.setTitle(R.string.storage_fstrim_dialog_progress_title) }
                         TerminalCore.mount()
 
                         val resultList = ArrayList<String>()
@@ -120,18 +118,18 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
 
                         for (path in pathList) {
-                            uiThread { dialog.setContent(getString(R.string.storage_fstrim_dialog_progress_prefix) + " " + path) }
+                            CoroutineScope(Dispatchers.Main).launch { dialog.setContent(getString(R.string.storage_fstrim_dialog_progress_prefix) + " " + path) }
                             resultList.add(run("fstrim -v $path").getStdout())
                         }
 
                         for (path in untrustedPaths) {
                             if (RootFile(path).file.exists()) {
-                                uiThread { dialog.setContent(getString(R.string.storage_fstrim_dialog_progress_prefix) + " " + path) }
+                                CoroutineScope(Dispatchers.Main).launch { dialog.setContent(getString(R.string.storage_fstrim_dialog_progress_prefix) + " " + path) }
                                 resultList.add(run("fstrim -v $path").getStdout())
                             }
                         }
 
-                        uiThread {
+                        CoroutineScope(Dispatchers.Main).launch {
                             dialog.dismiss()
                             TitleROM2.setText(R.string.storage_fstrim_dialog_title)
                             ContentROM2.text = ""
@@ -278,14 +276,14 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
     @SuppressLint("SetTextI18n")
     private fun createWidget() {
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             val systemPath = Environment.getRootDirectory().absolutePath
             val dataPath = Environment.getDataDirectory().absolutePath
             val storagePath = Environment.getExternalStorageDirectory().path
             val doesSuExist = RootFile("/su").file.exists()
             val doesMagiskExist = RootFile("/magisk").file.exists()
 
-            uiThread {
+            CoroutineScope(Dispatchers.Main).launch {
                 dashboard_rom_content.text =
                         "${getString(R.string.storage_widget_system)}: $systemPath\n" +
                         "${getString(R.string.storage_widget_data)}: $dataPath\n" +
@@ -322,17 +320,17 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             SettingsReflector.updateMenu(menu!!, preferencesBuilder)
         } catch (k: NullPointerException) {}
 
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             val updatedState = isPackageInstalled("eu.thedarken.sdm")
             if (isPackageInstalled("eu.thedarken.sdm") == updatedState) return@doAsync
             if (updatedState) {
-                uiThread {
+                CoroutineScope(Dispatchers.Main).launch {
                     ButtonROM7.text = getString(R.string.action_open)
                     TitleROM7.text = getString(R.string.storage_sdmaid_open_title)
                     ContentROM7.text = getString(R.string.storage_sdmaid_open_content)
                 }
             } else {
-                uiThread {
+                CoroutineScope(Dispatchers.Main).launch {
                     ButtonROM7.text = getString(R.string.action_install)
                     TitleROM7.text = getString(R.string.storage_sdmaid_install_title)
                     ContentROM7.text = getString(R.string.storage_sdmaid_install_content)

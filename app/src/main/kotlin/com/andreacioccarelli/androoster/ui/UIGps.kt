@@ -37,7 +37,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.gps_content.*
 import kotlinx.android.synthetic.main.gps.*
-import org.jetbrains.anko.doAsync
 import java.io.File
 import java.util.*
 import kotlin.concurrent.schedule
@@ -87,13 +86,13 @@ class UIGps : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
 
         CardGPS2.setOnClickListener { SwitchGPS2.performClick() }
 
-        doAsync {
+        CoroutineScope(Dispatchers.Main).launch {
             SwitchGPS2.isChecked = (Settings.Secure.getInt(contentResolver, Settings.Secure.ALLOW_MOCK_LOCATION, 0)) == 1
             preferencesBuilder.putBoolean("GPS2", SwitchGPS2.isChecked)
         }
 
         ButtonGPS1.setOnClickListener { _ ->
-            doAsync {
+            CoroutineScope(Dispatchers.Main).launch {
                 try {
                     startActivityForResult(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0)
                 } catch (e: ActivityNotFoundException) {
