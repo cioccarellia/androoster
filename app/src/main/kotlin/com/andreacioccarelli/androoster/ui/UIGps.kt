@@ -54,7 +54,6 @@ class UIGps : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
 
     lateinit var UI: UI
     lateinit var DRAWER_SETTINGS: PrimaryDrawerItem
-    lateinit var DRAWER_BACKUP: PrimaryDrawerItem
     lateinit var drawer: Drawer
     var menu: Menu? = null
 
@@ -191,7 +190,6 @@ class UIGps : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
 
             if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.SHOW_BACKUP, false)) {
                 drawer.removeItem(19)
-                drawer.addItemAtPosition(DRAWER_BACKUP, 16)
             } else {
                 drawer.removeItem(19)
             }
@@ -262,12 +260,6 @@ class UIGps : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
         }
 
 
-        DRAWER_BACKUP = PrimaryDrawerItem().withIdentifier(19L).withName(R.string.drawer_backup).withOnDrawerItemClickListener { _, _, _ ->
-            startActivity(Intent(this@UIGps, UIBackup::class.java))
-            false
-        }
-
-
         DRAWER_SETTINGS = PrimaryDrawerItem().withIdentifier(20).withName(R.string.drawer_settings).withOnDrawerItemClickListener { _, _, _ ->
             handleIntent(LaunchStruct.SETTINGS_ACTIVITY)
             false
@@ -290,7 +282,6 @@ class UIGps : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
             DRAWER_GRAPHICS.withIcon(R.drawable.drawer_black_graphic)
             DRAWER_SETTINGS.withIcon(R.drawable.drawer_black_settings)
             DRAWER_BUY_PRO_VERSION.withIcon(R.drawable.drawer_black_buy)
-            DRAWER_BACKUP.withIcon(R.drawable.drawer_backup_black)
             DRAWER_ABOUT.withIcon(R.drawable.drawer_black_about)
         } else {
             DRAWER_DASHBOARD.withIcon(R.drawable.drawer_white_dashboard)
@@ -307,7 +298,6 @@ class UIGps : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
             DRAWER_GRAPHICS.withIcon(R.drawable.drawer_white_graphic)
             DRAWER_SETTINGS.withIcon(R.drawable.drawer_white_settings)
             DRAWER_BUY_PRO_VERSION.withIcon(R.drawable.drawer_white_buy)
-            DRAWER_BACKUP.withIcon(R.drawable.drawer_backup_white)
             DRAWER_ABOUT.withIcon(R.drawable.drawer_white_about)
         }
 
@@ -336,7 +326,6 @@ class UIGps : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
                             DRAWER_HARDWARE,
                             DRAWER_GRAPHICS,
                             DividerDrawerItem(),
-                            DRAWER_BACKUP,
                             DRAWER_ABOUT,
                             DRAWER_SETTINGS
                     )
@@ -361,7 +350,6 @@ class UIGps : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, G
                             DRAWER_HARDWARE,
                             DRAWER_GRAPHICS,
                             DividerDrawerItem(),
-                            DRAWER_BACKUP,
                             DRAWER_ABOUT,
                             DRAWER_SETTINGS
                     )

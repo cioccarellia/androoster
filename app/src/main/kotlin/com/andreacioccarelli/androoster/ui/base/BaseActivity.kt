@@ -102,9 +102,9 @@ open class BaseActivity : ATHToolbarActivity(), FrameworkSurface {
             ThemeStore.editTheme(this)
                     .activityTheme(R.style.Theme_Androoster_Light)
                     .coloredNavigationBar(preferencesBuilder.getBoolean("coloredNavigationBar", false))
-                    .primaryColorRes(R.color.primary)
-                    .statusBarColor(ContextCompat.getColor(baseContext, R.color.primary))
-                    .accentColorRes(R.color.accent)
+                    .primaryColorRes(R.color.BlueGrey_800)
+                    .statusBarColor(ContextCompat.getColor(baseContext, R.color.BlueGrey_500))
+                    .accentColorRes(R.color.Blue_500)
                     .commit()
         }
     }

@@ -22,6 +22,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.R
@@ -57,7 +58,6 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
     LaunchStruct {
 
     internal lateinit var DRAWER_SETTINGS: PrimaryDrawerItem
-    internal lateinit var DRAWER_BACKUP: PrimaryDrawerItem
 
     internal var drwInitialized = false
     internal var pro: Boolean = false
@@ -86,7 +86,7 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
     private val spinnerRAM1: AppCompatSpinner get() = findViewById(R.id.spinnerRAM1)
 
     private val storageBase: ImageView get() = findViewById(R.id.storageBase)
-    private val appSdmaidLayoutIcon: ImageView get() = findViewById(R.id.appSdmaidLayoutIcon)
+    private val appSdmaidLayoutIcon: RelativeLayout get() = findViewById(R.id.appSdmaidLayoutIcon)
 
     private val TitleROM2: TextView get() = findViewById(R.id.TitleROM2)
     private val TitleROM3: TextView get() = findViewById(R.id.TitleROM3)
@@ -368,7 +368,6 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             }
             if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.SHOW_BACKUP, false)) {
                 drawer.removeItem(19)
-                drawer.addItemAtPosition(DRAWER_BACKUP, 16)
             } else {
                 drawer.removeItem(19)
             }
@@ -470,12 +469,6 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
 
 
-        DRAWER_BACKUP = PrimaryDrawerItem().withIdentifier(19L).withName(R.string.drawer_backup)
-            .withOnDrawerItemClickListener { _, _, _ ->
-                startActivity(Intent(this@UIStorage, UIBackup::class.java))
-                false
-            }
-
 
         DRAWER_SETTINGS = PrimaryDrawerItem().withIdentifier(20).withName(R.string.drawer_settings)
             .withOnDrawerItemClickListener { _, _, _ ->
@@ -499,7 +492,6 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             DRAWER_GRAPHICS.withIcon(R.drawable.drawer_black_graphic)
             DRAWER_SETTINGS.withIcon(R.drawable.drawer_black_settings)
             DRAWER_BUY_PRO_VERSION.withIcon(R.drawable.drawer_black_buy)
-            DRAWER_BACKUP.withIcon(R.drawable.drawer_backup_black)
             DRAWER_ABOUT.withIcon(R.drawable.drawer_black_about)
         } else {
             DRAWER_DASHBOARD.withIcon(R.drawable.drawer_white_dashboard)
@@ -516,7 +508,6 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             DRAWER_GRAPHICS.withIcon(R.drawable.drawer_white_graphic)
             DRAWER_SETTINGS.withIcon(R.drawable.drawer_white_settings)
             DRAWER_BUY_PRO_VERSION.withIcon(R.drawable.drawer_white_buy)
-            DRAWER_BACKUP.withIcon(R.drawable.drawer_backup_white)
             DRAWER_ABOUT.withIcon(R.drawable.drawer_white_about)
         }
 
@@ -552,7 +543,6 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                     DRAWER_HARDWARE,
                     DRAWER_GRAPHICS,
                     DividerDrawerItem(),
-                    DRAWER_BACKUP,
                     DRAWER_ABOUT,
                     DRAWER_SETTINGS
                 )
@@ -577,7 +567,6 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                     DRAWER_HARDWARE,
                     DRAWER_GRAPHICS,
                     DividerDrawerItem(),
-                    DRAWER_BACKUP,
                     DRAWER_ABOUT,
                     DRAWER_SETTINGS
                 )

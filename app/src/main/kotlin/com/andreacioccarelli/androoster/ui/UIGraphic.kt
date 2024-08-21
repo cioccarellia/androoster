@@ -50,14 +50,14 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
-class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, Governors, LaunchStruct {
+class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, Governors,
+    LaunchStruct {
 
     internal var pro: Boolean = false
     internal var drawerInitialized = false
     internal var doubleBackToExitPressedOnce = false
     lateinit var UI: UI
     lateinit var DRAWER_SETTINGS: PrimaryDrawerItem
-    lateinit var DRAWER_BACKUP: PrimaryDrawerItem
     lateinit var drawer: Drawer
     var menu: Menu? = null
 
@@ -74,7 +74,6 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         val STATE_2x5 = "2.5"
         val STATE_3x0 = "3.0"
     }
-
 
 
     val fabTop: FloatingActionButton get() = findViewById(R.id.fabTop)
@@ -97,8 +96,6 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
     private val buttonAnimations: AppCompatButton get() = findViewById(R.id.buttonAnimations)
 
     private val graphBase: ImageView get() = findViewById(R.id.graphBase)
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,31 +135,32 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         buttonAnimations.setOnClickListener {
             if (animScaleAnimator.isEmpty() || animScaleTransition.isEmpty() || animScaleAnimator.isEmpty()) {
                 UI.warning(getString(R.string.widget_loading))
-                return@setOnClickListener
             }
             val dialog = MaterialDialog.Builder(this)
-                    .title(R.string.graphic_anim_title)
-                    .customView(R.layout.edit_seekbar, true)
-                    .cancelListener {
-                        UI.success(getString(R.string.reboot_to_take_effect))
-                    }
-                    .build()
+                .title(R.string.graphic_anim_title)
+                .customView(R.layout.edit_seekbar, true)
+                .positiveText("SAVE")
+                .onPositive { dialog, which ->
+                    UI.success(getString(R.string.reboot_to_take_effect))
+                }
+                .cancelable(false)
+                .build()
 
-            val seekBar1 = dialog.customView?.findViewById(R.id.seekBar1) as AppCompatSeekBar
-            val seekBar2 = dialog.customView?.findViewById(R.id.seekBar2) as AppCompatSeekBar
-            val seekBar3 = dialog.customView?.findViewById(R.id.seekBar3) as AppCompatSeekBar
+            val seekBar1 = dialog.customView?.findViewById(R.id.seekBar1) as SeekBar
+            val seekBar2 = dialog.customView?.findViewById(R.id.seekBar2) as SeekBar
+            val seekBar3 = dialog.customView?.findViewById(R.id.seekBar3) as SeekBar
 
-            val textView1 = dialog.customView?.findViewById(R.id.seek1_textview) as TextView
-            val textView2 = dialog.customView?.findViewById(R.id.seek2_textview) as TextView
-            val textView3 = dialog.customView?.findViewById(R.id.seek3_textview) as TextView
+            val textView1: TextView = dialog.customView?.findViewById(R.id.seek1_textview)!!
+            val textView2: TextView = dialog.customView?.findViewById(R.id.seek2_textview)!!
+            val textView3: TextView = dialog.customView?.findViewById(R.id.seek3_textview)!!
 
             val dfuText1 = textView1.text.toString()
             val dfuText2 = textView2.text.toString()
             val dfuText3 = textView3.text.toString()
 
-            textView1.text = "$dfuText1 ($animScaleWindow)"
-            textView2.text = "$dfuText2 ($animScaleTransition)"
-            textView3.text = "$dfuText3 ($animScaleAnimator)"
+            "$dfuText1 ($animScaleWindow)".also { textView1.text = it }
+            "$dfuText2 ($animScaleTransition)".also { textView2.text = it }
+            "$dfuText3 ($animScaleAnimator)".also { textView3.text = it }
 
             seekBar1.max = 6
             seekBar2.max = 6
@@ -207,31 +205,65 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                     when (seekBar!!.progress) {
                         0 -> {
                             animScaleWindow = AnimationStates.STATE_0x0
-                            TerminalCore.SETTINGS.put("global", "window_animation_scale", AnimationStates.STATE_0x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "window_animation_scale",
+                                AnimationStates.STATE_0x0
+                            )
                         }
+
                         1 -> {
                             animScaleWindow = AnimationStates.STATE_0x5
-                            TerminalCore.SETTINGS.put("global", "window_animation_scale", AnimationStates.STATE_0x5)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "window_animation_scale",
+                                AnimationStates.STATE_0x5
+                            )
                         }
+
                         2 -> {
                             animScaleWindow = AnimationStates.STATE_1x0
-                            TerminalCore.SETTINGS.put("global", "window_animation_scale", AnimationStates.STATE_1x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "window_animation_scale",
+                                AnimationStates.STATE_1x0
+                            )
                         }
+
                         3 -> {
                             animScaleWindow = AnimationStates.STATE_1x5
-                            TerminalCore.SETTINGS.put("global", "window_animation_scale", AnimationStates.STATE_1x5)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "window_animation_scale",
+                                AnimationStates.STATE_1x5
+                            )
                         }
+
                         4 -> {
                             animScaleWindow = AnimationStates.STATE_2x0
-                            TerminalCore.SETTINGS.put("global", "window_animation_scale", AnimationStates.STATE_2x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "window_animation_scale",
+                                AnimationStates.STATE_2x0
+                            )
                         }
+
                         5 -> {
                             animScaleWindow = AnimationStates.STATE_2x5
-                            TerminalCore.SETTINGS.put("global", "window_animation_scale", AnimationStates.STATE_2x5)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "window_animation_scale",
+                                AnimationStates.STATE_2x5
+                            )
                         }
+
                         6 -> {
                             animScaleWindow = AnimationStates.STATE_3x0
-                            TerminalCore.SETTINGS.put("global", "window_animation_scale", AnimationStates.STATE_3x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "window_animation_scale",
+                                AnimationStates.STATE_3x0
+                            )
                         }
                     }
                 }
@@ -240,7 +272,11 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 }
 
                 @SuppressLint("SetTextI18n")
-                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
                     when (progress) {
                         0 -> textView1.text = "$dfuText1 (${AnimationStates.STATE_0x0})"
                         1 -> textView1.text = "$dfuText1 (${AnimationStates.STATE_0x5})"
@@ -249,7 +285,8 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                         4 -> textView1.text = "$dfuText1 (${AnimationStates.STATE_2x0})"
                         5 -> textView1.text = "$dfuText1 (${AnimationStates.STATE_2x5})"
                         6 -> textView1.text = "$dfuText1 (${AnimationStates.STATE_3x0})"
-                    }}
+                    }
+                }
             })
 
 
@@ -258,31 +295,65 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                     when (seekBar!!.progress) {
                         0 -> {
                             animScaleTransition = AnimationStates.STATE_0x0
-                            TerminalCore.SETTINGS.put("global", "transition_animation_scale", AnimationStates.STATE_0x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "transition_animation_scale",
+                                AnimationStates.STATE_0x0
+                            )
                         }
+
                         1 -> {
                             animScaleTransition = AnimationStates.STATE_0x5
-                            TerminalCore.SETTINGS.put("global", "transition_animation_scale", AnimationStates.STATE_0x5)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "transition_animation_scale",
+                                AnimationStates.STATE_0x5
+                            )
                         }
+
                         2 -> {
                             animScaleTransition = AnimationStates.STATE_1x0
-                            TerminalCore.SETTINGS.put("global", "transition_animation_scale", AnimationStates.STATE_1x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "transition_animation_scale",
+                                AnimationStates.STATE_1x0
+                            )
                         }
+
                         3 -> {
                             animScaleTransition = AnimationStates.STATE_1x5
-                            TerminalCore.SETTINGS.put("global", "transition_animation_scale", AnimationStates.STATE_1x5)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "transition_animation_scale",
+                                AnimationStates.STATE_1x5
+                            )
                         }
+
                         4 -> {
                             animScaleTransition = AnimationStates.STATE_2x0
-                            TerminalCore.SETTINGS.put("global", "transition_animation_scale", AnimationStates.STATE_2x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "transition_animation_scale",
+                                AnimationStates.STATE_2x0
+                            )
                         }
+
                         5 -> {
                             animScaleTransition = AnimationStates.STATE_2x5
-                            TerminalCore.SETTINGS.put("global", "transition_animation_scale", AnimationStates.STATE_2x5)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "transition_animation_scale",
+                                AnimationStates.STATE_2x5
+                            )
                         }
+
                         6 -> {
                             animScaleTransition = AnimationStates.STATE_3x0
-                            TerminalCore.SETTINGS.put("global", "transition_animation_scale", AnimationStates.STATE_3x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "transition_animation_scale",
+                                AnimationStates.STATE_3x0
+                            )
                         }
                     }
                 }
@@ -290,7 +361,11 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
                 }
 
-                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
                     when (progress) {
                         0 -> textView2.text = "$dfuText2 (${AnimationStates.STATE_0x0})"
                         1 -> textView2.text = "$dfuText2 (${AnimationStates.STATE_0x5})"
@@ -299,7 +374,8 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                         4 -> textView2.text = "$dfuText2 (${AnimationStates.STATE_2x0})"
                         5 -> textView2.text = "$dfuText2 (${AnimationStates.STATE_2x5})"
                         6 -> textView2.text = "$dfuText2 (${AnimationStates.STATE_3x0})"
-                    }}
+                    }
+                }
             })
 
 
@@ -308,31 +384,65 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                     when (seekBar!!.progress) {
                         0 -> {
                             animScaleAnimator = AnimationStates.STATE_0x0
-                            TerminalCore.SETTINGS.put("global", "animator_duration_scale", AnimationStates.STATE_0x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "animator_duration_scale",
+                                AnimationStates.STATE_0x0
+                            )
                         }
+
                         1 -> {
                             animScaleAnimator = AnimationStates.STATE_0x5
-                            TerminalCore.SETTINGS.put("global", "animator_duration_scale", AnimationStates.STATE_0x5)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "animator_duration_scale",
+                                AnimationStates.STATE_0x5
+                            )
                         }
+
                         2 -> {
                             animScaleAnimator = AnimationStates.STATE_1x0
-                            TerminalCore.SETTINGS.put("global", "animator_duration_scale", AnimationStates.STATE_1x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "animator_duration_scale",
+                                AnimationStates.STATE_1x0
+                            )
                         }
+
                         3 -> {
                             animScaleAnimator = AnimationStates.STATE_1x5
-                            TerminalCore.SETTINGS.put("global", "animator_duration_scale", AnimationStates.STATE_1x5)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "animator_duration_scale",
+                                AnimationStates.STATE_1x5
+                            )
                         }
+
                         4 -> {
                             animScaleAnimator = AnimationStates.STATE_2x0
-                            TerminalCore.SETTINGS.put("global", "animator_duration_scale", AnimationStates.STATE_2x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "animator_duration_scale",
+                                AnimationStates.STATE_2x0
+                            )
                         }
+
                         5 -> {
                             animScaleAnimator = AnimationStates.STATE_2x5
-                            TerminalCore.SETTINGS.put("global", "animator_duration_scale", AnimationStates.STATE_2x5)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "animator_duration_scale",
+                                AnimationStates.STATE_2x5
+                            )
                         }
+
                         6 -> {
                             animScaleAnimator = AnimationStates.STATE_3x0
-                            TerminalCore.SETTINGS.put("global", "animator_duration_scale", AnimationStates.STATE_3x0)
+                            TerminalCore.SETTINGS.put(
+                                "global",
+                                "animator_duration_scale",
+                                AnimationStates.STATE_3x0
+                            )
                         }
                     }
                 }
@@ -340,7 +450,11 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
                 }
 
-                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
                     when (progress) {
                         0 -> textView3.text = "$dfuText3 (${AnimationStates.STATE_0x0})"
                         1 -> textView3.text = "$dfuText3 (${AnimationStates.STATE_0x5})"
@@ -408,7 +522,7 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 preferencesBuilder.putBoolean("GPU5", false)
             }
         }
-        
+
         SwitchGraph1.isChecked = preferencesBuilder.getBoolean("GPU1", false)
         SwitchGraph2.isChecked = preferencesBuilder.getBoolean("GPU2", false)
         SwitchGraph3.isChecked = preferencesBuilder.getBoolean("GPU3", false)
@@ -443,9 +557,13 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
             CoroutineScope(Dispatchers.Main).launch {
                 findViewById<TextView>(R.id.dashboard_graph_content).text =
-                        getString(R.string.graphic_widget_opengl) + " $glversion.0\n" +
-                        getString(R.string.graphic_widget_resolution) + " ${resources.displayMetrics.heightPixels}${'x'}${resources.displayMetrics.widthPixels}\n" +
-                        getString(R.string.graphic_widget_density) + " ${(resources.displayMetrics.density * 160f).toInt()}${getString(R.string.graphic_dpi_suffix)}"
+                    getString(R.string.graphic_widget_opengl) + " $glversion.0\n" +
+                            getString(R.string.graphic_widget_resolution) + " ${resources.displayMetrics.heightPixels}${'x'}${resources.displayMetrics.widthPixels}\n" +
+                            getString(R.string.graphic_widget_density) + " ${(resources.displayMetrics.density * 160f).toInt()}${
+                        getString(
+                            R.string.graphic_dpi_suffix
+                        )
+                    }"
             }
         }
     }
@@ -454,7 +572,11 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         super.onResume()
         FabManager.onResume(fabTop, fabBottom, preferencesBuilder)
         if (pro && drawerInitialized) {
-            if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.STICKY_SETTINGS, false)) {
+            if (preferencesBuilder.getPreferenceBoolean(
+                    SettingStore.GENERAL.STICKY_SETTINGS,
+                    false
+                )
+            ) {
                 drawer.removeAllStickyFooterItems()
                 drawer.removeItem(20)
                 drawer.addStickyFooterItem(DRAWER_SETTINGS)
@@ -465,14 +587,14 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             }
             if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.SHOW_BACKUP, false)) {
                 drawer.removeItem(19)
-                drawer.addItemAtPosition(DRAWER_BACKUP, 16)
             } else {
                 drawer.removeItem(19)
             }
         }
         try {
             SettingsReflector.updateMenu(menu!!, preferencesBuilder)
-        } catch (_: NullPointerException) {}
+        } catch (_: NullPointerException) {
+        }
     }
 
 
@@ -480,71 +602,84 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
 
         DrawerBuilder().withActivity(this@UIGraphic).build()
 
-        val DRAWER_DASHBOARD = PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_dashboard).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.DASHBOARD_ACTIVITY)
-            false
-        }
-        val DRAWER_CPU = PrimaryDrawerItem().withIdentifier(2).withName(R.string.drawer_cpu).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.CPU_ACTIVITY)
-            false
-        }
-        val DRAWER_RAM = PrimaryDrawerItem().withIdentifier(3).withName(R.string.drawer_ram).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.RAM_ACTIVITY)
-            false
-        }
-        val DRAWER_BATTERY = PrimaryDrawerItem().withIdentifier(4).withName(R.string.drawer_battery).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.BATTERY_ACTIVITY)
-            false
-        }
-        val DRAWER_KERNEL = PrimaryDrawerItem().withIdentifier(5).withName(R.string.drawer_kernel).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.KERNEL_ACTIVITY)
-            false
-        }
-        val DRAWER_TWEAKS = PrimaryDrawerItem().withIdentifier(6).withName(R.string.drawer_tweaks).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.GENERAL_ACTIVITY)
-            false
-        }
-        val DRAWER_STORAGE = PrimaryDrawerItem().withIdentifier(7).withName(R.string.drawer_storage).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.STORAGE_ACTIVITY)
-            false
-        }
-        val DRAWER_INTERNET = PrimaryDrawerItem().withIdentifier(8).withName(R.string.drawer_net).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.INTERNET_ACTIVITY)
-            false
-        }
-        val DRAWER_DEBUG = PrimaryDrawerItem().withIdentifier(9).withName(R.string.drawer_debug).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.DEBUG_ACTIVITY)
-            false
-        }
-        val DRAWER_GPS = PrimaryDrawerItem().withIdentifier(11).withName(R.string.drawer_gps).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.GPS_ACTIVITY)
-            false
-        }
-        val DRAWER_HARDWARE = PrimaryDrawerItem().withIdentifier(12).withName(R.string.drawer_hardware).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.HARDWARE_ACTIVITY)
-            false
-        }
-        val DRAWER_GRAPHICS = PrimaryDrawerItem().withIdentifier(13).withName(R.string.drawer_graphics)
-        val DRAWER_ABOUT = PrimaryDrawerItem().withIdentifier(14).withName(R.string.drawer_about).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.ABOUT_ACTIVITY)
-            false
-        }
-        val DRAWER_BUY_PRO_VERSION = PrimaryDrawerItem().withIdentifier(15).withName(R.string.drawer_pro).withOnDrawerItemClickListener { _, _, _ ->
-            LicenseManager.startProActivity(this@UIGraphic, this@UIGraphic, drawer)
-            false
-        }
+        val DRAWER_DASHBOARD =
+            PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_dashboard)
+                .withOnDrawerItemClickListener { _, _, _ ->
+                    handleIntent(LaunchStruct.DASHBOARD_ACTIVITY)
+                    false
+                }
+        val DRAWER_CPU = PrimaryDrawerItem().withIdentifier(2).withName(R.string.drawer_cpu)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.CPU_ACTIVITY)
+                false
+            }
+        val DRAWER_RAM = PrimaryDrawerItem().withIdentifier(3).withName(R.string.drawer_ram)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.RAM_ACTIVITY)
+                false
+            }
+        val DRAWER_BATTERY = PrimaryDrawerItem().withIdentifier(4).withName(R.string.drawer_battery)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.BATTERY_ACTIVITY)
+                false
+            }
+        val DRAWER_KERNEL = PrimaryDrawerItem().withIdentifier(5).withName(R.string.drawer_kernel)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.KERNEL_ACTIVITY)
+                false
+            }
+        val DRAWER_TWEAKS = PrimaryDrawerItem().withIdentifier(6).withName(R.string.drawer_tweaks)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.GENERAL_ACTIVITY)
+                false
+            }
+        val DRAWER_STORAGE = PrimaryDrawerItem().withIdentifier(7).withName(R.string.drawer_storage)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.STORAGE_ACTIVITY)
+                false
+            }
+        val DRAWER_INTERNET = PrimaryDrawerItem().withIdentifier(8).withName(R.string.drawer_net)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.INTERNET_ACTIVITY)
+                false
+            }
+        val DRAWER_DEBUG = PrimaryDrawerItem().withIdentifier(9).withName(R.string.drawer_debug)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.DEBUG_ACTIVITY)
+                false
+            }
+        val DRAWER_GPS = PrimaryDrawerItem().withIdentifier(11).withName(R.string.drawer_gps)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.GPS_ACTIVITY)
+                false
+            }
+        val DRAWER_HARDWARE =
+            PrimaryDrawerItem().withIdentifier(12).withName(R.string.drawer_hardware)
+                .withOnDrawerItemClickListener { _, _, _ ->
+                    handleIntent(LaunchStruct.HARDWARE_ACTIVITY)
+                    false
+                }
+        val DRAWER_GRAPHICS =
+            PrimaryDrawerItem().withIdentifier(13).withName(R.string.drawer_graphics)
+        val DRAWER_ABOUT = PrimaryDrawerItem().withIdentifier(14).withName(R.string.drawer_about)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.ABOUT_ACTIVITY)
+                false
+            }
+        val DRAWER_BUY_PRO_VERSION =
+            PrimaryDrawerItem().withIdentifier(15).withName(R.string.drawer_pro)
+                .withOnDrawerItemClickListener { _, _, _ ->
+                    LicenseManager.startProActivity(this@UIGraphic, this@UIGraphic, drawer)
+                    false
+                }
 
 
-        DRAWER_BACKUP = PrimaryDrawerItem().withIdentifier(19L).withName(R.string.drawer_backup).withOnDrawerItemClickListener { _, _, _ ->
-            startActivity(Intent(this@UIGraphic, UIBackup::class.java))
-            false
-        }
 
-
-        DRAWER_SETTINGS = PrimaryDrawerItem().withIdentifier(20).withName(R.string.drawer_settings).withOnDrawerItemClickListener { _, _, _ ->
-            handleIntent(LaunchStruct.SETTINGS_ACTIVITY)
-            false
-        }
+        DRAWER_SETTINGS = PrimaryDrawerItem().withIdentifier(20).withName(R.string.drawer_settings)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                handleIntent(LaunchStruct.SETTINGS_ACTIVITY)
+                false
+            }
 
 
         if (!preferencesBuilder.getBoolean(XmlKeys.DARK_THEME_APPLIED, false)) {
@@ -562,7 +697,6 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             DRAWER_GRAPHICS.withIcon(R.drawable.drawer_black_graphic)
             DRAWER_SETTINGS.withIcon(R.drawable.drawer_black_settings)
             DRAWER_BUY_PRO_VERSION.withIcon(R.drawable.drawer_black_buy)
-            DRAWER_BACKUP.withIcon(R.drawable.drawer_backup_black)
             DRAWER_ABOUT.withIcon(R.drawable.drawer_black_about)
         } else {
             DRAWER_DASHBOARD.withIcon(R.drawable.drawer_white_dashboard)
@@ -579,66 +713,70 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             DRAWER_GRAPHICS.withIcon(R.drawable.drawer_white_graphic)
             DRAWER_SETTINGS.withIcon(R.drawable.drawer_white_settings)
             DRAWER_BUY_PRO_VERSION.withIcon(R.drawable.drawer_white_buy)
-            DRAWER_BACKUP.withIcon(R.drawable.drawer_backup_white)
             DRAWER_ABOUT.withIcon(R.drawable.drawer_white_about)
         }
 
 
         val factory = layoutInflater
         val DrawerHeader = factory.inflate(R.layout.drawer_header, null)
-        BaseActivity.setDrawerHeader(DrawerHeader.findViewById(R.id.Title), DrawerHeader.findViewById(R.id.Content), DrawerHeader.findViewById(R.id.Image), DrawerHeader.findViewById(R.id.RootLayout), this@UIGraphic, pro)
+        BaseActivity.setDrawerHeader(
+            DrawerHeader.findViewById(R.id.Title),
+            DrawerHeader.findViewById(R.id.Content),
+            DrawerHeader.findViewById(R.id.Image),
+            DrawerHeader.findViewById(R.id.RootLayout),
+            this@UIGraphic,
+            pro
+        )
 
 
         if (pro) {
             drawer = DrawerBuilder()
-                    .withActivity(this@UIGraphic)
-                    .withToolbar(toolbar)
-                    .addDrawerItems(
-                            DRAWER_GRAPHICS,
-                            DRAWER_DASHBOARD,
-                            DividerDrawerItem(),
-                            DRAWER_CPU,
-                            DRAWER_RAM,
-                            DRAWER_BATTERY,
-                            DRAWER_KERNEL,
-                            DRAWER_TWEAKS,
-                            DRAWER_STORAGE,
-                            DRAWER_INTERNET,
-                            DRAWER_DEBUG,
-                            DRAWER_GPS,
-                            DRAWER_HARDWARE,
-                            DividerDrawerItem(),
-                            DRAWER_BACKUP,
-                            DRAWER_ABOUT,
-                            DRAWER_SETTINGS
-                    )
-                    .withHeader(DrawerHeader)
-                    .build()
+                .withActivity(this@UIGraphic)
+                .withToolbar(toolbar)
+                .addDrawerItems(
+                    DRAWER_GRAPHICS,
+                    DRAWER_DASHBOARD,
+                    DividerDrawerItem(),
+                    DRAWER_CPU,
+                    DRAWER_RAM,
+                    DRAWER_BATTERY,
+                    DRAWER_KERNEL,
+                    DRAWER_TWEAKS,
+                    DRAWER_STORAGE,
+                    DRAWER_INTERNET,
+                    DRAWER_DEBUG,
+                    DRAWER_GPS,
+                    DRAWER_HARDWARE,
+                    DividerDrawerItem(),
+                    DRAWER_ABOUT,
+                    DRAWER_SETTINGS
+                )
+                .withHeader(DrawerHeader)
+                .build()
         } else {
             drawer = DrawerBuilder()
-                    .withActivity(this@UIGraphic)
-                    .withToolbar(toolbar)
-                    .addDrawerItems(
-                            DRAWER_GRAPHICS,
-                            DRAWER_DASHBOARD,
-                            DividerDrawerItem(),
-                            DRAWER_CPU,
-                            DRAWER_RAM,
-                            DRAWER_BATTERY,
-                            DRAWER_KERNEL,
-                            DRAWER_TWEAKS,
-                            DRAWER_STORAGE,
-                            DRAWER_INTERNET,
-                            DRAWER_DEBUG,
-                            DRAWER_GPS,
-                            DRAWER_HARDWARE,
-                            DividerDrawerItem(),
-                            DRAWER_BACKUP,
-                            DRAWER_ABOUT,
-                            DRAWER_SETTINGS
-                    )
-                    .withHeader(DrawerHeader)
-                    .build()
+                .withActivity(this@UIGraphic)
+                .withToolbar(toolbar)
+                .addDrawerItems(
+                    DRAWER_GRAPHICS,
+                    DRAWER_DASHBOARD,
+                    DividerDrawerItem(),
+                    DRAWER_CPU,
+                    DRAWER_RAM,
+                    DRAWER_BATTERY,
+                    DRAWER_KERNEL,
+                    DRAWER_TWEAKS,
+                    DRAWER_STORAGE,
+                    DRAWER_INTERNET,
+                    DRAWER_DEBUG,
+                    DRAWER_GPS,
+                    DRAWER_HARDWARE,
+                    DividerDrawerItem(),
+                    DRAWER_ABOUT,
+                    DRAWER_SETTINGS
+                )
+                .withHeader(DrawerHeader)
+                .build()
         }
         drawerInitialized = true
     }
@@ -655,12 +793,16 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 closeApp()
                 return
             }
-            if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.PRESS_TWICE_TO_EXIT, false)) {
+            if (preferencesBuilder.getPreferenceBoolean(
+                    SettingStore.GENERAL.PRESS_TWICE_TO_EXIT,
+                    false
+                )
+            ) {
                 this.doubleBackToExitPressedOnce = true
                 val UI = UI(this@UIGraphic)
                 UI.normal(getString(R.string.click_again_to_exit))
 
-                Timer().schedule(1500){ doubleBackToExitPressedOnce = false }
+                Timer().schedule(1500) { doubleBackToExitPressedOnce = false }
             } else {
                 super.onBackPressed()
             }
@@ -671,11 +813,16 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         menuInflater.inflate(R.menu.overflow, menu)
         this.menu = menu
         menu.getItem(0).isVisible = true
-        menu.getItem(1).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.ABOUT, true)
-        menu.getItem(2).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.DASHBOARD, true)
-        menu.getItem(3).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
-        menu.getItem(4).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
-        menu.getItem(5).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
+        menu.getItem(1).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.ABOUT, true)
+        menu.getItem(2).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.DASHBOARD, true)
+        menu.getItem(3).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
+        menu.getItem(4).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
+        menu.getItem(5).isVisible =
+            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
         return true
     }
 
@@ -687,22 +834,27 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 startActivity(Intent(this@UIGraphic, UIAbout::class.java))
                 return true
             }
+
             R.id.menu_dashboard -> {
                 startActivity(Intent(this@UIGraphic, UIDashboard::class.java))
                 return true
             }
+
             R.id.menu_settings -> {
                 startActivity(Intent(this@UIGraphic, UISettings::class.java))
                 return true
             }
+
             R.id.menu_drawer -> {
                 drawer.openDrawer()
                 return true
             }
+
             R.id.menu_backup -> {
                 startActivity(Intent(this@UIGraphic, UIBackup::class.java))
                 return true
             }
+
             R.id.menu_reboot -> {
                 RebootDialog.show(this)
                 return true

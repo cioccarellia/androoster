@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.tools.GradientGenerator
@@ -17,6 +18,7 @@ import com.andreacioccarelli.androoster.tools.UI
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
+import es.dmoral.toasty.Toasty
 
 class UIUpgrade : BaseActivity() {
 
@@ -37,6 +39,8 @@ class UIUpgrade : BaseActivity() {
         setupToolbar()
         setupTheme()
         setupViews()
+
+        findViewById<CardView>(R.id.upgradeButton).performClick()
     }
 
     private fun setupToolbar() {
@@ -78,13 +82,15 @@ class UIUpgrade : BaseActivity() {
 
     @Suppress("WhenWithOnlyElse")
     private fun setupViews() {
-        findViewById<AppCompatButton>(R.id.upgradeButton).setOnClickListener {
+        findViewById<CardView>(R.id.upgradeButton).setOnClickListener {
             PreferencesBuilder(this, PreferencesBuilder.defaultFilename).putBoolean("pro", true)
+
+            Toasty.success(this, "Pro version activated!", Toast.LENGTH_SHORT).show()
 
             MaterialDialog.Builder(this)
                     .title("Androoster Pro Enabled")
-                    .content("Thank you! Androoster Pro has been activated. Just restart the app and enjoy all the professional features.")
-                    .positiveText("OK")
+                    .content("Thank you! Androoster Pro has been activated.\nRestart the app and enjoy all the professional features.")
+                    .positiveText("RESTART APP")
                     .onPositive { dialog, which ->
                         dialog.dismiss()
                         finishAffinity()

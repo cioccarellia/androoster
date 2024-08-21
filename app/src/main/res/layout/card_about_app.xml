@@ -134,7 +134,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_release"
+            android:id="@+id/layout_release_x"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/rectSelector"
@@ -198,7 +198,7 @@
             android:focusable="true">
 
             <com.andreacioccarelli.androoster.service.IconImageView
-                android:id="@+id/icon_licenses"
+                android:id="@+id/icon_licenses_x"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 app:srcCompat="@drawable/code"

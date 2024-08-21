@@ -149,7 +149,7 @@ class HardwareCore {
                         .forName(POWER_PROFILE_CLASS)
                         .getMethod("getAveragePower", java.lang.String::class.java)
                         .invoke(mPowerProfile_, "battery.capacity") as Double
-                batteryCapacity.toString() + " MAh"
+                batteryCapacity.toString() + " MA/h"
             } catch (e: Exception) {
                 e.printStackTrace()
                 "Unknown"

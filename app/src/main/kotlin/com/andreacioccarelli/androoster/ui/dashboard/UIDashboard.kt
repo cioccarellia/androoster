@@ -17,7 +17,9 @@ import android.support.v7.widget.CardView
 import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.core.HardwareCore
@@ -30,6 +32,7 @@ import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.andreacioccarelli.androoster.ui.settings.SettingStore
 import com.andreacioccarelli.androoster.ui.settings.SettingsReflector
 import com.andreacioccarelli.androoster.ui.settings.UISettings
+import com.andreacioccarelli.androoster.ui.upgrade.UIUpgrade
 import com.jaredrummler.android.device.DeviceName
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
@@ -38,13 +41,13 @@ import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
+import es.dmoral.toasty.Toasty
 import java.util.*
 
 class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, LaunchStruct {
 
     private var networkAvailable = true
     private lateinit var DRAWER_SETTINGS: PrimaryDrawerItem
-    private lateinit var DRAWER_BACKUP: PrimaryDrawerItem
 
     private var drawerInitialized = false
     lateinit var drawer: Drawer
@@ -164,18 +167,26 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
 
         // Free pack
         if (!prefs.getBoolean("notified_pro_version", false) && !prefs.getBoolean("pro", false)) {
+            Toasty.success(this, "Pro version available!", Toast.LENGTH_LONG).show()
+
             MaterialDialog.Builder(this)
-                .title("Free Androoster Pro")
+                .title("Androoster Pro")
                 .content(
                     """Androoster has just become free. 
-                        |You can enable pro version by visiting the upgrade page and clicking the upgrade button, no purchase is required anymore. 
-                        |This software has been around for a long time and I felt it was time to make it available for everyone. 
-                        |Thank you very much to everybody who supported my work through purchases, and I wish you all happy tweaking and learning.""".trimMargin()
+                        |You can enable pro version by visiting the upgrade page, and clicking the upgrade button, no purchase is required anymore. 
+                        |This software has been around for a long time, and I felt it was time to make it available for everyone.\n
+                        |Thank you very much to everybody who supported my work through purchases, and I wish you all happy tweaking and exploring!""".trimMargin()
                 )
-                .positiveText("COOL")
-                .onPositive { dialog, which ->
+                .negativeText("GOT IT")
+                .positiveText("OPEN UPGRADE")
+                .positiveColorRes(R.color.Green_500)
+                .onNegative() { dialog, which ->
                     dialog.dismiss()
                     prefs.putBoolean("notified_pro_version", true)
+                }
+                .onPositive() { dialog, which ->
+                    prefs.putBoolean("notified_pro_version", true)
+                    startActivity(Intent(this, UIUpgrade::class.java))
                 }
                 .autoDismiss(false)
                 .cancelable(false)
@@ -206,7 +217,6 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             }
             if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.SHOW_BACKUP, true)) {
                 drawer.removeItem(19)
-                drawer.addItemAtPosition(DRAWER_BACKUP, 16)
             } else {
                 drawer.removeItem(19)
             }
@@ -233,7 +243,7 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                     setColorFilter(ThemeStore.accentColor(this@UIDashboard))
                 }
 
-                findViewById<TextView>(R.id.recentLayout1).setOnClickListener { _ ->
+                findViewById<RelativeLayout>(R.id.recentLayout1).setOnClickListener { _ ->
                     startActivity(
                         dispatcher.getIntent(first)
                     )
@@ -247,7 +257,7 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                     setColorFilter(ThemeStore.accentColor(this@UIDashboard))
                 }
 
-                findViewById<TextView>(R.id.recentLayout2).setOnClickListener { _ ->
+                findViewById<RelativeLayout>(R.id.recentLayout2).setOnClickListener { _ ->
                     startActivity(
                         dispatcher.getIntent(second)
                     )
@@ -261,7 +271,7 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                     setColorFilter(ThemeStore.accentColor(this@UIDashboard))
                 }
 
-                findViewById<TextView>(R.id.recentLayout3).setOnClickListener { _ -> startActivity(dispatcher.getIntent(third)) }
+                findViewById<RelativeLayout>(R.id.recentLayout3).setOnClickListener { _ -> startActivity(dispatcher.getIntent(third)) }
                 findViewById<TextView>(R.id.recentText3).text = getString(dispatcher.getTitleRes(third)).toUpperCase(locale)
             } catch (rnf: IllegalStateException) {
                 findViewById<CardView>(R.id.recentWidget).visibility = View.GONE
@@ -359,14 +369,6 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                     false
                 }
 
-
-        DRAWER_BACKUP = PrimaryDrawerItem().withIdentifier(19L).withName(R.string.drawer_backup)
-            .withOnDrawerItemClickListener { _, _, _ ->
-                startActivity(Intent(this@UIDashboard, UIBackup::class.java))
-                false
-            }
-
-
         DRAWER_SETTINGS = PrimaryDrawerItem().withIdentifier(20).withName(R.string.drawer_settings)
             .withOnDrawerItemClickListener { _, _, _ ->
                 handleIntent(LaunchStruct.SETTINGS_ACTIVITY)
@@ -388,7 +390,6 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             DRAWER_GRAPHICS.withIcon(R.drawable.drawer_black_graphic)
             DRAWER_SETTINGS.withIcon(R.drawable.drawer_black_settings)
             DRAWER_BUY_PRO_VERSION.withIcon(R.drawable.drawer_black_buy)
-            DRAWER_BACKUP.withIcon(R.drawable.drawer_backup_black)
             DRAWER_ABOUT.withIcon(R.drawable.drawer_black_about)
         } else {
             DRAWER_DASHBOARD.withIcon(R.drawable.drawer_white_dashboard)
@@ -405,7 +406,6 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             DRAWER_GRAPHICS.withIcon(R.drawable.drawer_white_graphic)
             DRAWER_SETTINGS.withIcon(R.drawable.drawer_white_settings)
             DRAWER_BUY_PRO_VERSION.withIcon(R.drawable.drawer_white_buy)
-            DRAWER_BACKUP.withIcon(R.drawable.drawer_backup_white)
             DRAWER_ABOUT.withIcon(R.drawable.drawer_white_about)
         }
 
@@ -439,7 +439,6 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                     DRAWER_HARDWARE,
                     DRAWER_GRAPHICS,
                     DividerDrawerItem(),
-                    DRAWER_BACKUP,
                     DRAWER_ABOUT,
                     DRAWER_SETTINGS
                 )
@@ -464,7 +463,6 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                     DRAWER_HARDWARE,
                     DRAWER_GRAPHICS,
                     DividerDrawerItem(),
-                    DRAWER_BACKUP,
                     DRAWER_ABOUT,
                     DRAWER_SETTINGS
                 )

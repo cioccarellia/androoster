@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.support.customtabs.CustomTabsIntent
+import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.CardView
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -143,9 +144,9 @@ class UIAbout : BaseActivity(), View.OnClickListener {
         findViewById<LinearLayout>(R.id.writeMail).setOnClickListener(this)
         findViewById<LinearLayout>(R.id.followOnGithub).setOnClickListener(this)
         findViewById<LinearLayout>(R.id.followOnTwitter).setOnClickListener(this)
-        findViewById<LinearLayout>(R.id.aidanFollestadTwitter).setOnClickListener(this)
-        findViewById<LinearLayout>(R.id.aidanFollestadGitHub).setOnClickListener(this)
-        findViewById<LinearLayout>(R.id.karimGitHub).setOnClickListener(this)
+        findViewById<AppCompatButton>(R.id.aidanFollestadTwitter).setOnClickListener(this)
+        findViewById<AppCompatButton>(R.id.aidanFollestadGitHub).setOnClickListener(this)
+        findViewById<AppCompatButton>(R.id.karimGitHub).setOnClickListener(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -173,9 +174,9 @@ class UIAbout : BaseActivity(), View.OnClickListener {
             }
             findViewById<LinearLayout>(R.id.followOnGithub) -> openUrl(GITHUB)
             findViewById<LinearLayout>(R.id.followOnTwitter) -> openUrl(TWITTER)
-            findViewById<LinearLayout>(R.id.aidanFollestadTwitter) -> openUrl(SPECIAL_THANKS.AIDAN_FOLLESTAD_TWITTER)
-            findViewById<LinearLayout>(R.id.aidanFollestadGitHub) -> openUrl(SPECIAL_THANKS.AIDAN_FOLLESTAD_GITHUB)
-            findViewById<LinearLayout>(R.id.karimGitHub) -> openUrl(SPECIAL_THANKS.KARIM_ABOU_GITHUB)
+            findViewById<AppCompatButton>(R.id.aidanFollestadTwitter) -> openUrl(SPECIAL_THANKS.AIDAN_FOLLESTAD_TWITTER)
+            findViewById<AppCompatButton>(R.id.aidanFollestadGitHub) -> openUrl(SPECIAL_THANKS.AIDAN_FOLLESTAD_GITHUB)
+            findViewById<AppCompatButton>(R.id.karimGitHub) -> openUrl(SPECIAL_THANKS.KARIM_ABOU_GITHUB)
         }
     }
 
