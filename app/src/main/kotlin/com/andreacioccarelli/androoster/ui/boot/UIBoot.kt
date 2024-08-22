@@ -372,8 +372,11 @@ class UIBoot : BaseActivity(), LaunchStruct {
 
             CoroutineScope(Dispatchers.Main).launch {
                 if (COMPATIBILITY_MODE) {
-                    Toasty.error(this@UIBoot, "Root access not detected! Application running in compatibility mode", Toast.LENGTH_LONG).show()
-                    Toasty.warning(this@UIBoot, "Tweaks will not work, no root access detected/granted", Toast.LENGTH_LONG).show()
+                    if (!root) {
+                        // if no root is detected, we just notify with a toast that the app wont work, but boot regardless
+                        Toasty.error(this@UIBoot, "Root access not detected! Application running in compatibility mode", Toast.LENGTH_LONG).show()
+                        Toasty.warning(this@UIBoot, "Tweaks will not work, no root access detected/granted", Toast.LENGTH_LONG).show()
+                    }
                     bootApp()
                 } else {
                     checkRootStrict()
