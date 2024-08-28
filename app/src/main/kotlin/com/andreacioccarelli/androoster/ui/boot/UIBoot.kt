@@ -24,12 +24,10 @@ import com.afollestad.assent.Assent
 import com.afollestad.assent.AssentCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.R
-import com.andreacioccarelli.androoster.core.RootFile
 import com.andreacioccarelli.androoster.dataset.KeyStore
 import com.andreacioccarelli.androoster.dataset.XmlKeys
 import com.andreacioccarelli.androoster.tools.*
 import com.andreacioccarelli.androoster.ui.backup.BackupManager
-import com.andreacioccarelli.androoster.ui.backup.BackupPreferencesPatcher
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
 import com.andreacioccarelli.androoster.ui.settings.SettingStore
@@ -339,9 +337,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
         preferencesBuilder.putInt("boot_count", 1 + preferencesBuilder.getInt("boot_count", 0))
         preferencesBuilder.putBoolean("just_bought", false)
 
-        Timer().schedule(107) {
-            startActivity(signedIntent)
-        }
+        startActivity(signedIntent)
     }
 
     internal fun checkEnv() {
@@ -370,6 +366,8 @@ class UIBoot : BaseActivity(), LaunchStruct {
             // Crashlytics.setBool("has_busybox", bbInstalled)
             // Crashlytics.setString("details_busybox", busyboxOutput)
 
+            COMPATIBILITY_MODE = false
+
             CoroutineScope(Dispatchers.Main).launch {
                 if (COMPATIBILITY_MODE) {
                     if (!root) {
@@ -379,13 +377,13 @@ class UIBoot : BaseActivity(), LaunchStruct {
                     }
                     bootApp()
                 } else {
-                    checkRootStrict()
+                    phase1CheckRootStrict()
                 }
             }
         }
     }
 
-    private fun checkRootStrict() {
+    private fun phase1CheckRootStrict() {
         if (!root) {
             MaterialDialog.Builder(this@UIBoot)
                     .title(R.string.root_error_title)
@@ -397,7 +395,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
                     .onPositive { dialog, which ->
                         Handler().postDelayed({
                             if (run("su").isSuccessful) {
-                                checkBusybox()
+                                phase2CheckBusybox()
                                 findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
                             } else {
                                 UI.unconditionalError(getString(R.string.root_error_toast))
@@ -418,11 +416,11 @@ class UIBoot : BaseActivity(), LaunchStruct {
                     .cancelable(false)
                     .show()
         } else {
-            checkBusybox()
+            phase2CheckBusybox()
         }
     }
 
-    private fun checkBusybox() {
+    private fun phase2CheckBusybox() {
         CoroutineScope(Dispatchers.Main).launch {
             val rootDetails = RootEnvironmentMapper.getSuperuserApp(true, this@UIBoot)
             preferencesBuilder.putString("rootManagerDetails", rootDetails)
@@ -448,7 +446,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
             if (isSedInstalled) {
                 // Crashlytics.log(0, "UIBoot - busybox check", "Busybox not found. Output: $sedCheck")
                 environmentChecksPassed = true
-                CoroutineScope(Dispatchers.Main).launch { checkPermissions() }
+                CoroutineScope(Dispatchers.Main).launch { phase3CheckPermissions() }
             } else {
                 CoroutineScope(Dispatchers.Main).launch {
                     findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
@@ -471,7 +469,8 @@ class UIBoot : BaseActivity(), LaunchStruct {
         }
     }
 
-    private fun checkPermissions() {
+    private fun phase3CheckPermissions() {
+        // stripped, just boot
         bootApp()
         return
 
