@@ -38,6 +38,7 @@ import com.kabouzeid.appthemehelper.ThemeStore
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
@@ -47,10 +48,9 @@ class UIBoot : BaseActivity(), LaunchStruct {
     private var TESTING_RELEASE: Boolean = false
     private var COMPATIBILITY_MODE: Boolean = true
     private var root: Boolean = false
-    private var bbInstalled: Boolean = false
+    private var busyBoxInstalled: Boolean = false
     private var fs: Boolean = false
     private var isSedInstalled: Boolean = false
-    private var permission_write_external: Boolean = false
     private var environmentChecksPassed = false
     internal lateinit var UI: UI
     private lateinit var passwordInput: EditText
@@ -356,17 +356,16 @@ class UIBoot : BaseActivity(), LaunchStruct {
         CoroutineScope(Dispatchers.Main).launch {
             root = Shell.SU.available()
             val busyboxOutput = Shell.SH.run("busybox").getStdout()
-            bbInstalled = !busyboxOutput.contains("not found")
+            busyBoxInstalled = !busyboxOutput.contains("not found")
             fs = preferencesBuilder.getBoolean("firstStart", true)
-            permission_write_external = Assent.isPermissionGranted(Assent.WRITE_EXTERNAL_STORAGE)
             preferencesBuilder.putBoolean("root", root)
-            preferencesBuilder.putBoolean("busybox", bbInstalled)
+            preferencesBuilder.putBoolean("busybox", busyBoxInstalled)
 
             // Crashlytics.setBool("has_root", root)
             // Crashlytics.setBool("has_busybox", bbInstalled)
             // Crashlytics.setString("details_busybox", busyboxOutput)
 
-            COMPATIBILITY_MODE = false
+            COMPATIBILITY_MODE = true
 
             CoroutineScope(Dispatchers.Main).launch {
                 if (COMPATIBILITY_MODE) {
@@ -374,6 +373,9 @@ class UIBoot : BaseActivity(), LaunchStruct {
                         // if no root is detected, we just notify with a toast that the app wont work, but boot regardless
                         Toasty.error(this@UIBoot, "Root access not detected! Application running in compatibility mode", Toast.LENGTH_LONG).show()
                         Toasty.warning(this@UIBoot, "Tweaks will not work, no root access detected/granted", Toast.LENGTH_LONG).show()
+
+                        // To read toasts in boot screen
+                        delay(500)
                     }
                     bootApp()
                 } else {
@@ -433,7 +435,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
 
         CoroutineScope(Dispatchers.Main).launch {
             isSedInstalled = false
-            isSedInstalled = bbInstalled || Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1 && !Shell.SU.run("sed").getStdout().toLowerCase().contains("not found")
+            isSedInstalled = busyBoxInstalled || Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1 && !Shell.SU.run("sed").getStdout().toLowerCase().contains("not found")
 
             val sedCheck = run("sed -i")
 
@@ -474,6 +476,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
         bootApp()
         return
 
+        /*
         checkingPermissions = false
         if (permission_write_external) {
             checkingPermissions = false
@@ -519,7 +522,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
                             .show()
                 }
             }, 69, Assent.WRITE_EXTERNAL_STORAGE)
-        }
+        }*/
     }
 
     override fun onResume() {

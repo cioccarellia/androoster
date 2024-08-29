@@ -793,11 +793,7 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 closeApp()
                 return
             }
-            if (preferencesBuilder.getPreferenceBoolean(
-                    SettingStore.GENERAL.PRESS_TWICE_TO_EXIT,
-                    false
-                )
-            ) {
+            if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.PRESS_TWICE_TO_EXIT, false)) {
                 this.doubleBackToExitPressedOnce = true
                 val UI = UI(this@UIGraphic)
                 UI.normal(getString(R.string.click_again_to_exit))

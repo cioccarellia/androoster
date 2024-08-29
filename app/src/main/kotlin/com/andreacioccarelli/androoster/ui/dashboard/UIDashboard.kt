@@ -42,6 +42,10 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, LaunchStruct {
@@ -484,7 +488,7 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
             drawer.closeDrawer()
         } else {
             if (doubleBackToExitPressedOnce) {
-                super.onBackPressed()
+                finishAffinity()
                 return
             }
             if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.PRESS_TWICE_TO_EXIT, false)) {
@@ -492,15 +496,14 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                 val UI = UI(this@UIDashboard)
                 UI.normal(getString(R.string.click_again_to_exit))
 
-                Timer().schedule(1500){ doubleBackToExitPressedOnce = false }
+                CoroutineScope(Dispatchers.Main).launch {
+                    delay(1500)
+                    doubleBackToExitPressedOnce = false
+                }
             } else {
-                super.onBackPressed()
+                finishAffinity()
             }
         }
-
-
-
-
     }
 
 
