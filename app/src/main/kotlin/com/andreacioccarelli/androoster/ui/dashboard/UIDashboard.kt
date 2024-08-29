@@ -478,11 +478,32 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         LaunchManager.startActivity(ActivityID, this@UIDashboard)
     }
 
+   
     override fun onBackPressed() {
         if (drawer.isDrawerOpen) {
             drawer.closeDrawer()
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed()
+                return
+            }
+            if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.PRESS_TWICE_TO_EXIT, false)) {
+                this.doubleBackToExitPressedOnce = true
+                val UI = UI(this@UIDashboard)
+                UI.normal(getString(R.string.click_again_to_exit))
+
+                Timer().schedule(1500){ doubleBackToExitPressedOnce = false }
+            } else {
+                super.onBackPressed()
+            }
         }
+
+
+
+
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.overflow, menu)
