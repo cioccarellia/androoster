@@ -25,6 +25,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import az.plainpie.PieView
 import az.plainpie.animation.PieStrokeWidthAnimation
 import com.afollestad.materialdialogs.DialogAction
@@ -45,6 +46,7 @@ import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
 import com.andreacioccarelli.androoster.ui.settings.SettingStore
 import com.andreacioccarelli.androoster.ui.settings.SettingsReflector
 import com.andreacioccarelli.androoster.ui.settings.UISettings
+import com.andreacioccarelli.androoster.ui.upgrade.UIUpgrade
 import com.jrummyapps.android.shell.Shell
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
@@ -463,6 +465,42 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         ATH.setTint(findViewById<SwitchCompat>(R.id.SwitchBattery4), accentColor)
         ATH.setTint(findViewById<SwitchCompat>(R.id.SwitchBattery6), accentColor)
         ATH.setTint(findViewById<SwitchCompat>(R.id.SwitchBattery9), accentColor)
+
+
+
+
+
+        val prefs = PreferencesBuilder(baseContext, PreferencesBuilder.defaultFilename)
+
+        // Free pack
+        if (!prefs.getBoolean("notified_google_bs", false)) {
+
+
+            MaterialDialog.Builder(this)
+                .title("Battery Screen")
+                .content(
+                    "Androoster got suspended by the Play Store because it violated the deceptive behaviour policy, so let me make this abundantly clear:\n" +
+                            "1) THIS APP REQUIRES ROOT! Without it, nothing works!\n" +
+                            "2) Battery tweaks degrade, alter, change, modify, or outright disable non-essential system and kernel components, services functionalities and architectural parameters to achieve a longer battery life. There is no magic: when you turn on a tweak, your device will run slower to achieve a longer battery life.\n" +
+                            "By going ahead, you must acknowledge that you understand all the given points.\n\n" +
+                            "Each tweak is inspectable by visiting the application's github page and checking out the code, to ensure that the tweaks actually perform what they claim."
+                )
+                .positiveText("CONTINUE")
+                .positiveColorRes(R.color.Green_500)
+                .onPositive { dialog, which ->
+                    if (dialog.isPromptCheckBoxChecked) {
+                        Toasty.success(this, "Battery screen enabled", Toast.LENGTH_LONG).show()
+                        prefs.putBoolean("notified_google_bs", true)
+                        dialog.dismiss()
+                    } else {
+                        Toasty.warning(this, "Read and understand", Toast.LENGTH_LONG).show()
+                    }
+                }
+                .checkBoxPrompt("I UNDERSTAND EVERYTHING ABOVE", false) { dialog, isChecked -> }
+                .autoDismiss(false)
+                .cancelable(false)
+                .show()
+        }
     }
 
 

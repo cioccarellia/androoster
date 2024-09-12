@@ -137,6 +137,8 @@
 
         </android.support.v7.widget.CardView>
 
+
+
         <TextView
             android:layout_below="@id/recentWidget"
             android:id="@+id/Padding1"
@@ -268,6 +270,59 @@
 
                 </RelativeLayout>
 
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="@color/Red_500"
+            app:cardCornerRadius="0sp"
+            android:id="@+id/WarningRootDashboard"
+            app:cardElevation="2sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0sp"
+            android:visibility="gone"
+            android:clickable="true"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20sp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:paddingRight="14sp"
+                    android:paddingLeft="14sp"
+                    android:src="@drawable/ic_warning_outline_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView" />
+
+                <TextView
+                    android:id="@+id/ErrorPermissionTitle"
+                    android:layout_width="284dp"
+                    android:layout_height="wrap_content"
+                    android:text="Root Warning"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_toRightOf="@+id/imageView"
+                    android:layout_toEndOf="@+id/imageView"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:layout_below="@id/ErrorPermissionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Root access not detected. The application won't apply any tweak without it. Grant root access to continue."
+                    android:layout_toRightOf="@+id/imageView"
+                    android:layout_toEndOf="@+id/imageView" />
 
             </RelativeLayout>
 

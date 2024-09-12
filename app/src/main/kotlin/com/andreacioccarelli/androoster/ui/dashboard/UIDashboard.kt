@@ -34,6 +34,7 @@ import com.andreacioccarelli.androoster.ui.settings.SettingsReflector
 import com.andreacioccarelli.androoster.ui.settings.UISettings
 import com.andreacioccarelli.androoster.ui.upgrade.UIUpgrade
 import com.jaredrummler.android.device.DeviceName
+import com.jrummyapps.android.shell.Shell
 import com.kabouzeid.appthemehelper.ATH
 import com.kabouzeid.appthemehelper.ThemeStore
 import com.kabouzeid.appthemehelper.util.ATHUtil
@@ -46,6 +47,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, LaunchStruct {
@@ -195,6 +197,18 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                 .autoDismiss(false)
                 .cancelable(false)
                 .show()
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val root = Shell.SU.available()
+
+            withContext(Dispatchers.Main) {
+                if (root) {
+                    findViewById<CardView>(R.id.WarningRootDashboard).visibility = View.GONE
+                } else {
+                    findViewById<CardView>(R.id.WarningRootDashboard).visibility = View.VISIBLE
+                }
+            }
         }
     }
 
