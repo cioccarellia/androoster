@@ -12,9 +12,7 @@
         android:xlargeScreens="true" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- <uses-permission android:name="com.android.vending.BILLING" /> -->
-    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
-    <uses-permission android:name="android.permission.USE_FINGERPRINT" />nro
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
@@ -190,7 +188,5 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-
     </application>
-
 </manifest>
