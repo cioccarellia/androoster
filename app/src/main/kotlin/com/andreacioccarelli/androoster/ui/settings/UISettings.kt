@@ -419,7 +419,7 @@ class UISettings : BaseActivity(), ColorChooserDialog.ColorCallback, LaunchStruc
                                         }
 
                                         if (signedForm) {
-                                            if (hint.toLowerCase().contains(auth_password.toLowerCase())) {
+                                            if (hint.lowercase().contains(auth_password.lowercase())) {
                                                 signedForm = false
                                                 clearErrors()
                                                 auth_setup_hint_layout.error = if (isPIN)
@@ -740,7 +740,7 @@ class UISettings : BaseActivity(), ColorChooserDialog.ColorCallback, LaunchStruc
                                     }
 
                                     if (signedForm) {
-                                        if (hint.toLowerCase().contains(auth_password.toLowerCase())) {
+                                        if (hint.lowercase().contains(auth_password.lowercase())) {
                                             signedForm = false
                                             clearErrors()
                                             auth_setup_hint_layout.error = if (isPIN)

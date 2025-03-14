@@ -12,7 +12,7 @@ class RootEnvironmentMapper {
 
         private fun getSuperuserCode(ctx: Context): Int {
             try {
-                val Output = getOutput("su -v", false).toLowerCase()
+                val Output = getOutput("su -v", false).lowercase()
                 if (Output.contains("not found")) return RootCodes.NOT_INSTALLED
                 try {
                     Output.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -71,7 +71,7 @@ class RootEnvironmentMapper {
         val rootVersion: String
             get() {
                 try {
-                    return 'v' + getOutput("su -v", false).toLowerCase().split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0].replace("v", "").replace("_su", "")
+                    return 'v' + getOutput("su -v", false).lowercase().split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0].replace("v", "").replace("_su", "")
                 } catch (e: ArrayIndexOutOfBoundsException) {
                     return "null"
                 }

@@ -267,7 +267,7 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                     )
                 }
                 findViewById<TextView>(R.id.recentText1).text =
-                    getString(dispatcher.getTitleRes(first)).toUpperCase(locale)
+                    getString(dispatcher.getTitleRes(first)).uppercase(locale)
 
 
                 findViewById<ImageView>(R.id.recentIcon2).apply {
@@ -281,7 +281,7 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                     )
                 }
                 findViewById<TextView>(R.id.recentText2).text =
-                    getString(dispatcher.getTitleRes(second)).toUpperCase(locale)
+                    getString(dispatcher.getTitleRes(second)).uppercase(locale)
 
 
                 findViewById<ImageView>(R.id.recentIcon3).apply {
@@ -290,7 +290,9 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                 }
 
                 findViewById<RelativeLayout>(R.id.recentLayout3).setOnClickListener { _ -> startActivity(dispatcher.getIntent(third)) }
-                findViewById<TextView>(R.id.recentText3).text = getString(dispatcher.getTitleRes(third)).toUpperCase(locale)
+                findViewById<TextView>(R.id.recentText3).text = getString(dispatcher.getTitleRes(third)).uppercase(
+                    locale
+                )
             } catch (rnf: IllegalStateException) {
                 findViewById<CardView>(R.id.recentWidget).visibility = View.GONE
             }

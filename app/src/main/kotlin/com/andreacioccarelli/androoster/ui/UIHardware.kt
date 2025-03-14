@@ -175,7 +175,7 @@ class UIHardware : BaseActivity(), NavigationView.OnNavigationItemSelectedListen
         }
 
 
-        if (Build.MANUFACTURER.toLowerCase().contains("samsung") && Build.VERSION.SDK_INT >= 21) {
+        if (Build.MANUFACTURER.lowercase().contains("samsung") && Build.VERSION.SDK_INT >= 21) {
             CardHardware4.visibility = View.GONE
             CardHardware5.visibility = View.GONE
         } else {

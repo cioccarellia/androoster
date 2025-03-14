@@ -11,7 +11,7 @@ object CPUGovernorDocs {
 
     @StringRes
     fun grab(governor: String): Int {
-        return when (governor.toLowerCase()) {
+        return when (governor.lowercase()) {
             "ondemand" -> R.string.cpu_governor_content_ondemand
             "ondemandx" -> R.string.cpu_governor_content_ondemandx
             "performance" -> R.string.cpu_governor_content_performance

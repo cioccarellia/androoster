@@ -70,10 +70,10 @@ class BootService : BroadcastReceiver() {
     }
 
     private fun getGovernorInt(governor: String): Int {
-        if (governor.toLowerCase().contains(Governors.INTERACTIVE)) return 0
-        if (governor.toLowerCase().contains(Governors.POWERSAVE)) return 1
-        if (governor.toLowerCase().contains(Governors.PERFORMANCES)) return 2
-        return if (governor.toLowerCase().contains(Governors.USERSPACE)) 3 else 0
+        if (governor.lowercase().contains(Governors.INTERACTIVE)) return 0
+        if (governor.lowercase().contains(Governors.POWERSAVE)) return 1
+        if (governor.lowercase().contains(Governors.PERFORMANCES)) return 2
+        return if (governor.lowercase().contains(Governors.USERSPACE)) 3 else 0
     }
 
 }

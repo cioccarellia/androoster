@@ -152,7 +152,7 @@ class RootFile {
         var advancedMode = true
         val testOutput = Shell.SU.run("ls -1 /")
 
-        if (testOutput.getStderr().toLowerCase().contains("unknown option")) {
+        if (testOutput.getStderr().lowercase().contains("unknown option")) {
             advancedMode = false
         }
 

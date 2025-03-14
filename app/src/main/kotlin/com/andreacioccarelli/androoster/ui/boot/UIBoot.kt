@@ -4,12 +4,10 @@ import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Vibrator
-import android.provider.Settings
 import android.support.v4.content.ContextCompat
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
@@ -21,7 +19,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import com.afollestad.assent.Assent
-import com.afollestad.assent.AssentCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.dataset.KeyStore
@@ -100,6 +97,9 @@ class UIBoot : BaseActivity(), LaunchStruct {
         just_bought = preferencesBuilder.getBoolean("just_bought", false)
         preferencesBuilder.putBoolean("just_bought", false)
 
+        preferencesBuilder.putBoolean("pro", true)
+
+
         UI = UI(this@UIBoot)
         Assent.setActivity(this@UIBoot, this@UIBoot)
 
@@ -109,6 +109,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
         ATH.setTint(findViewById<ProgressBar>(R.id.progressBar), ThemeStore.accentColor(this@UIBoot))
 
         if (preferencesBuilder.getBoolean("firstAppStart", true)) {
+            Toasty.success(baseContext, "Pro version enabled", Toast.LENGTH_LONG).show()
             startActivity(Intent(this@UIBoot, UIWizard::class.java))
         } else {
             initApp()
@@ -164,7 +165,7 @@ class UIBoot : BaseActivity(), LaunchStruct {
                 !preferencesBuilder.getBoolean("first_boot_successful", false)) {
             CoroutineScope(Dispatchers.Main).launch {
                 preferencesBuilder.putBoolean("firstBoot", false)
-                val backupManager = BackupManager(baseContext)
+                //val backupManager = BackupManager(baseContext)
                 //backupManager.addBackup(true)
 
                 // BackupPreferencesPatcher(preferencesBuilder, null, baseContext).patchPreferences(RootFile("/system/build.prop").content)
@@ -435,14 +436,14 @@ class UIBoot : BaseActivity(), LaunchStruct {
 
         CoroutineScope(Dispatchers.Main).launch {
             isSedInstalled = false
-            isSedInstalled = busyBoxInstalled || Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1 && !Shell.SU.run("sed").getStdout().toLowerCase().contains("not found")
+            isSedInstalled = busyBoxInstalled || Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1 && !Shell.SU.run("sed").getStdout().lowercase().contains("not found")
 
             val sedCheck = run("sed -i")
 
-            if (sedCheck.getStdout().toLowerCase().contains("unknown option") ||
-                    sedCheck.getStderr().toLowerCase().contains("unknown option") ||
-                    sedCheck.getStdout().toLowerCase().contains("not found") ||
-                    sedCheck.getStderr().toLowerCase().contains("not found")) isSedInstalled = false
+            if (sedCheck.getStdout().lowercase().contains("unknown option") ||
+                    sedCheck.getStderr().lowercase().contains("unknown option") ||
+                    sedCheck.getStdout().lowercase().contains("not found") ||
+                    sedCheck.getStderr().lowercase().contains("not found")) isSedInstalled = false
 
 
             if (isSedInstalled) {
