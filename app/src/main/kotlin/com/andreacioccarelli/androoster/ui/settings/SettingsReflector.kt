@@ -12,28 +12,26 @@ object SettingsReflector {
             menu.getItem(1).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.ABOUT, true)
             menu.getItem(2).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.DASHBOARD, true)
             menu.getItem(3).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
-            menu.getItem(4).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
-            menu.getItem(5).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
+            menu.getItem(4).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
         } catch (npe: NullPointerException) {}
     }
 
-    fun updateDashboardMenu(menu: Menu?, preferenceBuilder: PreferencesBuilder) {
+    fun updateDashboardMenu(menu: Menu?, preferencesBuilder: PreferencesBuilder) {
         if (menu == null) {
             return
         }
 
         try {
-            if (preferenceBuilder.getPreferenceBoolean(SettingStore.GENERAL.SHOW_SETTINGS_IN_TOOLBAR, false)) {
+            if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.SHOW_SETTINGS_IN_TOOLBAR, false)) {
                 menu.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             } else {
                 menu.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
             }
             menu.getItem(0).isVisible = true
-            menu.getItem(1).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.ABOUT, true)
+            menu.getItem(1).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.ABOUT, true)
             menu.getItem(2).isVisible = false
-            menu.getItem(3).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
-            menu.getItem(4).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
-            menu.getItem(5).isVisible = preferenceBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
+            menu.getItem(3).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
+            menu.getItem(4).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
         } catch (_: NullPointerException) {}
     }
 }

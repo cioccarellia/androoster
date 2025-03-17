@@ -21,7 +21,6 @@ import android.widget.ProgressBar
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.color.ColorChooserDialog
 import com.andreacioccarelli.androoster.R
-import com.andreacioccarelli.androoster.dataset.KeyStore
 import com.andreacioccarelli.androoster.dataset.XmlKeys
 import com.andreacioccarelli.androoster.tools.CryptoFactory
 import com.andreacioccarelli.androoster.tools.LaunchStruct
@@ -915,11 +914,6 @@ class UISettings : BaseActivity(), ColorChooserDialog.ColorCallback, LaunchStruc
             val MenuDrawer = findPreference(SettingStore.MENU.OPEN_DRAWER) as CheckBoxPreference
             MenuDrawer.setOnPreferenceChangeListener { _, newValue ->
                 preferencesBuilder.putPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, newValue as Boolean)
-                true
-            }
-            val MenuBackup = findPreference(SettingStore.MENU.BACKUP) as CheckBoxPreference
-            MenuBackup.setOnPreferenceChangeListener { _, newValue ->
-                preferencesBuilder.putPreferenceBoolean(SettingStore.MENU.BACKUP, newValue as Boolean)
                 true
             }
             val MenuReboot = findPreference(SettingStore.MENU.REBOOT) as CheckBoxPreference

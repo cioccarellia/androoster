@@ -23,11 +23,6 @@
         android:title="@string/action_open_drawer"
         app:showAsAction="never" />
     <item
-        android:id="@+id/menu_backup"
-        android:orderInCategory="4"
-        android:title="@string/drawer_backup"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/menu_reboot"
         android:orderInCategory="5"
         android:title="@string/action_reboot"

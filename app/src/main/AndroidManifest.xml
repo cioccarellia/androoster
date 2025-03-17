@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -172,10 +173,6 @@
                 android:name="eu.chainfire.supersu.meta.contentlogging.problematic"
                 android:value="true" />
         </activity>
-        <activity
-            android:name=".ui.backup.UIBackup"
-            android:label="@string/title_activity_uibackup"
-            android:theme="@style/AndroosterActivity" />
         <activity
             android:name=".ui.upgrade.UIUpgrade"
             android:label="@string/title_activity_upgrade"

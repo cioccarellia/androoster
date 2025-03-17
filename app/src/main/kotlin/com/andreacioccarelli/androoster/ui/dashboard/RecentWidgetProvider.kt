@@ -14,22 +14,20 @@ class RecentWidgetProvider(internal var ctx: Context) : LaunchStruct {
 
     @DrawableRes
     fun getIcon(ActivityID: Int): Int {
-        when (ActivityID) {
-            LaunchStruct.CPU_ACTIVITY -> return R.drawable.cpu
-            LaunchStruct.RAM_ACTIVITY -> return R.drawable.ram
-            LaunchStruct.BATTERY_ACTIVITY -> return R.drawable.battery
-            LaunchStruct.KERNEL_ACTIVITY -> return R.drawable.kernel
-            LaunchStruct.GENERAL_ACTIVITY -> return R.drawable.tweaks
-            LaunchStruct.INTERNET_ACTIVITY -> return R.drawable.internet
-            LaunchStruct.STORAGE_ACTIVITY -> return R.drawable.storage
-            LaunchStruct.HARDWARE_ACTIVITY -> return R.drawable.hardware
-            LaunchStruct.GRAPHICS_ACTIVITY -> return R.drawable.graphic
-            LaunchStruct.DEBUG_ACTIVITY -> return R.drawable.debug
-            LaunchStruct.GPS_ACTIVITY -> return R.drawable.gps
-            LaunchStruct.BACKUP_ACTIVITY -> return R.drawable.drawer_backup_white
+        return when (ActivityID) {
+            LaunchStruct.CPU_ACTIVITY -> R.drawable.cpu
+            LaunchStruct.RAM_ACTIVITY -> R.drawable.ram
+            LaunchStruct.BATTERY_ACTIVITY -> R.drawable.battery
+            LaunchStruct.KERNEL_ACTIVITY -> R.drawable.kernel
+            LaunchStruct.GENERAL_ACTIVITY -> R.drawable.tweaks
+            LaunchStruct.INTERNET_ACTIVITY -> R.drawable.internet
+            LaunchStruct.STORAGE_ACTIVITY -> R.drawable.storage
+            LaunchStruct.HARDWARE_ACTIVITY -> R.drawable.hardware
+            LaunchStruct.GRAPHICS_ACTIVITY -> R.drawable.graphic
+            LaunchStruct.DEBUG_ACTIVITY -> R.drawable.debug
+            LaunchStruct.GPS_ACTIVITY -> R.drawable.gps
+            else -> R.drawable.icon_error
         }
-
-        throw IllegalStateException("Required image does not exist")
     }
 
     fun getIntent(ActivityID: Int): Intent {
@@ -49,7 +47,6 @@ class RecentWidgetProvider(internal var ctx: Context) : LaunchStruct {
             LaunchStruct.GRAPHICS_ACTIVITY -> "GRAPHICS"
             LaunchStruct.DEBUG_ACTIVITY -> "DEBUG"
             LaunchStruct.GPS_ACTIVITY -> "GPS"
-            LaunchStruct.BACKUP_ACTIVITY -> "BACKUP"
             else -> ""
         }
     }
@@ -68,7 +65,6 @@ class RecentWidgetProvider(internal var ctx: Context) : LaunchStruct {
             LaunchStruct.GRAPHICS_ACTIVITY -> R.string.drawer_graphics
             LaunchStruct.DEBUG_ACTIVITY -> R.string.drawer_debug
             LaunchStruct.GPS_ACTIVITY -> R.string.drawer_gps
-            LaunchStruct.BACKUP_ACTIVITY -> R.string.drawer_backup
             else -> R.string.widget_loading
         }
     }

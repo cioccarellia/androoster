@@ -33,7 +33,6 @@ import com.andreacioccarelli.androoster.dataset.XmlKeys
 import com.andreacioccarelli.androoster.interfaces.Governors
 import com.andreacioccarelli.androoster.tools.*
 import com.andreacioccarelli.androoster.ui.about.UIAbout
-import com.andreacioccarelli.androoster.ui.backup.UIBackup
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.andreacioccarelli.androoster.ui.dashboard.RecentWidget
 import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
@@ -611,10 +610,7 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.DASHBOARD, true)
         menu.getItem(3).isVisible =
             preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
-        menu.getItem(4).isVisible =
-            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
-        menu.getItem(5).isVisible =
-            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
+        menu.getItem(4).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
 
         val d: String? = packageManager.getInstallerPackageName(packageName)
         if (d != null) {
@@ -650,12 +646,6 @@ class UIStorage : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 drawer.openDrawer()
                 return true
             }
-
-            R.id.menu_backup -> {
-                startActivity(Intent(this@UIStorage, UIBackup::class.java))
-                return true
-            }
-
             R.id.menu_reboot -> {
                 RebootDialog.show(this)
                 return true

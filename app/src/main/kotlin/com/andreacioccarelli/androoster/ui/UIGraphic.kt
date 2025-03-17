@@ -34,7 +34,6 @@ import com.andreacioccarelli.androoster.tools.LaunchStruct
 import com.andreacioccarelli.androoster.interfaces.Governors
 import com.andreacioccarelli.androoster.tools.*
 import com.andreacioccarelli.androoster.ui.about.UIAbout
-import com.andreacioccarelli.androoster.ui.backup.UIBackup
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
 import com.andreacioccarelli.androoster.ui.settings.UISettings
@@ -815,10 +814,7 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.DASHBOARD, true)
         menu.getItem(3).isVisible =
             preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
-        menu.getItem(4).isVisible =
-            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
-        menu.getItem(5).isVisible =
-            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
+        menu.getItem(4).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
         return true
     }
 
@@ -845,12 +841,6 @@ class UIGraphic : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 drawer.openDrawer()
                 return true
             }
-
-            R.id.menu_backup -> {
-                startActivity(Intent(this@UIGraphic, UIBackup::class.java))
-                return true
-            }
-
             R.id.menu_reboot -> {
                 RebootDialog.show(this)
                 return true

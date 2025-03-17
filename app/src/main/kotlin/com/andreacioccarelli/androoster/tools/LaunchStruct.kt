@@ -18,6 +18,5 @@ interface LaunchStruct {
         val GRAPHICS_ACTIVITY = 12
         val UPGRADE_ACTIVITY = 13
         val ABOUT_ACTIVITY = 14
-        val BACKUP_ACTIVITY = 15
     }
 }

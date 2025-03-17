@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = "2.1.10"//"1.9.20"
+    ext.kotlin_version = "2.1.10" //"1.9.20"
 
     repositories {
         google()
@@ -9,10 +9,10 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
         mavenCentral()
         jcenter()
-
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.5.2'
+        classpath 'com.android.tools.build:gradle:8.9.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "gradle.plugin.com.github.konifar.gradle:plugin:0.3.3"
     }

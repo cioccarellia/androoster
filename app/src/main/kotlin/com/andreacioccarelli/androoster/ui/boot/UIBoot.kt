@@ -24,7 +24,6 @@ import com.andreacioccarelli.androoster.R
 import com.andreacioccarelli.androoster.dataset.KeyStore
 import com.andreacioccarelli.androoster.dataset.XmlKeys
 import com.andreacioccarelli.androoster.tools.*
-import com.andreacioccarelli.androoster.ui.backup.BackupManager
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
 import com.andreacioccarelli.androoster.ui.settings.SettingStore

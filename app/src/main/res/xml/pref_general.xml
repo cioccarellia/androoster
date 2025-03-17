@@ -52,14 +52,6 @@
             android:title="@string/pref_drawer_sticky_settings_title" />
 
 
-        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="true"
-            android:key="show_backup_drawer"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"
-            android:summary="@string/pref_show_backup_content"
-            android:title="@string/pref_show_backup_title" />
-
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"

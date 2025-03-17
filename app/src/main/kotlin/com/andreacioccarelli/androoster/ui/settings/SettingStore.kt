@@ -35,7 +35,6 @@ class SettingStore {
         const val ABOUT = "menu_item_about"
         const val DASHBOARD = "menu_item_dashboard"
         const val OPEN_DRAWER = "menu_item_drawer"
-        const val BACKUP = "menu_item_backup"
         const val REBOOT = "menu_item_reboot"
     }
 

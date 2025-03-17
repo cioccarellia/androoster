@@ -16,9 +16,8 @@ import kotlinx.coroutines.launch
  * Created by andrea on 2018/apr.
  * Part of the package com.andreacioccarelli.androoster.tools
  */
-
+@Deprecated("To be removed in future versions")
 class BackupManager (val context: Context) {
-
     val backupDirectoryName = "backups"
     val autoPrefix = "auto-"
     val backupPrefix = "backup-"

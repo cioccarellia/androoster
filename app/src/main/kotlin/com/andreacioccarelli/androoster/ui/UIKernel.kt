@@ -36,7 +36,6 @@ import com.andreacioccarelli.androoster.tools.PreferencesBuilder
 import com.andreacioccarelli.androoster.tools.RebootDialog
 import com.andreacioccarelli.androoster.tools.UI
 import com.andreacioccarelli.androoster.ui.about.UIAbout
-import com.andreacioccarelli.androoster.ui.backup.UIBackup
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.andreacioccarelli.androoster.ui.dashboard.RecentWidget
 import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
@@ -571,8 +570,7 @@ class UIKernel : BaseActivity(), NavigationView.OnNavigationItemSelectedListener
         menu.getItem(1).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.ABOUT, true)
         menu.getItem(2).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.DASHBOARD, true)
         menu.getItem(3).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
-        menu.getItem(4).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
-        menu.getItem(5).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
+        menu.getItem(4).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
         return true
     }
 
@@ -594,10 +592,6 @@ class UIKernel : BaseActivity(), NavigationView.OnNavigationItemSelectedListener
             }
             R.id.menu_drawer -> {
                 drawer.openDrawer()
-                return true
-            }
-            R.id.menu_backup -> {
-                startActivity(Intent(this@UIKernel, UIBackup::class.java))
                 return true
             }
             R.id.menu_reboot -> {

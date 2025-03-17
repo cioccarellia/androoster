@@ -6,7 +6,6 @@ import android.content.Intent
 import com.andreacioccarelli.androoster.dataset.KeyStore
 import com.andreacioccarelli.androoster.ui.*
 import com.andreacioccarelli.androoster.ui.about.UIAbout
-import com.andreacioccarelli.androoster.ui.backup.UIBackup
 import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
 import com.andreacioccarelli.androoster.ui.settings.UISettings
 import com.andreacioccarelli.androoster.ui.upgrade.UIUpgrade
@@ -64,7 +63,6 @@ class LaunchManager : LaunchStruct {
                 LaunchStruct.GPS_ACTIVITY -> return UIGps::class.java
                 LaunchStruct.SETTINGS_ACTIVITY -> return UISettings::class.java
                 LaunchStruct.ABOUT_ACTIVITY -> return UIAbout::class.java
-                LaunchStruct.BACKUP_ACTIVITY -> return UIBackup::class.java
             }
             return null
         }

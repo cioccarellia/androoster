@@ -39,7 +39,6 @@ import com.andreacioccarelli.androoster.dataset.KeyStore
 import com.andreacioccarelli.androoster.dataset.XmlKeys
 import com.andreacioccarelli.androoster.tools.*
 import com.andreacioccarelli.androoster.ui.about.UIAbout
-import com.andreacioccarelli.androoster.ui.backup.UIBackup
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.andreacioccarelli.androoster.ui.dashboard.RecentWidget
 import com.andreacioccarelli.androoster.ui.dashboard.UIDashboard
@@ -473,9 +472,8 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         val prefs = PreferencesBuilder(baseContext, PreferencesBuilder.defaultFilename)
 
         // Free pack
+        /*
         if (!prefs.getBoolean("notified_google_bs", false)) {
-
-
             MaterialDialog.Builder(this)
                 .title("Battery Screen")
                 .content(
@@ -500,7 +498,7 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
                 .autoDismiss(false)
                 .cancelable(false)
                 .show()
-        }
+        }*/
     }
 
 
@@ -833,9 +831,7 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
         menu.getItem(0).isVisible = true
         menu.getItem(1).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.ABOUT, true)
         menu.getItem(2).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.DASHBOARD, true)
-        menu.getItem(3).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
-        menu.getItem(4).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
-        menu.getItem(5).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
+        menu.getItem(4).isVisible = preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
         return true
     }
 
@@ -857,10 +853,6 @@ class UIBattery : BaseActivity(), NavigationView.OnNavigationItemSelectedListene
             }
             R.id.menu_drawer -> {
                 drawer.openDrawer()
-                return true
-            }
-            R.id.menu_backup -> {
-                startActivity(Intent(this@UIBattery, UIBackup::class.java))
                 return true
             }
             R.id.menu_reboot -> {

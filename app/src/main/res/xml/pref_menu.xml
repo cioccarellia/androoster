@@ -24,11 +24,6 @@
             android:title="@string/action_open_drawer" />
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATECheckBoxPreference
-            android:key="menu_item_backup"
-            android.checked="false"
-            android:title="@string/drawer_backup" />
-
-        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATECheckBoxPreference
             android:key="menu_item_reboot"
             android.checked="false"
             android:title="@string/action_reboot" />

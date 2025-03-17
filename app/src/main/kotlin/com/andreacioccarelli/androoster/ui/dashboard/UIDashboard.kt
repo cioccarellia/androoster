@@ -27,7 +27,6 @@ import com.andreacioccarelli.androoster.core.TerminalCore
 import com.andreacioccarelli.androoster.dataset.XmlKeys
 import com.andreacioccarelli.androoster.tools.*
 import com.andreacioccarelli.androoster.ui.about.UIAbout
-import com.andreacioccarelli.androoster.ui.backup.UIBackup
 import com.andreacioccarelli.androoster.ui.base.BaseActivity
 import com.andreacioccarelli.androoster.ui.settings.SettingStore
 import com.andreacioccarelli.androoster.ui.settings.SettingsReflector
@@ -233,11 +232,7 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                 drawer.removeItem(20)
                 drawer.addItem(DRAWER_SETTINGS)
             }
-            if (preferencesBuilder.getPreferenceBoolean(SettingStore.GENERAL.SHOW_BACKUP, true)) {
-                drawer.removeItem(19)
-            } else {
-                drawer.removeItem(19)
-            }
+            drawer.removeItem(19)
         }
         try {
             SettingsReflector.updateDashboardMenu(menu!!, preferencesBuilder)
@@ -542,8 +537,6 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         menu.getItem(3).isVisible =
             preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.OPEN_DRAWER, true)
         menu.getItem(4).isVisible =
-            preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.BACKUP, false)
-        menu.getItem(5).isVisible =
             preferencesBuilder.getPreferenceBoolean(SettingStore.MENU.REBOOT, false)
         return true
     }
@@ -561,18 +554,11 @@ class UIDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                 startActivity(Intent(this@UIDashboard, UIAbout::class.java))
                 return true
             }
-
             R.id.menu_dashboard -> return true
             R.id.menu_drawer -> {
                 drawer.openDrawer()
                 return true
             }
-
-            R.id.menu_backup -> {
-                startActivity(Intent(this@UIDashboard, UIBackup::class.java))
-                return true
-            }
-
             R.id.menu_reboot -> {
                 RebootDialog.show(this)
                 return true
